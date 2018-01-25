@@ -22,6 +22,7 @@ percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
 ```
 
 ```{r saveddata, echo=FALSE, results = 'asis'}
+
 ##create a table here
 ##scale name, number of scale points, sample size by group (2 columns), reliability, number of items, number of subscales
 ##did it break (y/n), where it broke, partial invariance (y/n), citation counts, publication year, 
@@ -390,6 +391,7 @@ tableprint[2, c(3, 4, 6, 8, 9)] = c(nrow(notrandom[, -c(1,2,15)]), nrow(random),
 tableprint[2, c(3, 4, 6, 8, 9)]
 
 ```
+
 ```{r BPS-SFtable, echo = FALSE, results = 'asis'}
 
 ```
