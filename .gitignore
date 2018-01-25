@@ -1,3 +1,8 @@
+##ignored folders with PDFs
+background PDFs/
+Surveys/
+NCHC riley/pdfs/
+
 # History files
 .Rhistory
 .Rapp.history
