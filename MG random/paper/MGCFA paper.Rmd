@@ -1,0 +1,119 @@
+---
+title             : "The effect of randomization on factor structure"
+shorttitle        : "Randomizing factors"
+
+author: 
+  - name          : "Erin M. Buchanan"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "901 S. National Ave"
+    email         : "erinbuchanan@missouristate.edu"
+  - name          : "David J. Herr"
+    affiliation   : "1"
+  - name          : "Becca N. Johnson"
+    affiliation   : "1"
+  - name          : "Hannah Myers"
+    affiliation   : "1"
+  - name          : "Jeffrey M. Pavlacic"
+    affiliation   : "1"
+  - name          : "Rachel Swadley"
+    affiliation   : "1"
+  
+
+affiliation:
+  - id            : "1"
+    institution   : "Missouri State University"
+
+author_note: >
+  Complete departmental affiliations for each author (note the indentation, if you start a new paragraph).
+
+  Enter author note here.
+
+abstract: >
+  Enter abstract here (note the indentation, if you start a new paragraph).
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["MGCFA paper.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : yes
+
+lang              : "english"
+class             : "man"
+output            : papaja::apa6_pdf
+---
+
+[@Buchanan2002] says that stuff is stuff and stuff. [@Buchanan2005] said more stuff. 
+
+```{r libraries, include = FALSE}
+library("papaja")
+```
+
+# Methods
+
+## Participants
+need someone to talk about the participants using the demographics file (which needs to be cleaned up)
+```{r demographics, include=FALSE}
+##age mean and sd
+##percent of ethnicity use the percent() function
+library(memisc)
+##percent gender
+##percent year school
+```
+
+## Materials
+need someone to make a table of the scales we used
+```{r material-table, echo=FALSE, asis=TRUE}
+##import dataset
+
+#apa_table(
+#   my_table
+#   , align = c("l", "r", "r")
+#   , caption = "A summary table of the cars dataset."
+#   , note = "This table was created using apa\\_table()"
+#   , added_stub_head = "Descriptives"
+#)
+```
+
+## Procedure
+
+## Data analysis
+### Data Screening
+
+### MGCFA 
+Multigroup Confirmatory Factor Analysis (MG-CFA) was conducted on individual meaning in life scales. This particular process involves applying CFA principles to multiple groups across different each individual scale. Delivery type (non-random vs. random) was used to examine model fit and whether or not randomization of scales produces a worse or better-fitting model. We utilized previously published standards for adding restrictions to each MG-CFA. This approach allowed us to first examine model fit across all groups. Subsequently, model fit across non-random and random groups was examined. Then, parameters were constrained in order to calculate different types of invariances. 
+
+#### Individual Groups 
+Utilizing a stepwise approach allowed us to examine model fit across individual groups by means of MG-CFA. We conducted single-group solutions based on delivery method (non-random question order vs. random question order). Questions delivered on paper were excluded for final analysis in R, as they were not part of this particular analysis. Each group provided us with a set of fit indices by which to evaluate model fit and examine whether or not scale randomization impacts factor structure across each different scale. Randomized scales not adhering to the published factor structure should warrant caution among researchers planning to deliver questions in a random format. Randomized scales adhering to published factor structure do not suggest any reason to avoid randomization of questions (Brown citation). Regardless of fit, we continued with the suggested stepwise approach by calculating different types of invariances. Each level of invariance adds restrictions to the model. 
+
+#### Configural Invariance 
+Regardless of whether or not our individualized groups both showed adequate model fit, we progressed to calculate configural invariance. Configural invariance can also be referred to as "equal form." This test allows the researcher to understand whether or not factor structure and loadings are identical across groups, in this case non-random questionnaires vs. random questionnaires. This test utilizes the same set of fit indices explained above (assuming we will add this section in the data analysis section/insert a citatio). 
+
+#### Metric Invariance 
+Regardless of whether or not equal forms was supported across groups, we then analyzed the data using metric invariance. Metric invariance examines factor loadings across groups. This analysis was supported if this test of invariance did not differ significantly from configural invariance. In order to meet this assumption, $\Delta$CFI < .01. 
+
+#### Scalar Invariance 
+Assuming that metric invariance did provide a large enough decrease in CFI, we then tested scalar invariance. Scalar invariance examines indicator intercepts and determines whether or not these are equal across groups. Additionally, scalar invariance determines whether or not group membership influences a role in raw scores across groups. If the change in CFI is not equal to or greater than .01, this assumption has been met. As with metric invariance, this analysis was supported if the test of invariance did not differ significantly from configural invariance. 
+
+#### Partial Invariance 
+Different methods have been utilized for scales that differ when utilizing the stepwise method for conducting the different types of invariances. The scale can either be abandoned or the noninvariant items removed for further analyses. This may affect construct validity as well as the theory behind the scale (Cheung & Rensvold, 1999). We relaxes constructs of noninvariant items for the remainder of analysis, as suggested by Brown (2006) & Byrne et al. (1989). 
+
+# Results
+```{r table-of-stuff, echo=FALSE}
+
+```
+
+# Discussion
+
+
+\newpage
+
+# References
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}

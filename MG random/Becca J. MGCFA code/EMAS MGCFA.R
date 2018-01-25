@@ -1,0 +1,136 @@
+##Set working directory 
+setwd("~/Desktop/Research/DOOM LAB")
+
+master = read.csv("Meaning_Scales_EngagementInMeaningful_RN_RR_Done_Paper.csv")
+summary(master)
+
+####Libraries####
+##libraries
+library(lavaan)
+library(semPlot)
+library(semTools)
+
+##No reverse coded items.
+
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = master
+missing = apply(notypos[ , 3:14], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##figure out the columns to exclude (survey data)
+apply(replacepeople, 2, percentmiss)
+replacecolumn = replacepeople[ , -c(1,2,15)]
+dontcolumn = replacepeople[ , c(1,2,15)]
+
+nomiss = replacepeople
+
+##Outliers##
+mahal = mahalanobis(nomiss[ , -c(1,2,15)], 
+                    colMeans(nomiss[ , -c(1,2,15)], na.rm = TRUE),
+                    cov(nomiss[ , -c(1,2,15)], use="pairwise.complete.obs"))
+
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(1,2,15)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##additivity: correlations
+correlations = cor(noout[,-c(1,2,15)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(1:2,15)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+##Sum up all columns 
+EMAS <- rowSums(noout[3:14])
+summary(EMAS)
+
+####CFA####
+##subsetting data
+#Zero = notrandom, One = random, Two = paper
+nooutnop = subset(noout, Source < 2)
+nomissnop = subset(nomiss, Source < 2)
+
+notrandom = subset(nomissnop, Source == 0)
+random = subset(nomissnop, Source == 1)
+
+####overall model for everyone together##
+overallmodel = '
+EMAS =~
+Q101_1 + Q101_2 + Q101_3 + Q101_4 + Q101_5 + Q101_6 + Q101_7 
++ Q101_8 + Q101_9 + Q101_10 + Q101_11 + Q101_12
+'
+
+overall.fit = cfa(model = overallmodel, 
+                  data=nomissnop, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=random, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=notrandom, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+
+####multi group testing####
+###measurement invariance
+options(scipen = 999)
+
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = "Source",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+##It didn't break down! whoo hoo!
