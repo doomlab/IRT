@@ -4,11 +4,6 @@ background PDFs/
 Surveys/
 NCHC riley/pdfs/
 
-# Created by https://www.gitignore.io/api/r,macos,windows
-
-ArticlesInfo/
-Bayes Info/
-
 ### macOS ###
 *.DS_Store
 .AppleDouble
