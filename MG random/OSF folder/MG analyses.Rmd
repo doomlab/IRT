@@ -221,6 +221,12 @@ tableprint[1, c(3, 4, 6, 8, 9)]
 
 ```{r BPStable, echo = FALSE, results = 'asis'}
 ##columns Model, N, X2, df, RMSEA, SRMR, CFI, change CFI 
+tableBPS = matrix(NA, nrow = 10, ncol = 8)
+
+##rows will be: overall model, random, not random, multigroup steps 
+
+## this will give you rmsea cfi, change in cfi, x2 df for the multisteps
+tabletemp
 ```
 
 
