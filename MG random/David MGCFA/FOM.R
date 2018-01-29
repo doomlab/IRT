@@ -8,7 +8,7 @@ master[ , c(3:14)] = master[ , c(3:14)] - 1
 ##Reverse Code. 2, 4, 5, 7, 9 , 11
 master[ , c(4, 6, 7, 9, 11, 13)] = 4 - master[ , c(4, 6, 7, 9, 11, 13)] 
 summary(master)
-
+##I'm on Smoko
 ####DATA SCREENING####
 
 ##Missing Data##
