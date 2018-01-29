@@ -48,7 +48,7 @@ class             : "man"
 output            : papaja::apa6_pdf
 ---
 
-[@Buchanan2002] says that stuff is stuff and stuff. [@Buchanan2005] said more stuff. 
+[@Buchanan2002] says that stuff is stuff and stuff. [@Buchanan2005] said more stuff. This file needs an update. 
 
 ```{r libraries, include = FALSE}
 library("papaja")
