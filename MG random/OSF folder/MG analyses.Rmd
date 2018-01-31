@@ -435,20 +435,21 @@ tableprint[2, c(3, 4, 6, 8, 9)]
 ```
 
 ```{r BPS-SFtable, echo = FALSE, results = 'asis'}
+tableBPSSF = matrix(NA, nrow = 7, ncol = 8)
 tableBPSSF[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
 fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
 
 tableBPSSF[1, 2:8 ] = c(nrow(nomissnop), 
-                      fitmeasures(fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
                       "-")
 tableBPSSF[2, 2:8] = c(nrow(random), 
-                      fitmeasures(random.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
                       "-")
 
 tableBPSSF[3, 2:8] = c(nrow(notrandom), 
-                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
                       "-")
 
 tableBPSSF[4, 2:8] = c(nrow(nomissnop), 
@@ -614,6 +615,7 @@ tableprint[3, c(3, 4, 6, 8, 9)]
 ```
 
 ```{r BRStable, echo = FALSE, results = 'asis'}
+tableBRS = matrix(NA, nrow = 7, ncol = 8)
 tableBRS[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -815,6 +817,7 @@ tableprint[4, c(3, 4, 6, 8, 9)]
 
 
 ```{r DMStable, echo = FALSE, results = 'asis'}
+tableDMS = matrix(NA, nrow = 7, ncol = 8)
 tableDMS[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1020,6 +1023,7 @@ tableprint[5, c(3, 4, 6, 8, 9)]
 
 
 ```{r ELMtable, echo = FALSE, results = 'asis'}
+tableELM = matrix(NA, nrow = 7, ncol = 8)
 tableELM[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1029,11 +1033,11 @@ tableELM[1, 2:8 ] = c(nrow(nomissnop),
                       fitmeasures(overall.fit, fit.measures = fitused), 
                       "-")
 tableELM[2, 2:8] = c(nrow(random), 
-                      fitmeasures(random.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
                       "-")
 
 tableELM[3, 2:8] = c(nrow(notrandom), 
-                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
                       "-")
 
 tableELM[4, 2:8] = c(nrow(nomissnop), 
@@ -1213,6 +1217,7 @@ tableprint[6, c(3, 4, 6, 8, 9)]
 
 
 ```{r ELQtable, echo = FALSE, results = 'asis'}
+tableELQ = matrix(NA, nrow = 7, ncol = 8)
 tableELQ[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1222,11 +1227,11 @@ tableELQ[1, 2:8 ] = c(nrow(nomissnop),
                       fitmeasures(overall.fit, fit.measures = fitused), 
                       "-")
 tableELQ[2, 2:8] = c(nrow(random), 
-                      fitmeasures(random.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
                       "-")
 
 tableELQ[3, 2:8] = c(nrow(notrandom), 
-                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
                       "-")
 
 tableELQ[4, 2:8] = c(nrow(nomissnop), 
@@ -1394,6 +1399,7 @@ tableprint[7, c(3, 4, 6, 8, 9)]
 
 
 ```{r EMAStable, echo = FALSE, results = 'asis'}
+tableEMAS = matrix(NA, nrow = 7, ncol = 8)
 tableEMAS[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1577,6 +1583,7 @@ tableprint[8, c(3, 4, 6, 8, 9)]
 
 
 ```{r EMStable, echo = FALSE, results = 'asis'}
+tableEMS = matrix(NA, nrow = 7, ncol = 8)
 tableEMS[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1586,11 +1593,11 @@ tableEMS[1, 2:8 ] = c(nrow(nomissnop),
                       fitmeasures(overall.fit, fit.measures = fitused), 
                       "-")
 tableEMS[2, 2:8] = c(nrow(random), 
-                      fitmeasures(random.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
                       "-")
 
 tableEMS[3, 2:8] = c(nrow(notrandom), 
-                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
                       "-")
 
 tableEMS[4, 2:8] = c(nrow(nomissnop), 
@@ -1769,6 +1776,7 @@ tableprint[9, c(3, 4, 6, 8, 9)]
 
 
 ```{r EStable, echo = FALSE, results = 'asis'}
+tableES = matrix(NA, nrow = 7, ncol = 8)
 tableES[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1961,6 +1969,7 @@ tableprint[10, c(3, 4, 6, 8, 9)]
 
 
 ```{r FOMtable, echo = FALSE, results = 'asis'}
+tableFOM = matrix(NA, nrow = 7, ncol = 8)
 tableFOM[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -1970,11 +1979,11 @@ tableFOM[1, 2:8 ] = c(nrow(nomissnop),
                       fitmeasures(overall.fit, fit.measures = fitused), 
                       "-")
 tableFOM[2, 2:8] = c(nrow(random), 
-                      fitmeasures(random.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
                       "-")
 
 tableFOM[3, 2:8] = c(nrow(notrandom), 
-                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
                       "-")
 
 tableFOM[4, 2:8] = c(nrow(nomissnop), 
@@ -2153,6 +2162,7 @@ tableprint[11, c(3, 4, 6, 8, 9)]
 
 
 ```{r GLPStable, echo = FALSE, results = 'asis'}
+tableGLPS = matrix(NA, nrow = 7, ncol = 8)
 tableGLPS[ , 1] = c("Overall Model", "Random", "Not Random", 
                    "Configural", "Metric", "Scalar", "Strict")
 
@@ -2162,11 +2172,11 @@ tableGLPS[1, 2:8 ] = c(nrow(nomissnop),
                       fitmeasures(overall.fit, fit.measures = fitused), 
                       "-")
 tableGLPS[2, 2:8] = c(nrow(random), 
-                      fitmeasures(random.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
                       "-")
 
 tableGLPS[3, 2:8] = c(nrow(notrandom), 
-                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
                       "-")
 
 tableGLPS[4, 2:8] = c(nrow(nomissnop), 
