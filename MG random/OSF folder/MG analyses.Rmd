@@ -435,6 +435,45 @@ tableprint[2, c(3, 4, 6, 8, 9)]
 ```
 
 ```{r BPS-SFtable, echo = FALSE, results = 'asis'}
+tableBPSSF[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableBPSSF[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(fit, fit.measures = fitused), 
+                      "-")
+tableBPSSF[2, 2:8] = c(nrow(random), 
+                      fitmeasures(random.fit, fit.measures = fitused), 
+                      "-")
+
+tableBPSSF[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      "-")
+
+tableBPSSF[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableBPSSF[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableBPSSF[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableBPSSF[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableBPSSF[ , 3] = printnum(as.numeric(tableBPSSF[ , 3]), big.mark = "")
+tableBPSSF[ , 5:8] = printnum(as.numeric(tableBPSSF[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableBPSSF, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
