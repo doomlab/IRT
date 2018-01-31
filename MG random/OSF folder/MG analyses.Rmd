@@ -614,6 +614,45 @@ tableprint[3, c(3, 4, 6, 8, 9)]
 ```
 
 ```{r BRStable, echo = FALSE, results = 'asis'}
+tableBRS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableBRS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableBRS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableBRS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableBRS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableBRS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableBRS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableBRS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableBRS[ , 3] = printnum(as.numeric(tableBRS[ , 3]), big.mark = "")
+tableBRS[ , 5:8] = printnum(as.numeric(tableBRS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableBRS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
@@ -776,6 +815,45 @@ tableprint[4, c(3, 4, 6, 8, 9)]
 
 
 ```{r DMStable, echo = FALSE, results = 'asis'}
+tableDMS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableDMS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableDMS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableDMS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableDMS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableDMS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableDMS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableDMS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableDMS[ , 3] = printnum(as.numeric(tableDMS[ , 3]), big.mark = "")
+tableDMS[ , 5:8] = printnum(as.numeric(tableDMS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableDMS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
@@ -942,6 +1020,47 @@ tableprint[5, c(3, 4, 6, 8, 9)]
 
 
 ```{r ELMtable, echo = FALSE, results = 'asis'}
+tableELM[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableELM[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableELM[2, 2:8] = c(nrow(random), 
+                      fitmeasures(random.fit, fit.measures = fitused), 
+                      "-")
+
+tableELM[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      "-")
+
+tableELM[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableELM[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.loadings)["cfi"] - fitmeasures(multisteps2$fit.configural)["cfi"])
+
+tableELM[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.intercepts)["cfi"] - fitmeasures(multisteps2$fit.loadings)["cfi"])
+
+tableELM[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.residuals)["cfi"] - fitmeasures(multisteps2$fit.intercepts)["cfi"])
+
+tableELM[ , 3] = printnum(as.numeric(tableELM[ , 3]), big.mark = "")
+tableELM[ , 5:8] = printnum(as.numeric(tableELM[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableELM, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
+
+##check to make sure we use multisteps2 here instead of multisteps
 
 ```
 
@@ -1094,6 +1213,47 @@ tableprint[6, c(3, 4, 6, 8, 9)]
 
 
 ```{r ELQtable, echo = FALSE, results = 'asis'}
+tableELQ[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableELQ[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableELQ[2, 2:8] = c(nrow(random), 
+                      fitmeasures(random.fit, fit.measures = fitused), 
+                      "-")
+
+tableELQ[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      "-")
+
+tableELQ[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableELQ[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.loadings)["cfi"] - fitmeasures(multisteps2$fit.configural)["cfi"])
+
+tableELQ[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.intercepts)["cfi"] - fitmeasures(multisteps2$fit.loadings)["cfi"])
+
+tableELQ[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.residuals)["cfi"] - fitmeasures(multisteps2$fit.intercepts)["cfi"])
+
+tableELQ[ , 3] = printnum(as.numeric(tableELQ[ , 3]), big.mark = "")
+tableELQ[ , 5:8] = printnum(as.numeric(tableELQ[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableELQ, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
+
+##double check to make sure we use multisteps2 instead of multisteps1
 
 ```
 
@@ -1234,6 +1394,45 @@ tableprint[7, c(3, 4, 6, 8, 9)]
 
 
 ```{r EMAStable, echo = FALSE, results = 'asis'}
+tableEMAS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableEMAS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableEMAS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableEMAS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableEMAS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableEMAS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableEMAS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableEMAS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableEMAS[ , 3] = printnum(as.numeric(tableEMAS[ , 3]), big.mark = "")
+tableEMAS[ , 5:8] = printnum(as.numeric(tableEMAS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableEMAS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
@@ -1378,6 +1577,45 @@ tableprint[8, c(3, 4, 6, 8, 9)]
 
 
 ```{r EMStable, echo = FALSE, results = 'asis'}
+tableEMS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableEMS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableEMS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(random.fit, fit.measures = fitused), 
+                      "-")
+
+tableEMS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      "-")
+
+tableEMS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableEMS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableEMS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableEMS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableEMS[ , 3] = printnum(as.numeric(tableEMS[ , 3]), big.mark = "")
+tableEMS[ , 5:8] = printnum(as.numeric(tableEMS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableEMS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
@@ -1531,6 +1769,45 @@ tableprint[9, c(3, 4, 6, 8, 9)]
 
 
 ```{r EStable, echo = FALSE, results = 'asis'}
+tableES[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableES[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableES[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableES[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableES[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableES[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableES[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableES[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableES[ , 3] = printnum(as.numeric(tableES[ , 3]), big.mark = "")
+tableES[ , 5:8] = printnum(as.numeric(tableES[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableES, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
@@ -1684,7 +1961,45 @@ tableprint[10, c(3, 4, 6, 8, 9)]
 
 
 ```{r FOMtable, echo = FALSE, results = 'asis'}
+tableFOM[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
 
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableFOM[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableFOM[2, 2:8] = c(nrow(random), 
+                      fitmeasures(random.fit, fit.measures = fitused), 
+                      "-")
+
+tableFOM[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      "-")
+
+tableFOM[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableFOM[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.loadings)["cfi"] - fitmeasures(multisteps2$fit.configural)["cfi"])
+
+tableFOM[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.intercepts)["cfi"] - fitmeasures(multisteps2$fit.loadings)["cfi"])
+
+tableFOM[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.residuals)["cfi"] - fitmeasures(multisteps2$fit.intercepts)["cfi"])
+
+tableFOM[ , 3] = printnum(as.numeric(tableFOM[ , 3]), big.mark = "")
+tableFOM[ , 5:8] = printnum(as.numeric(tableFOM[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableFOM, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 ```
 
 
@@ -1838,6 +2153,45 @@ tableprint[11, c(3, 4, 6, 8, 9)]
 
 
 ```{r GLPStable, echo = FALSE, results = 'asis'}
+tableGLPS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableGLPS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableGLPS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(random.fit, fit.measures = fitused), 
+                      "-")
+
+tableGLPS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(notrandom.fit, fit.measures = fitused), 
+                      "-")
+
+tableGLPS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableGLPS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.loadings)["cfi"] - fitmeasures(multisteps2$fit.configural)["cfi"])
+
+tableGLPS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.intercepts)["cfi"] - fitmeasures(multisteps2$fit.loadings)["cfi"])
+
+tableGLPS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.residuals)["cfi"] - fitmeasures(multisteps2$fit.intercepts)["cfi"])
+
+tableGLPS[ , 3] = printnum(as.numeric(tableGLPS[ , 3]), big.mark = "")
+tableGLPS[ , 5:8] = printnum(as.numeric(tableGLPS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableGLPS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
