@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ##libraries
 library(lavaan)
 library(semPlot)
@@ -17,6 +17,7 @@ library(knitr)
 options(scipen = 999)
 library(kableExtra)
 library(psytabs)
+library(papaja)
 percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
 
 ```
@@ -221,12 +222,47 @@ tableprint[1, c(3, 4, 6, 8, 9)]
 
 ```{r BPStable, echo = FALSE, results = 'asis'}
 ##columns Model, N, X2, df, RMSEA, SRMR, CFI, change CFI 
-tableBPS = matrix(NA, nrow = 10, ncol = 8)
-
+tableBPS = matrix(NA, nrow = 7, ncol = 8)
 ##rows will be: overall model, random, not random, multigroup steps 
+tableBPS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
 
-## this will give you rmsea cfi, change in cfi, x2 df for the multisteps
-tabletemp
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableBPS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableBPS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableBPS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableBPS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableBPS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableBPS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableBPS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableBPS[ , 3] = printnum(as.numeric(tableBPS[ , 3]), big.mark = "")
+tableBPS[ , 5:8] = printnum(as.numeric(tableBPS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableBPS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 ```
 
 
