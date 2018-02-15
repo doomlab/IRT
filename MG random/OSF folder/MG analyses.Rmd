@@ -2205,6 +2205,164 @@ kable(tableGLPS,
 
 ```
 
+
+```{r LAP, include=FALSE}
+master = read.csv("Meaning_Scales_LAP_Reker_RR_RN_Paper.csv")
+summary(master)
+
+
+
+```
+
+```{r LAPtable, echo = FALSE, results = 'asis'}
+
+```
+
+```{r LAP-R, include=FALSE}
+
+```
+
+```{r LAP-Rtable, echo = FALSE, results = 'asis'}
+
+```
+
+```{r LAS, include = FALSE}
+
+```
+
+```{r LAStable, echo=FALSE, results='asis'}
+
+```
+
+```{r LET, include=FALSE}
+
+```
+
+```{r LETtable, echo=FALSE, results='asis'}
+
+```
+
+```{r LPQ, include=FALSE}
+
+```
+
+```{r LPQtable, echo=FALSE, results='asis'}
+
+```
+
+```{r LRI, include=FALSE}
+
+```
+
+```{r LRItable, echo=FALSE, results='asis'}
+
+```
+
+```{r MAPA, include=FALSE}
+
+```
+
+```{r MAPAtable, echo=FALSE, results='asis'}
+
+```
+
+```{r Meaning, include=FALSE}
+
+```
+
+```{r Meaningtable, echo=FALSE, results='asis'}
+
+```
+
+```{r MLM, include=FALSE}
+
+```
+
+```{r MLMtable, echo=FALSE, results='asis'}
+
+```
+
+```{r MIL-Jim, include=FALSE}
+
+```
+
+```{r MIL-Jimtable, echo=FALSE, results='asis'}
+
+```
+
+```{r MIL-Kernes, include=FALSE}
+
+```
+
+```{r MIL-Kernestable, echo=FALSE, results='asis'}
+
+```
+
+```{r MIL-Steger, include=FALSE}
+
+```
+
+```{r MIL-Stegertable, echo=FALSE, results='asis'}
+
+```
+
+```{r MIL-Tomich, include=FALSE}
+
+```
+
+```{r MIL-Tomichtable, echo=FALSE, results='asis'}
+
+```
+
+```{r MIL-Warner, include=FALSE}
+
+```
+
+```{r MIL-Warnertable, echo=FALSE, results='asis'}
+
+```
+
+```{r MILI, include=FALSE}
+
+```
+
+```{r MILItable, echo=FALSE, results='asis'}
+
+```
+
+```{r MMS, include=FALSE}
+
+```
+
+```{r MMStable, echo=FALSE, results='asis'}
+
+```
+
+```{r MM, include=FALSE}
+
+```
+
+```{r MMtable, echo=FALSE, results='asis'}
+
+```
+
+```{r NoM, include=FALSE}
+
+```
+
+```{r NoMtable, echo=FALSE, results='asis'}
+
+```
+
+```{r OTH, include=FALSE}
+
+```
+
+```{r OTHtable, echo=FALSE, results='asis'}
+
+```
+
+
 ##ideas
 
 for the paper:
