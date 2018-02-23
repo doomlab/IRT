@@ -20,7 +20,9 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
-
+\usepackage[backend=biber,style=apa,sortcites=true,sorting=nyt,doi,url]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+% 
 % Table formatting
 \usepackage{longtable, booktabs}
 \usepackage{lscape}
@@ -195,42 +197,42 @@ The use of the Internet has been integrated into daily life as a means
 of accessing information, interacting with others, and tending to
 required tasks. The International Telecommunication Union reports that
 over half the world is online, and 70\% of 15-24 year olds are on the
-internet (Sanou, 2017). Further, the Nielson Total Audience report from
-2016 indicates that Americans spend nearly 11 hours a day in media
-consumption (Media, 2016). Researchers discovered that online data
-collection can be advantageous over laboratory and paper data
-collection, as it is often cheaper and more efficient (Ilieva, Baron, \&
-Healy, 2002; Reips, 2012; Schuldt \& Totten, 1994). Internet
-questionnaires first appeared in the early 90s when HTML scripting code
-integrated form elements, and the first experiments appeared soon after
-(Musch \& Reips, 2000; Reips, 2002). The first experimental lab on the
+internet \autocite{Sanou2017}. Further, the Nielson Total Audience
+report from 2016 indicates that Americans spend nearly 11 hours a day in
+media consumption \autocite{Media2016}. Researchers discovered that
+online data collection can be advantageous over laboratory and paper
+data collection, as it is often cheaper and more efficient
+\autocites{Ilieva2001}{Schuldt1994}{Reips2012}. Internet questionnaires
+first appeared in the early 90s when HTML scripting code integrated form
+elements, and the first experiments appeared soon after
+\autocites{Musch2000}{Reips2002a}. The first experimental lab on the
 internet was the Web Experimental Psychology Lab formed by Reips
 (\url{http://www.wexlab.eu}), and the use of the Internet to collect
-data has since grown rapidly (Reips, 2002). What started with email and
-HTML forms has since moved to whole communities of available
+data has since grown rapidly \autocite{Reips2002a}. What started with
+email and HTML forms has since moved to whole communities of available
 participants including websites like Amazon's Mechanical Turk and
 Qualtrics' Participant Panels. Participants of all types and forms are
 easily accessible for somewhat little to no cost.
 
 Our ability to collect data on the Internet has inevitably lead to the
 question of measurement invariance between in person and online data
-collection methods (T. Buchanan et al., 2005; Meyerson \& Tryon, 2003).
-Invariance implies that different forms, data collection procedures, or
-even target demographics produce comparable sets of responses, which is
-a desirable characteristic to ensure a minimal number of confounding
-variables (T. Brown, 2006). According to Deutskens, Ruyter, and Wetzels
-(2006), mail surveys and online surveys produce nearly identical results
-regarding the accuracy of the data collected online versus by mail. Only
-minor differences arise between online surveys and mail in surveys when
-it comes to participant honesty and suggestions. For example,
-participants who responded to surveys online provided more suggestions,
-lengthier answers, and greater information about competitors in the
-field that they may prefer (Deutskens et al., 2006). The hypothesis as
-to why individuals may be more honest online than in person is that the
+collection methods \autocites{Meyerson2003}{Buchanan2005}. Invariance
+implies that different forms, data collection procedures, or even target
+demographics produce comparable sets of responses, which is a desirable
+characteristic to ensure a minimal number of confounding variables
+\autocite{Brown2006}. According to \textcite{Deutskens2006}, mail
+surveys and online surveys produce nearly identical results regarding
+the accuracy of the data collected online versus by mail. Only minor
+differences arise between online surveys and mail in surveys when it
+comes to participant honesty and suggestions. For example, participants
+who responded to surveys online provided more suggestions, lengthier
+answers, and greater information about competitors in the field that
+they may prefer \autocite{Deutskens2006}. The hypothesis as to why
+individuals may be more honest online than in person is that the
 individual may feel more anonymity and less social desirability effects
 due to the nature the online world, therefore less concerned about
-responding in a socially polite way (Joinson, 1999). A trend found by
-Fang, Wen, and Pavur (2012a) shows individuals are more likely to
+responding in a socially polite way \autocite{Joinson1999}. A trend
+found by \textcite{Fang2012a} shows individuals are more likely to
 respond to surveys online with extreme scores, rather than mid-range
 responses on Likert scales due to the lessened social desirability
 factor. There may be slight cultural differences in responses online.
@@ -238,77 +240,76 @@ For example, collectivistic cultures showed greater tendency toward
 mid-range responses on Likert scales via in-person and online due to
 placing greater value on how they are socially perceived; however, the
 trend is still the same as scores are more extreme online versus in
-person or by mail (Fang, Wen, \& Prybutok, 2012b).
+person or by mail \autocite{Fang2012}.
 
-Although work by Dillman and his group (Dillman, Smyth, \& Christian,
-2008; Frick, Bächtiger, \& Reips, 2001; Smyth, 2006), among others, has
-shown that many web surveys are plagued by problems of usability,
-display, coverage, sampling, non-response, or technology, other studies
-have found internet data to be reliable and almost preferable as it
-produces a varied demographic response compared to the traditional
-sample of introduction to psychology college students while also
-maintaining data equivalence (Lewis, Watson, \& White, 2009). However,
-equivalence in factor structure may be problematic, as T. Buchanan et
-al. (2005) have shown that factor structure was not replicable in online
-and in person surveys. Other work has shown equivalence using a
-comparison of correlation matrices (Meyerson \& Tryon, 2003) or
-\emph{t}-tests (Schulenberg \& Yutrzenka, 1999, 2001), and the
-literature is mixed on how different methodologies impact factor
-structure. A. Weigold, Weigold, and Russell (2013) recently examined
-both quantitative and research design questions (i.e.~missing data) on
-Internet and paper-and-pencil administration which showed that the
-administrations were generally equivalent for quantitative structure but
-research design issues showed non-equivalence. Other potential
-limitations to online surveys include the accessibility of different
-populations to the Internet (Frick et al., 2001), selection bias
-(Bethlehem, 2010), response rates (Cantrell \& Lupinacci, 2007; C. Cook,
-Heath, \& Thompson, 2000; De Leeuw \& Hox, 1988; Hox \& De Leeuw, 1994),
-attrition (Cronk \& West, 2002), and distraction (Tourangeau, Rips, \&
-Rasinski, 1999). Many of these concerns have been alleviated in the
-years since online surveys were first developed, especially with the
-advent of panels and Mechanical Turk to reach a large, diverse
-population of participants (Buhrmester, Kwang, \& Gosling, 2011).
+Although work by Dillman and his group
+\autocites{Frick2001}{Smyth2006}{Dillman2008}, among others, has shown
+that many web surveys are plagued by problems of usability, display,
+coverage, sampling, non-response, or technology, other studies have
+found internet data to be reliable and almost preferable as it produces
+a varied demographic response compared to the traditional sample of
+introduction to psychology college students while also maintaining data
+equivalence \autocite{Lewis2009}. However, equivalence in factor
+structure may be problematic, as \textcite{Buchanan2005} have shown that
+factor structure was not replicable in online and in person surveys.
+Other work has shown equivalence using a comparison of correlation
+matrices \autocite{Meyerson2003} or \emph{t}-tests
+\autocites{Schulenberg1999}{Schulenberg2001}, and the literature is
+mixed on how different methodologies impact factor structure.
+\textcite{Weigold2013} recently examined both quantitative and research
+design questions (i.e.~missing data) on Internet and paper-and-pencil
+administration which showed that the administrations were generally
+equivalent for quantitative structure but research design issues showed
+non-equivalence. Other potential limitations to online surveys include
+the accessibility of different populations to the Internet
+\autocite{Frick2001}, selection bias \autocite{Bethlehem2010}, response
+rates \autocites{Cook2000}{Hox1994}{DeLeeuw1988}{Cantrell2007},
+attrition \autocite{Cronk2002}, and distraction
+\autocite{Tourangeau1999}. Many of these concerns have been alleviated
+in the years since online surveys were first developed, especially with
+the advent of panels and Mechanical Turk to reach a large, diverse
+population of participants \autocite{Buhrmester2011}.
 
 With the development of advanced online survey platforms such as
 Qualtrics and Survey Monkey, researchers have the potential to control
 potentially confounding research design issues through randomization,
 although other issues may still be present, such as participant
-misbehavior (Nosek, Banaji, \& Greenwald, 2002). Randomization has been
-a hallmark of good research practice, as the order or presentation of
-stimuli can be a noise variable in a study with multiple measures
-(Keppel \& Wickens, 2004). Thus, researchers have often randomized
-scales by rotating the order of presentation in paper format or simply
-clicking the randomization button for web-based studies. This practice
-has counterbalanced out any order effects of going from one scale to the
-next (Keppel \& Wickens, 2004). However, while scale structure has
-remained constant, these items are still stimuli within a larger
-construct. Therefore, these construct-related items have the ability to
-influence the items that appear later on the survey, which we call item
-reactivity. For example, a question about being \emph{prepared for
-death} or \emph{thoughts about suicide} might change the responses to
-further questions, especially if previous questions did not alert
-participants to be prepare for that subject matter.
+misbehavior \autocite{Nosek2002}. Randomization has been a hallmark of
+good research practice, as the order or presentation of stimuli can be a
+noise variable in a study with multiple measures \autocite{Keppel2004}.
+Thus, researchers have often randomized scales by rotating the order of
+presentation in paper format or simply clicking the randomization button
+for web-based studies. This practice has counterbalanced out any order
+effects of going from one scale to the next \autocite{Keppel2004}.
+However, while scale structure has remained constant, these items are
+still stimuli within a larger construct. Therefore, these
+construct-related items have the ability to influence the items that
+appear later on the survey, which we call item reactivity. For example,
+a question about being \emph{prepared for death} or \emph{thoughts about
+suicide} might change the responses to further questions, especially if
+previous questions did not alert participants to be prepare for that
+subject matter.
 
 Scale development typically starts with an underlying latent variable
 that a researcher wishes to examine through measured items or questions
-(DeVellis, 2016). Question design is a well-studied area that indicates
-that measurement is best achieved through questions that are direct,
-positively worded, and understandable to the subject (Dillman et al.,
-2008). Olson (2010) suggests researchers design a multitude of items in
-order to investigate and invite subject matter experts to examine these
-questions. Subject matter experts were found to be variable in their
-agreement, but excellent at identifying potentially problematic
-questions. After suggested edits from these experts, a large sample of
-participant data is collected. While item response theory is gaining
-traction, classical test theory has dominated this area through the use
-of exploratory and confirmatory factor analysis (EFA, CFA; Worthington
-\& Whittaker, 2006). EFA elucidates several facets of how the measured
-items represent the latent trait through factor loadings and overall
-model fit (Tabachnick \& Fidell, 2012). Factor loadings represent the
-correlation between each item and the overall latent variable, where a
-researcher wishes to find items that are strongly related to the latent
-trait. Items that are not related to the latent trait, usually with
-factor loadings below .300 (Preacher \& MacCallum, 2003) are discarded.
+\autocite{DeVellis2016a}. Question design is a well-studied area that
+indicates that measurement is best achieved through questions that are
+direct, positively worded, and understandable to the subject
+\autocite{Dillman2008}. \textcite{Olson2010} suggests researchers design
+a multitude of items in order to investigate and invite subject matter
+experts to examine these questions. Subject matter experts were found to
+be variable in their agreement, but excellent at identifying potentially
+problematic questions. After suggested edits from these experts, a large
+sample of participant data is collected. While item response theory is
+gaining traction, classical test theory has dominated this area through
+the use of exploratory and confirmatory factor analysis \autocite[EFA,
+CFA;][]{Worthington2006}. EFA elucidates several facets of how the
+measured items represent the latent trait through factor loadings and
+overall model fit \autocite{Tabachnick2012}. Factor loadings represent
+the correlation between each item and the overall latent variable, where
+a researcher wishes to find items that are strongly related to the
+latent trait. Items that are not related to the latent trait, usually
+with factor loadings below .300 \autocite{Preacher2003} are discarded.
 Model fit is examined when simple structure has been achieved
 (i.e.~appropriate factor loadings for each item), and these fit indices
 inform if the items and factor structure model fit the data well.
@@ -316,11 +317,11 @@ Well-designed scales include items that are highly related to their
 latent trait and have excellent fit indices. Scale development
 additionally includes the examination of other measures of reliability
 (alpha) and construct validity (relation to other phenomena) but the
-focus of the scale shifts to subscale or total scores (E. M. Buchanan,
-Valentine, \& Schulenberg, 2014). Published scales are then distributed
-for use in the form that is presented in the publication, as item order
-is often emphasized through important notes about reverse scoring and
-creating subscale scores.
+focus of the scale shifts to subscale or total scores
+\autocite{Buchanan2014}. Published scales are then distributed for use
+in the form that is presented in the publication, as item order is often
+emphasized through important notes about reverse scoring and creating
+subscale scores.
 
 The question is no longer whether web-based surveys are reliable sources
 of data collection; the theory now is in need of a shift to whether or
@@ -344,12 +345,12 @@ desirable to converge on a stable, representative population; however,
 false positives (i.e., Type I errors) can occur by using large \emph{N}.
 Recent developments in the literature focusing on null hypothesis
 testing make it especially important to present potential alternatives
-to \emph{p}-values (Valentine, Buchanan, Scofield, \& Beauchamp, 2017).
-While a large set of researchers have argued that the literature is full
-of Type I errors (Benjamin et al., 2017), and thus, the \(\alpha\) value
-should be shifted lower (i.e., \emph{p} \textless{} .005 for statistical
+to \emph{p}-values \autocite{Valentine2017}. While a large set of
+researchers have argued that the literature is full of Type I errors
+\autocite{Benjamin2017}, and thus, the \(\alpha\) value should be
+shifted lower (i.e., \emph{p} \textless{} .005 for statistical
 significance), an equally large set of researchers counter this argument
-as unfounded and weak (Lakens et al., 2017). We provide multiple sources
+as unfounded and weak \autocite{Lakens2017}. We provide multiple sources
 of evidence (\emph{p}-values, effect sizes, Bayes Factors, and tests of
 equivalence) to determine if differences found are not only
 statistically significant, but also practically significant. In our
@@ -381,8 +382,9 @@ given course credit for their participation.
 \subsection{Materials}\label{materials}
 
 Of the surveys included within each larger study, two questionnaires
-were utilized: the Purpose in Life Questionnaire (PIL; Crumbaugh \&
-Maholick, 1964) and the Life Purpose Questionnaire (LPQ; Hutzell, 1988).
+were utilized: the Purpose in Life Questionnaire
+\autocite[PIL;][]{Crumbaugh1964} and the Life Purpose Questionnaire
+\autocite[LPQ;][]{Hutzell1988}.
 
 \subsubsection{The Purpose in Life
 Questionnaire}\label{the-purpose-in-life-questionnaire}
@@ -392,12 +394,12 @@ life purpose. Items are structured in a 7-point Likert type response
 format; however, each item has different anchoring points that focus on
 item content. Total scores are created by summing the items, resulting
 in a range of 20 to 140 for the overall score. The reliability for the
-scale is generally high, ranging from .70 to .90 (Schulenberg, 2004;
-Schulenberg \& Melton, 2010). Previous work on validity for the PIL
-showed viable one- and two-factor models, albeit question loadings
-varied across publications (see Schulenberg \& Melton, 2010 for a
-summary), and these fluctuating results lead to the development of a
-4-item PIL short form (Schulenberg, Schnetzer, \& Buchanan, 2011).
+scale is generally high, ranging from .70 to .90
+\autocites{Schulenberg2004}{Schulenberg2010}. Previous work on validity
+for the PIL showed viable one- and two-factor models, albeit question
+loadings varied across publications \autocite[see][ for a
+summary]{Schulenberg2010}, and these fluctuating results lead to the
+development of a 4-item PIL short form \autocite{Schulenberg2011}.
 
 \subsubsection{Life Purpose
 Questionnaire}\label{life-purpose-questionnaire}
@@ -412,7 +414,7 @@ meaning, while one on an item would indicate high meaning. A total score
 is created by summing questions, resulting in a range from 0 to 20. In
 both scales, higher scores indicated greater perceived meaning in life.
 Reliability for this scale is also correspondingly high, usually in the
-.80 range (Melton \& Schulenberg, 2008; Schulenberg, 2004).
+.80 range \autocites{Melton2008}{Schulenberg2004}.
 
 These two scales were selected because they contained the same item
 content with differing response formats, which would allow for cross
@@ -465,22 +467,22 @@ squared error (RMSE). RMSE estimates the difference between covariance
 matrices and is often used in structural equation modeling to determine
 if models have good fit to the data. A criterion of \textless{} .06 for
 good fit, .06-.08 for acceptable fit, and \textgreater{} .10 for bad fit
-was used (Hu \& Bentler, 1999). This analysis was used to determine if
-the change in delivery changed the structure of the item relationships
-to each other (i.e.~if the correlation matrices are different). RMSE
-values were calculated using the \emph{monomvn} package in \emph{R}
-(Gramacy \& Pantaleoy, 2010).
+was used \autocite{Hu1999}. This analysis was used to determine if the
+change in delivery changed the structure of the item relationships to
+each other (i.e.~if the correlation matrices are different). RMSE values
+were calculated using the \emph{monomvn} package in \emph{R}
+\autocite{Gramacy2010}.
 
 We then calculated an exploratory factor analysis on both scales using
 one-factor models to examine the loading of each item on its latent
-trait. The PIL factor structure is contested (Strack \& Schulenberg,
-2009) with many suggestions as to latent structure for one- and
-two-factor models. The LPQ has seen less research on factor structure
-(Schulenberg, 2004). This paper focused on loadings on one global latent
-trait to determine if the manipulation of delivery impacted factor
-loadings. We used a one-factor model and included all questions to focus
-on the loadings, rather than the factor structure. The analysis was
-performed using the \emph{psych} package in \emph{R} with maximum
+trait. The PIL factor structure is contested \autocite{Strack2009} with
+many suggestions as to latent structure for one- and two-factor models.
+The LPQ has seen less research on factor structure
+\autocite{Schulenberg2004}. This paper focused on loadings on one global
+latent trait to determine if the manipulation of delivery impacted
+factor loadings. We used a one-factor model and included all questions
+to focus on the loadings, rather than the factor structure. The analysis
+was performed using the \emph{psych} package in \emph{R} with maximum
 likelihood estimation and an oblique (oblimin) rotation. The LPQ factor
 analysis used tetrachoric correlation structure to control for the
 dichotomous format of the scale, rather than traditional Pearson
@@ -509,26 +511,25 @@ involving \emph{t}-tests, we provide multiple measures of evidentiary
 value so that researchers can weigh the effects of randomization on
 their own criterion. Recent research on \(\alpha\) criteria has shown
 wide disagreement on the usefulness of \emph{p}-values and set cut-off
-scores (Benjamin et al., 2017; Lakens et al., 2017). Therefore, we
-sought to provide traditional null hypothesis testing results
-(\emph{t}-tests, \emph{p}-values) and supplement these values with
-effect sizes (E. M. Buchanan, Valentine, \& Scofield, 2017; \emph{d} and
-non-central confidence intervals, Cumming, 2014; Smithson, 2001), Bayes
-Factors (Kass \& Raftery, 1995; Morey \& Rouder, 2015), and one-sided
-tests of equivalence (TOST, Cribbie, Gruman, \& Arpin-Cribbie, 2004;
-Lakens, 2017; Rogers, Howard, \& Vessey, 1993; Schuirmann, 1987). We
-used the average standard deviation of each group as the denominator for
-\emph{d} calculation as follows:
+scores \autocites{Benjamin2017}{Lakens2017}. Therefore, we sought to
+provide traditional null hypothesis testing results (\emph{t}-tests,
+\emph{p}-values) and supplement these values with effect sizes
+\autocites[\emph{d} and non-central confidence
+intervals,][]{Cumming2014}{Buchanan2017}{Smithson2001}, Bayes Factors
+\autocites{Kass1995}{Morey2015b}, and one-sided tests of equivalence
+\autocites[TOST,][]{Cribbie2004}{Lakens2017a}{Schuirmann1987}{Rogers1993}.
+We used the average standard deviation of each group as the denominator
+for \emph{d} calculation as follows:
 
 \[
 d_{av} = \frac {(M_1 -  M_2) } { \frac{SD_1 + SD_2 } {2} }
 \] This effect size is less biased than the traditional \(d_z\) formula,
 wherein mean differences are divided by the standard deviation of the
-difference scores (Lakens, 2013). The difference scores standard
+difference scores \autocite{Lakens2013}. The difference scores standard
 deviation is often much smaller than the average of the standard
 deviations of each level, which can create an upwardly biased effect
-size (Cumming, 2014). This bias can lead researchers to interpret larger
-effects for a psychological phenomenon than actually exist.
+size \autocite{Cumming2014}. This bias can lead researchers to interpret
+larger effects for a psychological phenomenon than actually exist.
 
 Bayes Factors are calculated in opposition to a normal frequentist
 (NHST) approach, as a ratio of the likelihood of two models. Traditional
@@ -547,49 +548,51 @@ of their field, thus, making completely uninformative priors a tenuous
 assumption. Because of the dearth of literature in this field, there is
 not enough previous information to create a strong prior distribution,
 which would suppress the effect of the data on posterior belief. The
-\emph{BayesFactor} package (Morey \& Rouder, 2015) uses recommended
-default priors that cover a wide range of data (Morey \& Rouder, 2015;
-Rouder, Speckman, Sun, Morey, \& Iverson, 2009) of a Jeffreys prior with
-a fixed rscale (0.5) and random rscale (1.0). The alternative model is
-generally considered a model wherein means between groups or items
-differ, and this model is compared to a null model of no mean
-differences. The resulting ratio is therefore the odds of the
-alternative model to the null, where BF values less than one indicate
-evidence for the null, values at one indicate even evidence for the null
-and alternative, and values larger than one indicate evidence for the
-alternative model. While some researchers have posed labels for BF
-values (Kass \& Raftery, 1995), we present these values as a continuum
-to allow researchers to make their own decisions (Morey, 2015; Morey \&
-Rouder, 2015).
+\emph{BayesFactor} package \autocite{Morey2015b} uses recommended
+default priors that cover a wide range of data
+\autocites{Morey2015b}{Rouder2009} of a Jeffreys prior with a fixed
+rscale (0.5) and random rscale (1.0). The alternative model is generally
+considered a model wherein means between groups or items differ, and
+this model is compared to a null model of no mean differences. The
+resulting ratio is therefore the odds of the alternative model to the
+null, where BF values less than one indicate evidence for the null,
+values at one indicate even evidence for the null and alternative, and
+values larger than one indicate evidence for the alternative model.
+While some researchers have posed labels for BF values
+\autocite{Kass1995}, we present these values as a continuum to allow
+researchers to make their own decisions
+\autocites{Morey2015b}{Morey2015c}.
 
 NHST has also been criticized for an inability to test the null
 hypothesis, and thus, show evidence of the absence of an effect.
 Non-significant \emph{p}-values are often misinterpreted as evidence for
-the null hypothesis (Lakens, 2017). However, we can use the traditional
-frequentist approach to determine if an effect is within a set of
-equivalence bounds. We used the two one-sided tests approach to specify
-a range of raw-score equivalence that would be considered supportive of
-the null hypothesis (i.e.~no worthwhile effects or differences). TOST
-are then used to determine if the values found are outside of the
-equivalence range. Significant TOST values indicate that the effects are
-\emph{within} the range of equivalence. We used the \emph{TOSTER}
-package (Lakens, 2017) to calculate these values, and graphics created
-from this package can be found online at \url{https://osf.io/gvx7s/}.
+the null hypothesis \autocite{Lakens2017a}. However, we can use the
+traditional frequentist approach to determine if an effect is within a
+set of equivalence bounds. We used the two one-sided tests approach to
+specify a range of raw-score equivalence that would be considered
+supportive of the null hypothesis (i.e.~no worthwhile effects or
+differences). TOST are then used to determine if the values found are
+outside of the equivalence range. Significant TOST values indicate that
+the effects are \emph{within} the range of equivalence. We used the
+\emph{TOSTER} package \autocite{Lakens2017a} to calculate these values,
+and graphics created from this package can be found online at
+\url{https://osf.io/gvx7s/}.
 
 The equivalence ranges are often tested by computing an expected effect
 size of negligible range; however, the TOST for dependent \emph{t} uses
-\(d_z\), which can overestimate the effect size of a phenomena (Cumming,
-2014; Lakens, 2013). Therefore, we calculated TOST tests on raw score
-differences to alleviate the overestimation issues. For EFA, we used a
-change score of .10 in the loadings, as Comrey and Lee (1992) suggested
-loading estimation ranges, such as .32 (poor) to .45 (fair) to .55
-(good), and the differences in these ranges are approximately .10 (as
-cited in Tabachnick \& Fidell, 2012, p. 654). Additionally, this score
-would amount to a small correlation change using traditional guidelines
-for interpretation of \emph{r} (Cohen, 1992). For item and total score
-differences, we chose a 5\% change in magnitude as the raw score cut off
-as a modest raw score change. To calculate that change for total scores,
-we used the following formula:
+\(d_z\), which can overestimate the effect size of a phenomena
+\autocites{Cumming2014}{Lakens2013}. Therefore, we calculated TOST tests
+on raw score differences to alleviate the overestimation issues. For
+EFA, we used a change score of .10 in the loadings, as Comrey and Lee
+(1992) suggested loading estimation ranges, such as .32 (poor) to .45
+(fair) to .55 (good), and the differences in these ranges are
+approximately .10 \autocite[as cited in][p.~654]{Tabachnick2012}.
+Additionally, this score would amount to a small correlation change
+using traditional guidelines for interpretation of \emph{r}
+\autocite{Cohen1992a}. For item and total score differences, we chose a
+5\% change in magnitude as the raw score cut off as a modest raw score
+change. To calculate that change for total scores, we used the following
+formula:
 
 \[
 (Max*N_{Questions} - Min*N_{Questions}) * Change
@@ -609,9 +612,9 @@ randomization, and first, all data were screened for accuracy and
 missing data. Participants with more than 5\% missing data (i.e.~2 or
 more items) were excluded. Data were imputed using the \emph{mice}
 package in \emph{R} for participants with less than 5\% of missing data
-(Van Buuren \& Groothuis-Oudshoorn, 2011). Next, each dataset was
-examined for multivariate outliers using Mahalanobis distance
-(Tabachnick \& Fidell, 2012). Each dataset was then screened for
+\autocite{VanBuuren2011}. Next, each dataset was examined for
+multivariate outliers using Mahalanobis distance
+\autocite{Tabachnick2012}. Each dataset was then screened for
 multivariate assumptions of additivity, linearity, normality,
 homogeneity, and homoscedasticity. While some data skew was present,
 large sample sizes allowed for the assumption of normality of the
@@ -626,9 +629,9 @@ points in each step is presented in Table \ref{tab:demo-table}.
 \toprule
 Group & \multicolumn{1}{c}{Female} & \multicolumn{1}{c}{White} & \multicolumn{1}{c}{Age (SD)} & \multicolumn{1}{c}{Original N} & \multicolumn{1}{c}{Missing N} & \multicolumn{1}{c}{Outlier N}\\
 \midrule
-PIL Random & 61.6 & 81.1 & 19.50 (2.93) & 1462 & 333 & 60\\
-PIL Not Random & 54.1 & 78.6 & 19.68 (3.58) & 915 & 51 & 35\\
-LPQ Random & - & - & - & 1462 & 555 & 24\\
+PIL Random & 61.6 & 81.1 & 19.50 (2.93) & 1462 & 333 & 58\\
+PIL Not Random & 54.1 & 78.6 & 19.68 (3.58) & 915 & 51 & 36\\
+LPQ Random & - & - & - & 1462 & 555 & 23\\
 LPQ Not Random & - & - & - & 915 & 150 & 15\\
 \bottomrule
 \addlinespace
@@ -644,19 +647,19 @@ LPQ Not Random & - & - & - & 915 & 150 & 15\\
 
 \subsubsection{Covariance Matrices}\label{covariance-matrices}
 
-Covariance structure was considered different (i.e.~above .10; Hu \&
-Bentler, 1999) for the randomized and not randomized forms of item
+Covariance structure was considered different \autocite[i.e.~above
+.10;][]{Hu1999} for the randomized and not randomized forms of item
 order, \emph{RMSE} = .15. Standardized residuals were calculated by
 dividing the difference in covariance tables by the variance of the
-differences (Hausman, 1978). While \emph{RMSE} indicated partial misfit
-between the covariance relationships, only 3 values were significantly
-different using \emph{Z} of 1.96 as a criterion: the variances of PIL 7
-and 14. PIL 7 in a randomized form had less variance (\(SD^2\) = 1.46)
-than the nonrandomized form (\(SD^2\) = 1.89). Likewise, PIL 14
-randomized had a smaller variance (\(SD^2\) = 1.90) than the
-nonrandomized form (\(SD^2\) = 2.39). Questions about retirement and
-freedom to make choices decreased in variance when they were randomly
-presented.
+differences \autocite{Hausman1978}. While \emph{RMSE} indicated partial
+misfit between the covariance relationships, only 3 values were
+significantly different using \emph{Z} of 1.96 as a criterion: the
+variances of PIL 7 and 14. PIL 7 in a randomized form had less variance
+(\(SD^2\) = 1.46) than the nonrandomized form (\(SD^2\) = 1.89).
+Likewise, PIL 14 randomized had a smaller variance (\(SD^2\) = 1.90)
+than the nonrandomized form (\(SD^2\) = 2.40). Questions about
+retirement and freedom to make choices decreased in variance when they
+were randomly presented.
 
 \subsubsection{Factor Loadings}\label{factor-loadings}
 
@@ -664,11 +667,11 @@ Table \ref{tab:Ptable} includes the factor loadings from the one-factor
 EFA analysis. These loadings were compared using a dependent
 \emph{t}-test matched on item, and they were not significantly
 different, \(M_d = 0.00\), 95\% CI \([-0.02\), \(0.03]\),
-\(t(19) = 0.23\), \(p = .819\). The effect size for this test was
-correspondingly negligible, \(d_{av}\) = -0.01 95\% CI {[}-0.45,
+\(t(19) = 0.26\), \(p = .801\). The effect size for this test was
+correspondingly negligible, \(d_{av}\) = -0.02 95\% CI {[}-0.45,
 0.42{]}. The TOST test was significant for both the lower, \emph{t}(19)
-= -9.49, \emph{p} \textless{} .001 and the upper bound, \emph{t}(19) =
-9.03, \emph{p} \textless{} .001. This result indicated that the change
+= 0.19, \emph{p} \textless{} .001 and the upper bound, \emph{t}(19) =
+-0.70, \emph{p} \textless{} .001. This result indicated that the change
 score was within the confidence band of expected negligible changes.
 Lastly, the BF for this test was 0.24 ±0.02\%, which indicated support
 for the null model.
@@ -678,13 +681,13 @@ for the null model.
 Table \ref{tab:Ptable} includes the means and standard deviation of each
 item from the PIL scale. The item means were compared using a dependent
 \emph{t}-test matched on item. Item means were significantly different
-\(M_d = -0.08\), 95\% CI \([-0.13\), \(-0.02]\), \(t(19) = -3.03\),
-\(p = .007\). The effect size for this difference was small, \(d_{av}\)
-= -0.16 95\% CI {[}-0.60, 0.28{]}. Even though the \emph{t}-test was
+\(M_d = -0.07\), 95\% CI \([-0.13\), \(-0.02]\), \(t(19) = -2.88\),
+\(p = .010\). The effect size for this difference was small, \(d_{av}\)
+= -0.16 95\% CI {[}-0.60, 0.29{]}. Even though the \emph{t}-test was
 significant, the TOST test indicated that the difference was within the
 range of a 5\% percent change in item means (0.30). The TOST test for
-lower bound, \emph{t}(19) = -14.90, \emph{p} \textless{} .001 and the
-upper bound, \emph{t}(19) = 8.84, \emph{p} \textless{} .001, suggested
+lower bound, \emph{t}(19) = -1.54, \emph{p} \textless{} .001 and the
+upper bound, \emph{t}(19) = -4.22, \emph{p} \textless{} .001, suggested
 that the significant \emph{t}-test may be not be interpreted as a
 meaningful change on the item means. The BF value for this test
 indicated 6.86 \textless{}0.01\%, which is often considered weak
@@ -701,26 +704,26 @@ indicating that randomization may change item means for the PIL.
 \toprule
 Item & \multicolumn{1}{c}{FL-R} & \multicolumn{1}{c}{FL-NR} & \multicolumn{1}{c}{M-R} & \multicolumn{1}{c}{SD-R} & \multicolumn{1}{c}{M-NR} & \multicolumn{1}{c}{SD-NR}\\
 \midrule
-1 & .671 & .637 & 4.824 & 1.280 & 4.806 & 1.277\\
-2 & .678 & .572 & 4.929 & 1.438 & 4.602 & 1.451\\
-3 & .684 & .671 & 5.815 & 1.124 & 5.731 & 1.101\\
-4 & .840 & .846 & 5.677 & 1.302 & 5.654 & 1.284\\
-5 & .638 & .575 & 4.667 & 1.495 & 4.407 & 1.499\\
-6 & .680 & .686 & 5.429 & 1.301 & 5.335 & 1.401\\
-7 & .424 & .441 & 6.172 & 1.207 & 6.078 & 1.374\\
-8 & .628 & .600 & 5.014 & 1.093 & 5.001 & 1.148\\
-9 & .823 & .796 & 5.355 & 1.177 & 5.326 & 1.198\\
-10 & .721 & .764 & 5.204 & 1.497 & 5.148 & 1.552\\
-11 & .778 & .796 & 5.227 & 1.624 & 5.163 & 1.624\\
-12 & .605 & .648 & 4.493 & 1.568 & 4.521 & 1.600\\
-13 & .430 & .402 & 5.745 & 1.244 & 5.738 & 1.215\\
-14 & .449 & .422 & 5.429 & 1.378 & 5.236 & 1.546\\
-15 & .081 & .211 & 4.378 & 1.941 & 4.129 & 1.878\\
-16 & .551 & .558 & 5.099 & 1.983 & 5.259 & 1.863\\
-17 & .721 & .734 & 5.417 & 1.392 & 5.402 & 1.403\\
-18 & .480 & .503 & 5.386 & 1.477 & 5.297 & 1.599\\
-19 & .678 & .721 & 4.878 & 1.413 & 4.903 & 1.455\\
-20 & .782 & .809 & 5.341 & 1.314 & 5.210 & 1.288\\
+1 & .671 & .638 & 4.825 & 1.278 & 4.806 & 1.278\\
+2 & .678 & .573 & 4.928 & 1.438 & 4.600 & 1.452\\
+3 & .685 & .671 & 5.811 & 1.126 & 5.732 & 1.101\\
+4 & .840 & .846 & 5.675 & 1.302 & 5.655 & 1.285\\
+5 & .637 & .574 & 4.669 & 1.495 & 4.409 & 1.497\\
+6 & .675 & .684 & 5.421 & 1.314 & 5.338 & 1.400\\
+7 & .422 & .439 & 6.174 & 1.207 & 6.081 & 1.373\\
+8 & .628 & .598 & 5.014 & 1.092 & 5.010 & 1.138\\
+9 & .823 & .796 & 5.355 & 1.177 & 5.327 & 1.198\\
+10 & .720 & .765 & 5.209 & 1.494 & 5.155 & 1.544\\
+11 & .776 & .796 & 5.227 & 1.621 & 5.163 & 1.623\\
+12 & .604 & .648 & 4.494 & 1.568 & 4.522 & 1.601\\
+13 & .428 & .402 & 5.745 & 1.243 & 5.737 & 1.216\\
+14 & .450 & .421 & 5.427 & 1.380 & 5.240 & 1.548\\
+15 & .081 & .221 & 4.375 & 1.940 & 4.147 & 1.885\\
+16 & .553 & .554 & 5.088 & 1.991 & 5.267 & 1.862\\
+17 & .722 & .735 & 5.418 & 1.396 & 5.395 & 1.403\\
+18 & .481 & .501 & 5.384 & 1.474 & 5.302 & 1.593\\
+19 & .680 & .720 & 4.878 & 1.416 & 4.905 & 1.454\\
+20 & .781 & .811 & 5.343 & 1.313 & 5.210 & 1.289\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -733,14 +736,14 @@ Item & \multicolumn{1}{c}{FL-R} & \multicolumn{1}{c}{FL-NR} & \multicolumn{1}{c}
 
 Total scores were created by summing the items for each participant
 across all twenty PIL questions. The mean total score for nonrandomized
-testing was \emph{M} = 102.95 (\emph{SD} = 18.32), while the mean for
-randomizing testing was \emph{M} = 104.48 (\emph{SD} = 17.83). This
+testing was \emph{M} = 103.00 (\emph{SD} = 18.31), while the mean for
+randomizing testing was \emph{M} = 104.46 (\emph{SD} = 17.83). This
 difference was examined with an independent \emph{t}-test and was not
-significant, \(t(1,896) = -1.84\), \(p = .066\). The effect size for
-this difference was negligible, \(d_{av}\) = -0.09 95\% CI {[}-0.18,
-0.28{]}. We tested if scores were changed by 5\% (6.00 points), and the
-TOST test indicated that the lower, \emph{t}(1897) = 5.35, \emph{p}
-\textless{} .001 and the upper bound, \emph{t}(1897) = -9.02, \emph{p}
+significant, \(t(1,897) = -1.75\), \(p = .081\). The effect size for
+this difference was negligible, \(d_{av}\) = -0.08 95\% CI {[}-0.17,
+0.29{]}. We tested if scores were changed by 5\% (6.00 points), and the
+TOST test indicated that the lower, \emph{t}(1897) = 5.44, \emph{p}
+\textless{} .001 and the upper bound, \emph{t}(1897) = -8.94, \emph{p}
 \textless{} .001 were within this area of null change. The BF results
 also supported the null model, 0.25 \textless{}0.01\%.
 
@@ -765,12 +768,12 @@ Table \ref{tab:Ltable} includes the factor loadings from the one-factor
 EFA analysis using tetrachoric correlations. The loadings from
 randomized and nonrandomized versions were compared using a dependent
 \emph{t}-test matched on item, which indicated they were not
-significantly different, \(M_d = 0.01\), 95\% CI \([-0.02\), \(0.04]\),
-\(t(19) = 0.89\), \(p = .384\). The difference found for this test was
-negligible, \(d_{av}\) = -0.06 95\% CI {[}-0.50, 0.38{]}. The TOST test
+significantly different, \(M_d = 0.01\), 95\% CI \([-0.01\), \(0.04]\),
+\(t(19) = 0.99\), \(p = .336\). The difference found for this test was
+negligible, \(d_{av}\) = -0.07 95\% CI {[}-0.50, 0.37{]}. The TOST test
 examined if any change was within .10 change, as described earlier. The
-lower, \emph{t}(19) = -8.40, \emph{p} \textless{} .001 and the upper
-bound, \emph{t}(19) = 6.62, \emph{p} \textless{} .001 were both
+lower, \emph{t}(19) = -0.54, \emph{p} \textless{} .001 and the upper
+bound, \emph{t}(19) = -1.43, \emph{p} \textless{} .001 were both
 significant, indicating that the change was within the expected change.
 Further, in support of the null model, the BF was 0.34 ±0.02\%.
 
@@ -780,12 +783,12 @@ Means and standard deviations of each item are presented in Table
 \ref{tab:Ltable}. We again matched items and tested if there was a
 significant change using a dependent \emph{t}-test. The test was not
 significant, \(M_d = 0.00\), 95\% CI \([-0.02\), \(0.02]\),
-\(t(19) = 0.22\), \(p = .827\), and the corresponding effect size
+\(t(19) = 0.26\), \(p = .801\), and the corresponding effect size
 reflects how little these means changed, \(d_{av}\) = 0.01 95\% CI
-{[}-0.43, 0.45{]}. Using a 5\% change criterion, items were tested to
+{[}-0.42, 0.45{]}. Using a 5\% change criterion, items were tested to
 determine if they changed less than (0.05). The TOST test indicated both
-lower, \emph{t}(19) = -5.30, \emph{p} \textless{} .001 and the upper
-bound, \emph{t}(19) = 5.75, \emph{p} \textless{} .001, were within the
+lower, \emph{t}(19) = 0.48, \emph{p} \textless{} .001 and the upper
+bound, \emph{t}(19) = 0.03, \emph{p} \textless{} .001, were within the
 null range. The BF also supported the null model, 0.24 ±0.02\%.
 
 \subsubsection{Total Scores}\label{total-scores-1}
@@ -798,26 +801,26 @@ null range. The BF also supported the null model, 0.24 ±0.02\%.
 \toprule
 Item & \multicolumn{1}{c}{FL-R} & \multicolumn{1}{c}{FL-NR} & \multicolumn{1}{c}{M-R} & \multicolumn{1}{c}{SD-R} & \multicolumn{1}{c}{M-NR} & \multicolumn{1}{c}{SD-NR}\\
 \midrule
-1 & .675 & .681 & .567 & .496 & .613 & .487\\
-2 & .901 & .870 & .754 & .431 & .761 & .427\\
-3 & .503 & .396 & .864 & .343 & .843 & .364\\
-4 & .730 & .679 & .908 & .289 & .867 & .340\\
-5 & .687 & .687 & .419 & .494 & .508 & .500\\
-6 & .513 & .560 & .636 & .481 & .581 & .494\\
-7 & .193 & .288 & .775 & .418 & .811 & .392\\
-8 & .557 & .472 & .484 & .500 & .467 & .499\\
-9 & .858 & .908 & .811 & .392 & .781 & .414\\
-10 & .593 & .619 & .635 & .482 & .647 & .478\\
-11 & .637 & .753 & .726 & .446 & .759 & .428\\
-12 & .684 & .756 & .787 & .410 & .751 & .433\\
-13 & .314 & .399 & .965 & .184 & .909 & .287\\
-14 & .484 & .482 & .762 & .426 & .769 & .422\\
-15 & .048 & .102 & .323 & .468 & .395 & .489\\
-16 & .700 & .705 & .863 & .344 & .872 & .334\\
-17 & .520 & .504 & .848 & .359 & .813 & .390\\
-18 & .559 & .513 & .830 & .376 & .828 & .378\\
-19 & .675 & .715 & .463 & .499 & .497 & .500\\
-20 & .639 & .615 & .723 & .448 & .712 & .453\\
+1 & .676 & .681 & .567 & .496 & .613 & .487\\
+2 & .901 & .869 & .755 & .431 & .761 & .427\\
+3 & .503 & .397 & .864 & .343 & .843 & .364\\
+4 & .725 & .686 & .907 & .290 & .868 & .339\\
+5 & .689 & .685 & .419 & .494 & .509 & .500\\
+6 & .511 & .560 & .637 & .481 & .581 & .494\\
+7 & .189 & .287 & .774 & .419 & .811 & .392\\
+8 & .557 & .473 & .483 & .500 & .467 & .499\\
+9 & .856 & .909 & .812 & .391 & .781 & .414\\
+10 & .594 & .620 & .636 & .481 & .647 & .478\\
+11 & .639 & .756 & .727 & .446 & .760 & .427\\
+12 & .683 & .756 & .786 & .410 & .751 & .433\\
+13 & .314 & .401 & .965 & .184 & .909 & .287\\
+14 & .484 & .481 & .761 & .427 & .769 & .422\\
+15 & .050 & .101 & .322 & .468 & .395 & .489\\
+16 & .697 & .705 & .862 & .345 & .872 & .334\\
+17 & .517 & .505 & .848 & .359 & .813 & .390\\
+18 & .559 & .513 & .829 & .377 & .828 & .378\\
+19 & .675 & .713 & .464 & .499 & .497 & .500\\
+20 & .636 & .616 & .723 & .448 & .712 & .453\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -831,13 +834,13 @@ Item & \multicolumn{1}{c}{FL-R} & \multicolumn{1}{c}{FL-NR} & \multicolumn{1}{c}
 LPQ total scores were created by summing the items for each participant.
 The mean total score for randomized testing was \emph{M} = 14.14
 (\emph{SD} = 4.01), and the mean for nonrandomized testing was \emph{M}
-= 14.18 (\emph{SD} = 4.22). An independent \emph{t}-test indicated that
-the testing did not change total score, \(t(1,631) = 0.20\),
-\(p = .844\). The effect size for this difference was negligible,
+= 14.19 (\emph{SD} = 4.22). An independent \emph{t}-test indicated that
+the testing did not change total score, \(t(1,632) = 0.23\),
+\(p = .819\). The effect size for this difference was negligible,
 \(d_{av}\) = 0.01 95\% CI {[}-0.09, 0.45{]}. The TOST test indicated
 that the scores were withing a 5\% (1.00 points) change, lower:
-\emph{t}(1627) = 5.10, \emph{p} \textless{} .001 and upper:
-\emph{t}(1627) = -4.71, \emph{p} \textless{} .001. The BF results were
+\emph{t}(1627) = 5.13, \emph{p} \textless{} .001 and upper:
+\emph{t}(1627) = -4.68, \emph{p} \textless{} .001. The BF results were
 in support of the null model, 0.06 ±0.04\%.
 
 \section{Discussion}\label{discussion}
@@ -845,13 +848,14 @@ in support of the null model, 0.06 ±0.04\%.
 As technology has advanced, initial research questioned the validity of
 online assessments versus paper assessments. With further investigation,
 several researchers discovered measurement invariance with regard to
-computer surveys compared with paper surveys (Deutskens et al., 2006;
-Lewis et al., 2009). However, with the addition of technology, Fang et
-al. (2012a) suggested that individuals respond with more extreme scores
-in online surveys than in-person surveys due to the social-desirability
-effect. Research on scale invariance is mixed in results for paper and
-computer, and our work is a first-step on examining survey equivalence
-on an individual item-level for different forms of computer delivery.
+computer surveys compared with paper surveys
+\autocites{Deutskens2006}{Lewis2009}. However, with the addition of
+technology, \textcite{Fang2012a} suggested that individuals respond with
+more extreme scores in online surveys than in-person surveys due to the
+social-desirability effect. Research on scale invariance is mixed in
+results for paper and computer, and our work is a first-step on
+examining survey equivalence on an individual item-level for different
+forms of computer delivery.
 
 The findings from the current study imply that item randomization is a
 viable option for controlling any potential reactivity between
@@ -909,11 +913,11 @@ significantly different on randomized versus nonrandomized
 administrations, it is likely due to factors unrelated to delivery.
 Future research should investigate if this result is WEIRD (Western,
 Educated, Industrialized, Rich, and Democratic), as this study focused
-on college-age students in the Midwest (Henrich, Heine, \& Norenzayan,
-2010). As Fang et al. (2012b)'s research indicates different effects for
+on college-age students in the Midwest \autocite{Henrich2010}. As
+\textcite{Fang2012}'s research indicates different effects for
 collectivistic cultures, other cultures may show different results based
 on randomization. Additionally, one should consider the effects of
-potential computer illiteracy on online surveys (Charters, 2004).
+potential computer illiteracy on online surveys \autocite{Charters2004}.
 
 A second benefit to using the procedures outlined in this paper to
 examine for differences in methodology is the simple implementation of
@@ -921,14 +925,14 @@ the analyses. While our analyses were performed in \emph{R}, nearly all
 of these analyses can be performed in free point and click software,
 such as \emph{jamovi} and \emph{JASP}. Multigroup confirmatory factory
 analyses can additionally be used to analyze a very similar set of
-questions (covariance matrices, latent loadings, item means, and latent
-means; T. Brown, 2006); however, multigroup analyses require a
+questions \autocite[covariance matrices, latent loadings, item means,
+and latent means;][]{Brown2006}; however, multigroup analyses require a
 specialized skill and knowledge set. Bayes Factor and TOST analyses are
 included in these free programs and are easy to implement. In this
 paper, we have provided examples of how to test the null hypothesis, as
 well as ways to include multiple forms of evidentiary value to
 critically judge an analysis on facets other than \emph{p}-values
-(Valentine et al., 2017).
+\autocite{Valentine2017}.
 
 \newpage
 
@@ -936,387 +940,7 @@ critically judge an analysis on facets other than \emph{p}-values
 
 \setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
 
-\hypertarget{refs}{}
-\hypertarget{ref-Benjamin2017}{}
-Benjamin, D. J., Berger, J. O., Johannesson, M., Nosek, B. A.,
-Wagenmakers, E.-J., Berk, R., \ldots{} Johnson, V. E. (2017). Redefine
-statistical significance. \emph{Nature Human Behaviour}, 1--18.
-doi:\href{https://doi.org/10.1038/s41562-017-0189-z}{10.1038/s41562-017-0189-z}
-
-\hypertarget{ref-Bethlehem2010}{}
-Bethlehem, J. (2010). Selection bias in web surveys. \emph{International
-Statistical Review}, \emph{78}(2), 161--188.
-doi:\href{https://doi.org/10.1111/j.1751-5823.2010.00112.x}{10.1111/j.1751-5823.2010.00112.x}
-
-\hypertarget{ref-Brown2006}{}
-Brown, T. (2006). \emph{Confirmatory Factor Analysis for Applied
-Research}. New York, NY: The Guilford Press.
-
-\hypertarget{ref-Buchanan2014}{}
-Buchanan, E. M., Valentine, K. D., \& Schulenberg, S. E. (2014).
-Exploratory and Confirmatory Factor Analysis: Developing the Purpose in
-Life Test--Short Form. In P. Bindle (Ed.), \emph{SAGE research methods
-cases}. London, United Kingdom: SAGE Publications, Ltd.
-doi:\href{https://doi.org/10.4135/978144627305013517794}{10.4135/978144627305013517794}
-
-\hypertarget{ref-Buchanan2017}{}
-Buchanan, E. M., Valentine, K. D., \& Scofield, J. E. (2017). MOTE.
-Retrieved from \url{https://github.com/doomlab/MOTE}
-
-\hypertarget{ref-Buchanan2005}{}
-Buchanan, T., Ali, T., Heffernan, T., Ling, J., Parrott, A., Rodgers,
-J., \& Scholey, A. (2005). Nonequivalence of on-line and
-paper-and-pencil psychological tests: The case of the prospective memory
-questionnaire. \emph{Behavior Research Methods}, \emph{37}(1), 148--154.
-doi:\href{https://doi.org/10.3758/BF03206409}{10.3758/BF03206409}
-
-\hypertarget{ref-Buhrmester2011}{}
-Buhrmester, M., Kwang, T., \& Gosling, S. D. (2011). Amazon's Mechanical
-Turk: A new source of inexpensive, yet high-quality, data?
-\emph{Perspectives on Psychological Science}, \emph{6}(1), 3--5.
-doi:\href{https://doi.org/10.1177/1745691610393980}{10.1177/1745691610393980}
-
-\hypertarget{ref-Cantrell2007}{}
-Cantrell, M. A., \& Lupinacci, P. (2007). Methodological issues in
-online data collection. \emph{Journal of Advanced Nursing},
-\emph{60}(5), 544--549.
-doi:\href{https://doi.org/10.1111/j.1365-2648.2007.04448.x}{10.1111/j.1365-2648.2007.04448.x}
-
-\hypertarget{ref-Charters2004}{}
-Charters, E. (2004). New perspectives on popular culture, science and
-technology: Web browsers and the new illiteracy. \emph{College
-Quarterly}, \emph{7}(1), 1--13.
-
-\hypertarget{ref-Cohen1992a}{}
-Cohen, J. (1992). A power primer. \emph{Psychological Bulletin},
-\emph{112}(1), 155--159.
-doi:\href{https://doi.org/10.1037//0033-2909.112.1.155}{10.1037//0033-2909.112.1.155}
-
-\hypertarget{ref-Cook2000}{}
-Cook, C., Heath, F., \& Thompson, R. L. (2000). A meta-analysis of
-response rates in Web- or Internet-based surveys. \emph{Educational and
-Psychological Measurement}, \emph{60}(6), 821--836.
-doi:\href{https://doi.org/10.1177/00131640021970934}{10.1177/00131640021970934}
-
-\hypertarget{ref-Cribbie2004}{}
-Cribbie, R. A., Gruman, J. A., \& Arpin-Cribbie, C. A. (2004).
-Recommendations for applying tests of equivalence. \emph{Journal of
-Clinical Psychology}, \emph{60}(1), 1--10.
-doi:\href{https://doi.org/10.1002/jclp.10217}{10.1002/jclp.10217}
-
-\hypertarget{ref-Cronk2002}{}
-Cronk, B. C., \& West, J. L. (2002). Personality research on the
-Internet: A comparison of Web-based and traditional instruments in
-take-home and in-class settings. \emph{Behavior Research Methods,
-Instruments, \& Computers}, \emph{34}(2), 177--180.
-doi:\href{https://doi.org/10.3758/BF03195440}{10.3758/BF03195440}
-
-\hypertarget{ref-Crumbaugh1964}{}
-Crumbaugh, J. C., \& Maholick, L. T. (1964). An experimental study in
-existentialism: The psychometric approach to Frankl's concept ofnoogenic
-neurosis. \emph{Journal of Clinical Psychology}, \emph{20}(2), 200--207.
-doi:\href{https://doi.org/10.1002/1097-4679(196404)20:2\%3C200::AID-JCLP2270200203\%3E3.0.CO;2-U}{10.1002/1097-4679(196404)20:2\textless{}200::AID-JCLP2270200203\textgreater{}3.0.CO;2-U}
-
-\hypertarget{ref-Cumming2014}{}
-Cumming, G. (2014). The new statistics: Why and how. \emph{Psychological
-Science}, \emph{25}(1), 7--29.
-doi:\href{https://doi.org/10.1177/0956797613504966}{10.1177/0956797613504966}
-
-\hypertarget{ref-DeLeeuw1988}{}
-De Leeuw, E. D., \& Hox, J. J. (1988). The effects of
-response-stimulating factors on response rates and data quality in mail
-surveys: A test of Dillman's total design method. \emph{Journal of
-Official Statistics}, \emph{4}(3), 241--249.
-
-\hypertarget{ref-Deutskens2006}{}
-Deutskens, E., Ruyter, K. de, \& Wetzels, M. (2006). An Assessment of
-Equivalence Between Online and Mail Surveys in Service Research.
-\emph{Journal of Service Research}, \emph{8}(4), 346--355.
-doi:\href{https://doi.org/10.1177/1094670506286323}{10.1177/1094670506286323}
-
-\hypertarget{ref-DeVellis2016a}{}
-DeVellis, R. F. (2016). \emph{Scale Development: Theory and
-Applications, 4th Edition} (Vol. 26).
-
-\hypertarget{ref-Dillman2008}{}
-Dillman, D. A., Smyth, J. D., \& Christian, L. M. (2008).
-\emph{Internet, mail, and mixed-mode surveys: The tailored design
-method} (3rd ed.). Hoboken, NJ: John Wiley \& Sons, Inc.
-doi:\href{https://doi.org/10.2307/41061275}{10.2307/41061275}
-
-\hypertarget{ref-Fang2012a}{}
-Fang, J., Wen, C., \& Pavur, R. (2012a). Participation willingness in
-web surveys: Exploring effect of sponsoring corporation's and survey
-provider's reputation. \emph{Cyberpsychology, Behavior, and Social
-Networking}, \emph{15}(4), 195--199.
-doi:\href{https://doi.org/10.1089/cyber.2011.0411}{10.1089/cyber.2011.0411}
-
-\hypertarget{ref-Fang2012}{}
-Fang, J., Wen, C., \& Prybutok, V. R. (2012b). An assessment of
-equivalence between Internet and paper-based surveys: evidence from
-collectivistic cultures. \emph{Quality \& Quantity}, \emph{48}(1),
-493--506.
-doi:\href{https://doi.org/10.1007/s11135-012-9783-3}{10.1007/s11135-012-9783-3}
-
-\hypertarget{ref-Frick2001}{}
-Frick, A., Bächtiger, M. T., \& Reips, U.-D. (2001). Financial
-incentives, personal information and dropout in online studies. In U.-D.
-Reips \& M. Bosnjak (Eds.), \emph{Dimensions of internet science} (pp.
-209--219).
-
-\hypertarget{ref-Gramacy2010}{}
-Gramacy, R. B., \& Pantaleoy, E. (2010). Shrinkage regression for
-multivariate inference with missing data, and an application to
-portfolio balancing. \emph{Bayesian Analysis}, \emph{5}(2), 237--262.
-doi:\href{https://doi.org/10.1214/10-BA602}{10.1214/10-BA602}
-
-\hypertarget{ref-Hausman1978}{}
-Hausman, J. A. (1978). Specification tests in Econometrics.
-\emph{Econometrica}, \emph{46}(6), 1251.
-doi:\href{https://doi.org/10.2307/1913827}{10.2307/1913827}
-
-\hypertarget{ref-Henrich2010}{}
-Henrich, J., Heine, S. J., \& Norenzayan, A. (2010). The weirdest people
-in the world? \emph{Behavioral and Brain Sciences}, \emph{33}(2-3),
-61--83.
-doi:\href{https://doi.org/10.1017/S0140525X0999152X}{10.1017/S0140525X0999152X}
-
-\hypertarget{ref-Hox1994}{}
-Hox, J. J., \& De Leeuw, E. D. (1994). A comparison of nonresponse in
-mail, telephone, and face-to-face surveys. \emph{Quality and Quantity},
-\emph{28}(4), 329--344.
-doi:\href{https://doi.org/10.1007/BF01097014}{10.1007/BF01097014}
-
-\hypertarget{ref-Hu1999}{}
-Hu, L., \& Bentler, P. M. (1999). Cutoff criteria for fit indexes in
-covariance structure analysis: Conventional criteria versus new
-alternatives. \emph{Structural Equation Modeling: A Multidisciplinary
-Journal}, \emph{6}(1), 1--55.
-doi:\href{https://doi.org/10.1080/10705519909540118}{10.1080/10705519909540118}
-
-\hypertarget{ref-Hutzell1988}{}
-Hutzell, R. (1988). A review of the Purpose in Life Test.
-\emph{International Forum for Logotherapy}, \emph{11}(2), 89--101.
-
-\hypertarget{ref-Ilieva2001}{}
-Ilieva, J., Baron, S., \& Healy, N. M. (2002). On-line surveys in
-international marketing research: Pros and cons. \emph{International
-Journal of Market Research}, \emph{44}(3), 361--376.
-
-\hypertarget{ref-Joinson1999}{}
-Joinson, A. (1999). Social desirability, anonymity, and Intemet-based
-questionnaires. \emph{Behavior Research Methods, Instruments, \&
-Computers}, \emph{31}(3), 433--438.
-doi:\href{https://doi.org/10.3758/BF03200723}{10.3758/BF03200723}
-
-\hypertarget{ref-Kass1995}{}
-Kass, R. E., \& Raftery, A. E. (1995). Bayes Factors. \emph{Journal of
-the American Statistical Association}, \emph{90}(430), 773--795.
-doi:\href{https://doi.org/10.1080/01621459.1995.10476572}{10.1080/01621459.1995.10476572}
-
-\hypertarget{ref-Keppel2004}{}
-Keppel, G., \& Wickens, T. (2004). \emph{Design and Analysis: A
-Researcher's Handbook} (4th ed.). Upper Saddle River, NJ: Prentice Hall.
-
-\hypertarget{ref-Lakens2013}{}
-Lakens, D. (2013). Calculating and reporting effect sizes to facilitate
-cumulative science: A practical primer for t-tests and ANOVAs.
-\emph{Frontiers in Psychology}, \emph{4}.
-doi:\href{https://doi.org/10.3389/fpsyg.2013.00863}{10.3389/fpsyg.2013.00863}
-
-\hypertarget{ref-Lakens2017a}{}
-Lakens, D. (2017). Equivalence tests. \emph{Social Psychological and
-Personality Science}, \emph{8}(4), 355--362.
-doi:\href{https://doi.org/10.1177/1948550617697177}{10.1177/1948550617697177}
-
-\hypertarget{ref-Lakens2017}{}
-Lakens, D., Adolfi, F. G., Albers, C. J., Anvari, F., Apps, M. A. J.,
-Argamon, S. E., \ldots{} Zwaan, R. A. (2017). \emph{Justify Your Alpha:
-A Response to ``Redefine Statistical Significance''}.
-doi:\href{https://doi.org/10.17605/OSF.IO/9S3Y6}{10.17605/OSF.IO/9S3Y6}
-
-\hypertarget{ref-Lewis2009}{}
-Lewis, I., Watson, B., \& White, K. M. (2009). Internet versus
-paper-and-pencil survey methods in psychological experiments:
-Equivalence testing of participant responses to health-related messages.
-\emph{Australian Journal of Psychology}, \emph{61}(2), 107--116.
-doi:\href{https://doi.org/10.1080/00049530802105865}{10.1080/00049530802105865}
-
-\hypertarget{ref-Media2016}{}
-Media. (2016). \emph{The Total Audience Report: Q1 2016}.
-
-\hypertarget{ref-Melton2008}{}
-Melton, A. M. A., \& Schulenberg, S. E. (2008). On the measurement of
-meaning: Logotherapy's empirical contributions to humanistic psychology.
-\emph{The Humanistic Psychologist}, \emph{36}(1), 31--44.
-doi:\href{https://doi.org/10.1080/08873260701828870}{10.1080/08873260701828870}
-
-\hypertarget{ref-Meyerson2003}{}
-Meyerson, P., \& Tryon, W. W. (2003). Validating Internet research: A
-test of the psychometric equivalence of Internet and in-person samples.
-\emph{Behavior Research Methods, Instruments, \& Computers},
-\emph{35}(4), 614--620.
-doi:\href{https://doi.org/10.3758/BF03195541}{10.3758/BF03195541}
-
-\hypertarget{ref-Morey2015c}{}
-Morey, R. D. (2015). On verbal categories for the interpretation of
-Bayes factors. Retrieved from
-\url{http://bayesfactor.blogspot.com/2015/01/on-verbal-categories-for-interpretation.html}
-
-\hypertarget{ref-Morey2015b}{}
-Morey, R. D., \& Rouder, J. N. (2015). BayesFactor: Computation of Bayes
-Factors for common designs. Retrieved from
-\url{https://cran.r-project.org/package=BayesFactor}
-
-\hypertarget{ref-Musch2000}{}
-Musch, J., \& Reips, U.-D. (2000). A brief history of web experimenting.
-In M. H. Birnbaum (Ed.), \emph{Psychological experiments on the
-internet} (pp. 61--87). Elsevier.
-doi:\href{https://doi.org/10.1016/B978-012099980-4/50004-6}{10.1016/B978-012099980-4/50004-6}
-
-\hypertarget{ref-Nosek2002}{}
-Nosek, B. A., Banaji, M. R., \& Greenwald, A. G. (2002). E-Research:
-Ethics, security, design, and control in psychological research on the
-Internet. \emph{Journal of Social Issues}, \emph{58}(1), 161--176.
-doi:\href{https://doi.org/10.1111/1540-4560.00254}{10.1111/1540-4560.00254}
-
-\hypertarget{ref-Olson2010}{}
-Olson, K. (2010). An examination of questionnaire evaluation by expert
-reviewers. \emph{Field Methods}, \emph{22}(4), 295--318.
-doi:\href{https://doi.org/10.1177/1525822X10379795}{10.1177/1525822X10379795}
-
-\hypertarget{ref-Preacher2003}{}
-Preacher, K. J., \& MacCallum, R. C. (2003). Repairing Tom Swift's
-Electric Factor Analysis Machine. \emph{Understanding Statistics},
-\emph{2}(1), 13--43.
-doi:\href{https://doi.org/10.1207/S15328031US0201_02}{10.1207/S15328031US0201\_02}
-
-\hypertarget{ref-Reips2002a}{}
-Reips, U.-D. (2002). Standards for Internet-based experimenting.
-\emph{Experimental Psychology}, \emph{49}(4), 243--256.
-doi:\href{https://doi.org/10.1026//1618-3169.49.4.243}{10.1026//1618-3169.49.4.243}
-
-\hypertarget{ref-Reips2012}{}
-Reips, U.-D. (2012). Using the Internet to collect data. In \emph{APA
-handbook of research methods in psychology, vol 2: Research designs:
-Quantitative, qualitative, neuropsychological, and biological.} (Vol. 2,
-pp. 291--310). Washington: American Psychological Association.
-doi:\href{https://doi.org/10.1037/13620-017}{10.1037/13620-017}
-
-\hypertarget{ref-Rogers1993}{}
-Rogers, J. L., Howard, K. I., \& Vessey, J. T. (1993). Using
-significance tests to evaluate equivalence between two experimental
-groups. \emph{Psychological Bulletin}, \emph{113}(3), 553--565.
-doi:\href{https://doi.org/10.1037/0033-2909.113.3.553}{10.1037/0033-2909.113.3.553}
-
-\hypertarget{ref-Rouder2009}{}
-Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., \& Iverson, G.
-(2009). Bayesian t tests for accepting and rejecting the null
-hypothesis. \emph{Psychonomic Bulletin \& Review}, \emph{16}(2),
-225--237.
-doi:\href{https://doi.org/10.3758/PBR.16.2.225}{10.3758/PBR.16.2.225}
-
-\hypertarget{ref-Sanou2017}{}
-Sanou, B. (2017, July). ICT Facts and Figures 2017. Retrieved from
-\url{http://www.itu.int/en/ITU-D/Statistics/Documents/facts/ICTFactsFigures2017.pdf}
-
-\hypertarget{ref-Schuirmann1987}{}
-Schuirmann, D. J. (1987). A comparison of the Two One-Sided Tests
-Procedure and the Power Approach for assessing the equivalence of
-average bioavailability. \emph{Journal of Pharmacokinetics and
-Biopharmaceutics}, \emph{15}(6), 657--680.
-doi:\href{https://doi.org/10.1007/BF01068419}{10.1007/BF01068419}
-
-\hypertarget{ref-Schuldt1994}{}
-Schuldt, B. a., \& Totten, J. W. (1994). Electronic mail vs. mail survey
-response rates. \emph{Marketing Research}, \emph{6}, 36--39.
-
-\hypertarget{ref-Schulenberg2004}{}
-Schulenberg, S. E. (2004). A psychometric investigation of logotherapy
-measures and the Outcome Questionnaire (OQ-45.2). \emph{North American
-Journal of Psychology}, \emph{6}(3), 477--492.
-
-\hypertarget{ref-Schulenberg2010}{}
-Schulenberg, S. E., \& Melton, A. M. A. (2010). A confirmatory
-factor-analytic evaluation of the purpose in life test: Preliminary
-psychometric support for a replicable two-factor model. \emph{Journal of
-Happiness Studies}, \emph{11}(1), 95--111.
-doi:\href{https://doi.org/10.1007/s10902-008-9124-3}{10.1007/s10902-008-9124-3}
-
-\hypertarget{ref-Schulenberg1999}{}
-Schulenberg, S. E., \& Yutrzenka, B. A. (1999). The equivalence of
-computerized and paper-and-pencil psychological instruments:
-Implications for measures of negative affect. \emph{Behavior Research
-Methods, Instruments, \& Computers}, \emph{31}(2), 315--321.
-doi:\href{https://doi.org/10.3758/BF03207726}{10.3758/BF03207726}
-
-\hypertarget{ref-Schulenberg2001}{}
-Schulenberg, S. E., \& Yutrzenka, B. A. (2001). Equivalence of
-computerized and conventional versions of the Beck Depression
-Inventory-II (BDI-II). \emph{Current Psychology}, \emph{20}(3),
-216--230.
-doi:\href{https://doi.org/10.1007/s12144-001-1008-1}{10.1007/s12144-001-1008-1}
-
-\hypertarget{ref-Schulenberg2011}{}
-Schulenberg, S. E., Schnetzer, L. W., \& Buchanan, E. M. (2011). The
-Purpose in Life Test-Short Form: Development and Psychometric Support.
-\emph{Journal of Happiness Studies}, \emph{12}(5), 861--876.
-doi:\href{https://doi.org/10.1007/s10902-010-9231-9}{10.1007/s10902-010-9231-9}
-
-\hypertarget{ref-Smithson2001}{}
-Smithson, M. (2001). Correct confidence intervals for various regression
-effect sizes and parameters: The importance of noncentral distributions
-in computing intervals. \emph{Educational and Psychological
-Measurement}, \emph{61}(4), 605--632.
-doi:\href{https://doi.org/10.1177/00131640121971392}{10.1177/00131640121971392}
-
-\hypertarget{ref-Smyth2006}{}
-Smyth, J. D. (2006). Comparing check-all and forced-choice question
-formats in web surveys. \emph{Public Opinion Quarterly}, \emph{70}(1),
-66--77.
-doi:\href{https://doi.org/10.1093/poq/nfj007}{10.1093/poq/nfj007}
-
-\hypertarget{ref-Strack2009}{}
-Strack, K. M., \& Schulenberg, S. E. (2009). Understanding empowerment,
-meaning, and perceived coercion in individuals with serious mental
-illness. \emph{Journal of Clinical Psychology}, \emph{65}(10),
-1137--1148.
-doi:\href{https://doi.org/10.1002/jclp.20607}{10.1002/jclp.20607}
-
-\hypertarget{ref-Tabachnick2012}{}
-Tabachnick, B. G., \& Fidell, L. S. (2012). \emph{Using multivariate
-statistics} (6th ed.). Boston, MA: Pearson.
-
-\hypertarget{ref-Tourangeau1999}{}
-Tourangeau, R., Rips, L. J., \& Rasinski, K. (1999). \emph{The
-Psychology of Survey Response}. Cambridge, UK: Cambridge University
-Press.
-
-\hypertarget{ref-Valentine2017}{}
-Valentine, K. D., Buchanan, E. M., Scofield, J. E., \& Beauchamp, M.
-(2017). Beyond p-values: Utilizing Multiple Estimates to Evaluate
-Evidence.
-doi:\href{https://doi.org/10.17605/osf.io/9hp7y}{10.17605/osf.io/9hp7y}
-
-\hypertarget{ref-VanBuuren2011}{}
-Van Buuren, S., \& Groothuis-Oudshoorn, K. (2011). mice: Multivariate
-Imputation by Chained Equations in R. \emph{Journal of Statistical
-Software}, \emph{45}(3), 1--67.
-doi:\href{https://doi.org/10.18637/jss.v045.i03}{10.18637/jss.v045.i03}
-
-\hypertarget{ref-Weigold2013}{}
-Weigold, A., Weigold, I. K., \& Russell, E. J. (2013). Examination of
-the equivalence of self-report survey-based paper-and-pencil and
-internet data collection methods. \emph{Psychological Methods},
-\emph{18}(1), 53--70.
-doi:\href{https://doi.org/10.1037/a0031607}{10.1037/a0031607}
-
-\hypertarget{ref-Worthington2006}{}
-Worthington, R. L., \& Whittaker, T. a. (2006). Scale development
-research: A content analysis and recommendations for best practices.
-\emph{The Counseling Psychologist}, \emph{34}(6), 806--838.
-doi:\href{https://doi.org/10.1177/0011000006288127}{10.1177/0011000006288127}
-
+  \printbibliography
 
 
 
