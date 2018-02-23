@@ -2362,6 +2362,126 @@ summary(master)
 
 ```
 
+```{r PVS, include=FALSE}
+
+```
+
+```{r PVStable, echo=FALSE, results='asis'}
+
+```
+
+```{r PIL, include=FALSE}
+
+```
+
+```{r PILtable, echo=FALSE, results='asis'}
+
+```
+
+```{r PILshort, include=FALSE}
+
+```
+
+```{r PILshorttable, echo=FALSE, results='asis'}
+
+```
+
+```{r PPM&PMP, include=FALSE}
+
+```
+
+```{r PPM&PMPtable, echo=FALSE, results='asis'}
+
+```
+
+```{r PVSH, include=FALSE}
+
+```
+
+```{r PVSHtable, echo=FALSE, results='asis'}
+
+```
+
+```{r QE, include=FALSE}
+
+```
+
+```{r QEtable, echo=FALSE, results='asis'}
+
+```
+
+```{r RS14, include=FALSE}
+
+```
+
+```{r RS14table, echo=FALSE, results='asis'}
+
+```
+
+```{r SWL, include=FALSE}
+
+```
+
+```{r SWLtable, echo=FALSE, results='asis'}
+
+```
+
+```{r SONG, include=FALSE}
+
+```
+
+```{r SONGtable, echo=FALSE, results='asis'}
+
+```
+
+```{r SOC, include=FALSE}
+
+```
+
+```{r SOCtable, echo=FALSE, results='asis'}
+
+```
+
+```{r SOM, include=FALSE}
+
+```
+
+```{r SOMtable, echo=FALSE, results='asis'}
+
+```
+
+```{r SMS, include=FALSE}
+
+```
+
+```{r SMStable, echo=FALSE, results='asis'}
+
+```
+
+```{r STMS, include=FALSE}
+
+```
+
+```{r STMStable, echo=FALSE, results='asis'}
+
+```
+
+```{r VOL, include=FALSE}
+
+```
+
+```{r VOLtable, echo=FALSE, results='asis'}
+
+```
+
+```{r WBS, include=FALSE}
+
+```
+
+```{r WBStable, echo=FALSE, results='asis'}
+
+```
+
 
 ##ideas
 
