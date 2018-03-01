@@ -48,7 +48,7 @@ lang              : "english"
 #class             : "man"
 class             : "man, mask"
 output            : papaja::apa6_pdf
-relpace_ampersands: yes
+replace_ampersands: yes
 csl               : apa6.csl
 ---
 
@@ -67,6 +67,7 @@ The question is no longer whether web-based surveys are reliable sources of data
 Therefore, this study focuses on potential differences in results based on item randomization delivery methodology. The current project examined large samples on two logotherapy-related scales, as these scales include potentially reactive items, as well as both a dichotomous True/False and traditional Likert format for the same items. Large samples were desirable to converge on a stable, representative population; however, false positives (i.e., Type I errors) can occur by using large *N*. Recent developments in the literature focusing on null hypothesis testing make it especially important to present potential alternatives to *p*-values [@Valentine2017]. While a large set of researchers have argued that the literature is full of Type I errors [@Benjamin2017], and thus, the $\alpha$ value should be shifted lower (i.e., *p* < .005 for statistical significance), an equally large set of researchers counter this argument as unfounded and weak [@Lakens2017]. We provide multiple sources of evidence (*p*-values, effect sizes, Bayes Factors, and tests of equivalence) to determine if differences found are not only statistically significant, but also practically significant. In our study, we expand to item randomization for online based surveys, examining the impact on factor loadings, variance-covariance structure, item means, and total scores again providing evidence of difference/non-difference from multiple statistical sources. Finally, we examine these scenarios with a unique set of scales that have both dichotomous True/False and traditional Likert formats to explore how the answer response options might impact any differences found between randomized and nonrandomized methodologies. 
 
 ```{r libraries, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
 library(papaja)
 library(car)
 library(memisc)
@@ -120,7 +121,7 @@ Bayes Factors are calculated in opposition to a normal frequentist (NHST) approa
 
 NHST has also been criticized for an inability to test the null hypothesis, and thus, show evidence of the absence of an effect. Non-significant *p*-values are often misinterpreted as evidence for the null hypothesis [@Lakens2017a]. However, we can use the traditional frequentist approach to determine if an effect is within a set of equivalence bounds. We used the two one-sided tests approach to specify a range of raw-score equivalence that would be considered supportive of the null hypothesis (i.e. no worthwhile effects or differences). TOST are then used to determine if the values found are outside of the equivalence range. Significant TOST values indicate that the effects are *within* the range of equivalence. We used the *TOSTER* package [@Lakens2017a] to calculate these values, and graphics created from this package can be found online at https://osf.io/gvx7s/. 
 
-The equivalence ranges are often tested by computing an expected effect size of negligible range; however, the TOST for dependent *t* uses $d_z$, which can overestimate the effect size of a phenomena [@Cumming2014; @Lakens2013]. Therefore, we calculated TOST tests on raw score differences to alleviate the overestimation issues. For EFA, we used a change score of .10 in the loadings, as Comrey and Lee (1992) suggested loading estimation ranges, such as .32 (poor) to .45 (fair) to .55 (good), and the differences in these ranges are approximately .10 [as cited in @Tabachnick2012, p. 654]. Additionally, this score would amount to a small correlation change using traditional guidelines for interpretation of *r* [@Cohen1992a]. For item and total score differences, we chose a 5% change in magnitude as the raw score cut off as a modest raw score change. To calculate that change for total scores, we used the following formula:
+The equivalence ranges are often tested by computing an expected effect size of negligible range; however, the TOST for dependent *t* uses $d_z$, which can overestimate the effect size of a phenomena [@Cumming2014; @Lakens2013]. Therefore, we calculated TOST tests on raw score differences to alleviate the overestimation issues. For EFA, we used a change score of .10 in the loadings, as @Comrey1992 suggested loading estimation ranges, such as .32 (poor) to .45 (fair) to .55 (good), and the differences in these ranges are approximately .10 [as cited in @Tabachnick2012, p. 654]. Additionally, this score would amount to a small correlation change using traditional guidelines for interpretation of *r* [@Cohen1992a]. For item and total score differences, we chose a 5% change in magnitude as the raw score cut off as a modest raw score change. To calculate that change for total scores, we used the following formula:
 
 $$
 (Max*N_{Questions} - Min*N_{Questions}) * Change
@@ -160,7 +161,7 @@ replacecolumnrandom = replacepeoplerandom[ , -15]
 dontcolumnrrandom = replacepeoplerandom[ , 15]
 
 ##replace data
-tempnomissrandom = mice(replacecolumnrandom)
+tempnomissrandom = mice(replacecolumnrandom, seed = 165)
 replacedrandom_temp = complete(tempnomissrandom, 1)
 
 replacedrandom = cbind(replacedrandom_temp[ , 1:14], 
@@ -222,7 +223,7 @@ summary(replacepeoplenotrandom)
 apply(replacepeoplenotrandom, 2, percentmiss)
 
 ##replace the data
-tempnomissnotrandom = mice(replacepeoplenotrandom)
+tempnomissnotrandom = mice(replacepeoplenotrandom, seed = 583)
 replacednotrandom = complete(tempnomissnotrandom, 1)
 summary(replacednotrandom)
 
@@ -303,7 +304,7 @@ replacepeopleallcompiledrandom = subset(LPQallcompiledrandom, missingallcompiled
 apply(replacepeopleallcompiledrandom, 2, percentmiss)
 
 ##replace data
-tempnomiss = mice(replacepeopleallcompiledrandom)
+tempnomiss = mice(replacepeopleallcompiledrandom, seed = 784)
 replacedallcompiledrandom = complete(tempnomiss, 1)
 summary(replacedallcompiledrandom)
 
@@ -355,7 +356,7 @@ replacepeopleallcompilednotrandom = subset(LPQallcompilednotrandom, missingallco
 apply(replacepeopleallcompilednotrandom,2,percentmiss)
 
 ##replace data
-tempnomiss = mice(replacepeopleallcompilednotrandom)
+tempnomiss = mice(replacepeopleallcompilednotrandom, seed = 489)
 replacedallcompilednotrandom = complete(tempnomiss, 1)
 summary(replacedallcompilednotrandom)
 
@@ -474,6 +475,8 @@ write.csv(stdP, "stdres_not_randomP.csv")
 ```
 
 Covariance structure was considered different [i.e. above .10; @Hu1999] for the randomized and not randomized forms of item order, *RMSE* = `r apa(RMSEP, 2, F)`. Standardized residuals were calculated by dividing the difference in covariance tables by the variance of the differences [@Hausman1978]. While *RMSE* indicated partial misfit between the covariance relationships, only `r overP` values were significantly different using *Z* of 1.96 as a criterion: the variances of PIL 7 and 14. PIL 7 in a randomized form had less variance ($SD^2$ = `r apa(rand_corP[7,7], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[7,7], 2)`). Likewise, PIL 14 randomized had a smaller variance ($SD^2$ = `r apa(rand_corP[14,14], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[14,14], 2)`). Questions about retirement and freedom to make choices decreased in variance when they were randomly presented. 
+
+IF YOU DO NOT CHANGE THIS WHOLE SECTION BE SURE TO TALK ABOUT PIL 16 IS THE OTHER ONE WE MISSED.  
 
 ### Factor Loadings
 
@@ -594,15 +597,15 @@ TPbf = ttestBF(finalnotrandomP$total, finalrandomP$total, paired = F)
 Ptable = matrix(NA, nrow = 20, ncol = 7)
 
 ##create column names
-colnames(Ptable) = c("Item","FL-R","FL-NR","M-R","SD-R","M-NR","SD-NR")
+colnames(Ptable) = c("Item","FL-R","FL-NR","M-R","M-NR","SD-R","SD-NR")
 
 ##stick in the information you need
 Ptable[ , 1] = apa(1:20, 0)
 Ptable[ , 2] = apa(FLrandomP$loadings[1:20], 3, F)
 Ptable[ , 3] = apa(FLnotP$loadings[1:20], 3, F)
 Ptable[ , 4] = apa(MrP, 3)
-Ptable[ , 5] = apa(SDrP, 3)
-Ptable[ , 6] = apa(MnrP, 3)
+Ptable[ , 5] = apa(MnrP, 3)
+Ptable[ , 6] = apa(SDrP, 3)
 Ptable[ , 7] = apa(SDnrP, 3)
 
 ##print it (apa)
@@ -772,15 +775,15 @@ TLbf = ttestBF(finalnotrandomL$total, finalrandomL$total, paired = F)
 Ltable = matrix(NA, nrow = 20, ncol = 7)
 
 ##create column names
-colnames(Ltable) = c("Item","FL-R","FL-NR","M-R","SD-R","M-NR","SD-NR")
+colnames(Ltable) = c("Item","FL-R","FL-NR","M-R","M-NR","SD-R","SD-NR")
 
 ##stick in the information you need
 Ltable[ , 1] = apa(1:20, 0)
 Ltable[ , 2] = apa(FLrandomL$loadings[1:20], 3, F)
 Ltable[ , 3] = apa(FLnotL$loadings[1:20], 3, F)
 Ltable[ , 4] = apa(MrL, 3, F)
-Ltable[ , 5] = apa(SDrL, 3, F)
-Ltable[ , 6] = apa(MnrL, 3, F)
+Ltable[ , 5] = apa(MnrL, 3, F)
+Ltable[ , 6] = apa(SDrL, 3, F)
 Ltable[ , 7] = apa(SDnrL, 3, F)
 
 ##print it (apa)
@@ -799,7 +802,11 @@ LPQ total scores were created by summing the items for each participant. The mea
 
 As technology has advanced, initial research questioned the validity of online assessments versus paper assessments. With further investigation, several researchers discovered measurement invariance with regard to computer surveys compared with paper surveys [@Deutskens2006; @Lewis2009]. However, with the addition of technology, @Fang2012a suggested that individuals respond with more extreme scores in online surveys than in-person surveys due to the social-desirability effect. Research on scale invariance is mixed in results for paper and computer, and our work is a first-step on examining survey equivalence on an individual item-level for different forms of computer delivery. 
 
-The findings from the current study imply that item randomization is a viable option for controlling any potential reactivity between questions. First, as we analyzed the PIL, the covariance matrices were non-equivalent; the randomized data show decreased variance for several items compared to the nonrandomized data. Since variance provides a measure of how the data vary around the mean, decreased variance typically results in decreased measurement error; thus, randomization has the potential to decrease measurement error in data collection. The findings also support the null hypothesis in regards to factor loading differences because the item relationship to a latent variable should not change with randomization. The item means comparison resulted in significant differences between item randomization and nonrandomization using *p*-value criterion and Bayes Factor analyses. However, the effect size was small, meaning the differences were not as meaningful as the *p*-values and *BF* analyses posit, in addition to considering the evidentiary values of the two one-sided tests, which supported the null range of expected values. Finally, the total scores showed equivalence between randomization and nonrandomization which suggested that total scales were not considerably impacted with or without randomization of items. 
+FIX THIS PARAGRAPH
+The findings from the current study imply that item randomization is a viable option for controlling any potential reactivity between questions. First, as we analyzed the PIL, the covariance matrices were non-equivalent; the randomized data show decreased variance for several items compared to the nonrandomized data. Since variance provides a measure of how the data vary around the mean, decreased variance typically results in decreased measurement error; thus, randomization has the potential to decrease measurement error in data collection. 
+FIX ME END. TALK ABOUT THIS MORE IRT STYLE - THINK ABOUT HOW THIS MAY CHANGE WITH THE CORTEST FUNCTION 
+
+The findings also support the null hypothesis in regards to factor loading differences because the item relationship to a latent variable should not change with randomization. The item means comparison resulted in significant differences between item randomization and nonrandomization using *p*-value criterion and Bayes Factor analyses. However, the effect size was small, meaning the differences were not as meaningful as the *p*-values and *BF* analyses posit, in addition to considering the evidentiary values of the two one-sided tests, which supported the null range of expected values. Finally, the total scores showed equivalence between randomization and nonrandomization which suggested that total scales were not considerably impacted with or without randomization of items. 
 
 Analyses for the LPQ yielded somewhat similar results to those of the PIL. Pertaining to covariance structures, the randomized and nonrandomized scales resulted in equivalence, with a recapitulation of the PIL analysis in which variance was decreased in the randomized sample for at least one item. A slight correlational difference was detected for items 9 and 11 in which the nonrandomized scale shows a large association between the items, while the randomized scale shows a moderate association between the items. However, the presence of the association remained present on both randomized and nonrandomized scales. Further analyses of the factor loadings, item means, and total scores resulted in equivalence between forms. Therefore, the null hypothesis was supported. Evidentiary equivalence for item means and total scores suggested that randomization of items was not disadvantaging the overall scoring structure of the scale and provides further support for randomization as a means of methodological control. The match between results for two types of answer methodologies (i.e. Likert and True/False) implied that randomization can be applied across a variety of scale types with similar effects. 
 
