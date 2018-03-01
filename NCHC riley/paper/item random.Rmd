@@ -476,22 +476,26 @@ write.csv(stdP, "stdres_not_randomP.csv")
 
 Covariance structure was considered different [i.e. above .10; @Hu1999] for the randomized and not randomized forms of item order, *RMSE* = `r apa(RMSEP, 2, F)`. Standardized residuals were calculated by dividing the difference in covariance tables by the variance of the differences [@Hausman1978]. While *RMSE* indicated partial misfit between the covariance relationships, only `r overP` values were significantly different using *Z* of 1.96 as a criterion: the variances of PIL 7 and 14. PIL 7 in a randomized form had less variance ($SD^2$ = `r apa(rand_corP[7,7], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[7,7], 2)`). Likewise, PIL 14 randomized had a smaller variance ($SD^2$ = `r apa(rand_corP[14,14], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[14,14], 2)`). Questions about retirement and freedom to make choices decreased in variance when they were randomly presented. 
 
-<<<<<<< HEAD
 ```{r Cortest.matPIL, include = FALSE}
 options(scipen = 999)
 
+cor_notrandomP = cor(finalnotrandomP, use="pairwise")
+cor_randomP = cor(finalrandomP, use="pairwise")
 ## cortest.mat(R1,R2=NULL,n1=NULL,n2 = NULL) #an alternative test
+cortest.mat(cor_notrandomP, cor_randomP, 
+            n1 = nrow(finalnotrandomP), n2 = nrow(finalrandomP))
 
-nrow(finalnotrandomP)
-nrow(finalrandomP)
-cortest.mat(not_corP, rand_corP, n1 = 829, n2 = 1070)
+z_notrandomP = fisherz(cor_notrandomP)
+z_randomP = fisherz(cor_randomP)
+z_differenceP = (z_notrandomP - z_randomP) / sqrt((1/(nrow(finalnotrandomP) - 3)) + (1/(nrow(finalrandomP) - 3)))
 
-## it's significant!
+#Zobserved = (z1 – z2) / (square root of [ (1 / N1 – 3) + (1 / N2 – 3) ]
+write.csv(z_differenceP, "z_differenceP.csv", row.names = F)
+sum(abs(z_difference) > 1.96, na.rm = T) / 2
+
 ```
 
-=======
 IF YOU DO NOT CHANGE THIS WHOLE SECTION BE SURE TO TALK ABOUT PIL 16 IS THE OTHER ONE WE MISSED.  
->>>>>>> c71fbecb68ee02c5cbaa00ad4e64da0d146a8408
 
 ### Factor Loadings
 
