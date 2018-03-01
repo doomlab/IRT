@@ -607,6 +607,15 @@ TPtost = TOSTtwo.raw(m1 = MTnrP, m2 = MTrP, sd1 = SDTnrP, sd2 = SDTrP,
 TPbf = ttestBF(finalnotrandomP$total, finalrandomP$total, paired = F)
 ```
 
+```{r ReliabilitiesPIL, include = FALSE}
+
+alpha(finalnotrandomP[, -21])
+##alpha = 0.93 excellent!
+alpha(finalrandomP[, -21])
+##alpha = 0.92 excellent!
+```
+
+
 ```{r Ptable, echo = FALSE, results = 'asis'}
 ##make a blank table
 Ptable = matrix(NA, nrow = 20, ncol = 7)
@@ -794,6 +803,16 @@ TLtost = TOSTtwo.raw(m1 = MTnrL, m2 = MTrL, sd1 = SDTnrL, sd2 = SDTrL,
 ##bayes factor
 TLbf = ttestBF(finalnotrandomL$total, finalrandomL$total, paired = F)
 ```
+
+```{r ReliabilitiesLPQ, include = FALSE}
+
+alpha(finalnotrandomL[,-21])
+## alpha = 0.84 good
+alpha(finalrandomL[,-21])
+## alpha = 0.82 good
+
+```
+
 
 ```{r Ltable, echo = FALSE, results = 'asis'}
 ##make a blank table
