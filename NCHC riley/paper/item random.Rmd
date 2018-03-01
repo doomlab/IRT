@@ -473,6 +473,19 @@ write.csv(stdP, "stdres_not_randomP.csv")
 
 Covariance structure was considered different [i.e. above .10; @Hu1999] for the randomized and not randomized forms of item order, *RMSE* = `r apa(RMSEP, 2, F)`. Standardized residuals were calculated by dividing the difference in covariance tables by the variance of the differences [@Hausman1978]. While *RMSE* indicated partial misfit between the covariance relationships, only `r overP` values were significantly different using *Z* of 1.96 as a criterion: the variances of PIL 7 and 14. PIL 7 in a randomized form had less variance ($SD^2$ = `r apa(rand_corP[7,7], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[7,7], 2)`). Likewise, PIL 14 randomized had a smaller variance ($SD^2$ = `r apa(rand_corP[14,14], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[14,14], 2)`). Questions about retirement and freedom to make choices decreased in variance when they were randomly presented. 
 
+```{r Cortest.matPIL, include = FALSE}
+options(scipen = 999)
+
+## cortest.mat(R1,R2=NULL,n1=NULL,n2 = NULL) #an alternative test
+
+nrow(finalnotrandomP)
+nrow(finalrandomP)
+cortest.mat(not_corP, rand_corP, n1 = 829, n2 = 1070)
+
+## it's significant!
+```
+
+
 ### Factor Loadings
 
 ```{r Pfactor-load, include = FALSE}
@@ -651,6 +664,16 @@ CrL = cor(finalrandomL$lpq9_1, finalrandomL$lpq11_1)
 ```
 
 Covariance structure for the LPQ was found to be the same across both randomized and nonrandomized testing, *RMSE* = `r apa(RMSEL, 2, F)`. Standardized residuals indicated that the covariance between items 9 and 11 were significantly different, while item 13 included significantly different variances. The correlation between items 9 (empty life) and 11 (wondering about being alive) for randomized versions was *r* = `r apa(CrL, 2, F)` while the correlation for nonrandomized versions was *r* = `r apa(CnrL, 2, F)`. The variance for item 13 (responsibility) in a randomized version ($SD^2$ = `r apa(rand_corL[13,13], 2, F)`) was smaller than the variance in the nonrandomized version ($SD^2$ = `r apa(not_corL[13,13], 2, F)`).
+
+```{r Cortest.matLPQ, include = FALSE}
+## cortest.mat(R1,R2=NULL,n1=NULL,n2 = NULL) #an alternative test
+
+nrow(finalnotrandomL)
+nrow(finalrandomL)
+cortest.mat(not_corL, rand_corL, n1 = 750, n2 = 883)
+
+## it's significant!
+```
 
 ### Factor Loadings
 
