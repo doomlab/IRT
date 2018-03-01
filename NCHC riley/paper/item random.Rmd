@@ -91,6 +91,8 @@ Of the surveys included within each larger study, two questionnaires were utiliz
 ### The Purpose in Life Questionnaire
 The PIL is a 20-item questionnaire that assesses perceived meaning and life purpose. Items are structured in a 7-point Likert type response format; however, each item has different anchoring points that focus on item content. Total scores are created by summing the items, resulting in a range of 20 to 140 for the overall score. The reliability for the scale is generally high, ranging from .70 to .90 [@Schulenberg2004; @Schulenberg2010]. Previous work on validity for the PIL showed viable one- and two-factor models, albeit factor loadings varied across publications [see @Schulenberg2010 for a summary], and these fluctuating results lead to the development of a 4-item PIL short form [@Schulenberg2011]. 
 
+YOU CAN WRITE ALPHA LIKE $\alpha$
+
 ### Life Purpose Questionnaire
 The LPQ was modeled after the full 20-item PIL questionnaire, also measuring perceived meaning and purpose in life. The items are structured in a true/false response format, in contrast to the Likert response format found on the PIL. Each question is matched to the PIL with the same item content, altering the question to create binary answer format. After reverse coding, zero on an item would indicate low meaning, while one on an item would indicate high meaning. A total score is created by summing item scores, resulting in a range from 0 to 20. In both scales, higher scores indicated greater perceived meaning in life. Reliability for this scale is also correspondingly high, usually in the .80 range [@Melton2008; @Schulenberg2004].
 
