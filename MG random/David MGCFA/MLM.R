@@ -82,11 +82,11 @@ abline(v = 0)
 ##valued life = 20-23
 
 names(noout)
-Exciting = rowSums(filledin_none[ , c(4:8)])
-Accomplished = rowSums(filledin_none[ , c(9:13)])
+Exciting = rowSums(filledin_none[ , c(4:7)])
+Accomplished = rowSums(filledin_none[ , c(8:12)])
 Principled = rowSums(filledin_none[ , c(13:17)])
-Purposeful = rowSums(filledin_none[ , c(17:20)])
-Valued = rowSums(filledin_none[ , c(21:24)])
+Purposeful = rowSums(filledin_none[ , c(18:21)])
+Valued = rowSums(filledin_none[ , c(22:25)])
 
 ##subsetting data
 #Zero = notrandom, One = random, Two = paper
@@ -101,7 +101,58 @@ library(lavaan)
 overallmodel = '
 Exciting =~ Q13 + Q14 + Q15 + Q16_1 + Q16_2  
 Accomplished =~ Q16_3 + Q16_4 + Q16_5 + Q16_6 + Q16_7
-Principled =~ 
-Purposeful =~ 
-Valued =~ 
+Principled =~ Q16_8 + Q16_9 + Q16_10 + Q16_11 + Q16_12
+Purposeful =~ Q17 + Q18 + Q19_1 + Q19_2  
+Valued =~ Q19_3 + Q19_4 + Q19_5 + Q19_6
 '
+
+overall.fit = cfa(model = overallmodel, 
+                  data=nomissnop, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=random, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=notrandom, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+####Multigroup Testing####
+library(semTools)
+options(scipen = 999)
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = "Source",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+##Broke down at strict Invariance
+partial = partialInvariance(multisteps, 
+                            type = "residuals")
+redidualsfree = partial$results
+multisteps2 = measurementInvariance(overallmodel,  
+                                    data = nomissnop, 
+                                    group = "Source",
+                                    strict = T,
+                                    group.partial = c("Q19_4~~Q19_4"))
