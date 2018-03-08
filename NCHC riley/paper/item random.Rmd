@@ -793,7 +793,6 @@ fitmeasures(partialresiduals$fit.residuals)
 
 ```
 
-
 ## LPQ Analyses
 
 ### Covariance Matrices 
