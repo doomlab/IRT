@@ -79,289 +79,8 @@ library(psych)
 library(TOSTER)
 library(MOTE)
 library(BayesFactor)
-
-####pil 
-setwd("~/Desktop")
-master = read.csv("Meaning_Scales_PIL_RR_RN_Paper.csv") ##or however we want to import this
-
-##missing
-library(mice)
-percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
-
-##rows only
-notypos = master
-missing = apply(notypos[ , 3:22], 1, percentmiss) 
-table(missing)
-
-##replace what we should
-replacepeople = notypos[ missing <= 5 , ]  
-dontpeople = notypos[ missing > 5 , ]
-
-##drop survey data column 
-apply(replacepeople, 2, percentmiss)
-replacecolumn = replacepeople[ , -c(1,2,23)]
-dontcolumn = replacepeople[ , c(1,2,23)]
-
-##mice
-tempnomiss = mice(replacecolumn)
-nomiss = complete(tempnomiss, 1)
-summary(nomiss)
-
-##put everything back together
-filledin_none = cbind(dontcolumn, nomiss)
-summary(filledin_none)
-
-##outliers
-mahal = mahalanobis(filledin_none[ , -c(1:3)], 
-                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
-
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
-summary(mahal < cutoff)
-noout = filledin_none[ mahal < cutoff, ]
-
-##additivity
-correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
-symnum(correlations)
-
-##make the random stuff
-random = rchisq(nrow(noout), 7)
-
-##drop ID column 
-fake = lm(random~., data=noout[ , -c(1:3)])
-
-##get the linearity plot
-##create the standardized residuals
-fitvalues = scale(fake$fitted.values)
-standardized = rstudent(fake)
-qqnorm(standardized)
-{plot(fitvalues, standardized)
-  abline(0,1)}
-
-##multivariate normality
-hist(standardized, breaks=15)
-
-##homogeneity and homoscedaticity
-{plot(fitvalues, standardized) 
-abline(0,0)
-abline(v = 0)}
-
-##Scoring
-PIL <- rowSums(noout[, c(4:23)])
-PIL
-
-##CFA 
-nooutnop = subset(noout, Source < 2)
-nomissnop = subset(filledin_none, Source < 2)
-
-notrandom = subset(nomissnop, Source == 0)
-random = subset(nomissnop, Source == 1)
-
-library(lavaan)
-overallmodel = '
-PIL =~Q29_1 + Q31_1 + Q33_1 + Q34_1 + Q35_1 + Q36_1 + Q37_1 + Q38_1 + Q39_1 + Q40_1 + Q41_1 + Q42_1 + Q43_1 + Q44_1 + Q45_1 + Q46_1 + Q47_1 + Q48_1 + Q49_1 + Q50_1
-'
-
-##fit for pill
-overall.fit = cfa(model = overallmodel, 
-                  data = nomissnop, 
-                  meanstructure = TRUE)
-
-summary(overall.fit, 
-        standardized=TRUE, 
-        rsquare=TRUE, 
-        fit.measure = TRUE)
-
-##fit for random 
-random.fit = cfa(overallmodel, 
-                 data = random, 
-                 meanstructure = TRUE)
-summary(random.fit, 
-        standardized = TRUE, 
-        rsquare = TRUE, 
-        fit.measure = TRUE)
-
-fitMeasures(random.fit) 
-
-##fit for not random 
-notrandom.fit = cfa(overallmodel, 
-                    data = notrandom, 
-                    meanstructure = TRUE)
-summary(notrandom.fit, 
-        standardized = TRUE, 
-        rsquare = TRUE, 
-        fit.measure = TRUE)
-
-fitmeasures(notrandom.fit)
-
-##invariances 
-library(semTools)
-multisteps = measurementInvariance(overallmodel, 
-                                   data = nomissnop, 
-                                   group = 'Source', 
-                                   strict = T)
-
-fitMeasures(multisteps$fit.configural)
-fitMeasures(multisteps$fit.loadings)
-fitMeasures(multisteps$fit.intercepts)
-fitMeasures(multisteps$fit.residuals)
-fitMeasures(multisteps$fit.means)
-
-####lpq 
-setwd("~/Desktop")
-master = read.csv("Meaning_Scales_LifePurposeQuestionnaire_RR_RN_Paper.csv") ##or however we want to import this
-
-##reverse code (true is 1, false is 2)
-master[ , c(5,6,8,9,12,15,19,20,22)] = 2 - master[ , c(5,6,8,9,12,15,19,20,22)]
-master[ , c(3,4,7,10,11,13,14,16,17,18,21)] = master[ , c(3,4,7,10,11,13,14,16,17,18,21)] - 1
-master$Q3_16[master$Q3_16 > 1 ] = NA 
-summary(master)
-
-##missing
-library(mice)
-percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
-
-##rows only 
-notypos = master
-missing = apply(notypos[ , 3:22], 1, percentmiss) 
-table(missing)
-
-##replace only the data that you should
-replacepeople = notypos[ missing <= 5 , ]  
-dontpeople = notypos[ missing > 5 , ]
-
-##figure out the columns to exclude
-apply(replacepeople, 2, percentmiss)
-replacecolumn = replacepeople[ , -c(1,2,23)]
-dontcolumn = replacepeople[ , c(1,2,23)]
-
-##mice
-tempnomiss = mice(replacecolumn)
-nomiss = complete(tempnomiss, 1)
-summary(nomiss)
-
-##combine back
-filledin_none = cbind(dontcolumn, nomiss)
-summary(filledin_none)
-
-##outliers
-mahal = mahalanobis(filledin_none[ , -c(1:3)], 
-                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
-summary(mahal)
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
-summary(mahal < cutoff)
-noout = filledin_none[ mahal < cutoff, ]
-
-##additivity
-correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
-symnum(correlations)
-
-##make the random stuff
-random = rchisq(nrow(noout), 7)
-
-##knock off id columns
-fake = lm(random~., data=noout[ , -c(1:3)])
-
-##get the linearity plot
-##create the standardized residuals
-standardized = rstudent(fake)
-{qqnorm(standardized)
-abline(0,1)}
-
-##multivariate normality
-hist(standardized, breaks=15)
-
-##homogeneity and homoscedaticity
-fitvalues = scale(fake$fitted.values)
-{plot(fitvalues, standardized) 
-abline(0,0)
-abline(v = 0)}
-
-##scoring 
-LPQ <- rowSums(noout[, c(4:23)])
-summary(LPQ)
-
-##CFA
 library(lavaan)
 library(semTools)
-##subsetting data
-##Zero = notrandom, One = random, Two = paper
-nooutnop = subset(noout, Source < 2)
-nomissnop = subset(filledin_none, Source < 2)
-
-notrandom = subset(nomissnop, Source == 0)
-random = subset(nomissnop, Source == 1)
-
-##overall model
-colnames(nomissnop)
-overallmodel = '
-LPQ =~
-Q3_1 + Q3_2 + Q3_3 + Q3_4 + Q3_5 + Q3_6 + Q3_7 +
-Q3_8 + Q3_9 + Q3_10 + Q3_11 + Q3_12 + Q3_13 + Q3_14 + 
-Q3_15 + Q3_16 + Q3_17 + Q3_18 + Q3_19 + Q3_20
-'
-overall.fit = cfa(model = overallmodel, 
-                  data=nomissnop, 
-                  meanstructure = TRUE)
-
-summary(overall.fit, 
-        standardized=TRUE, 
-        rsquare=TRUE, 
-        fit.measure = TRUE)
-
-##random
-overall.fit.r = cfa(overallmodel, 
-                    data=random, 
-                    meanstructure = TRUE)
-
-summary(overall.fit.r, 
-        standardized=TRUE, 
-        rsquare=TRUE, 
-        fit.measure = TRUE)
-
-##notrandom
-overall.fit.nr = cfa(overallmodel, 
-                     data=notrandom, 
-                     meanstructure = TRUE)
-
-summary(overall.fit.nr, 
-        standardized=TRUE,
-        rsquare=TRUE, 
-        fit.measure = TRUE)
-
-###measurement invariance
-options(scipen = 999)
-
-multisteps = measurementInvariance(overallmodel, 
-                                   data = nomissnop, 
-                                   group = "Source",
-                                   strict = T)
-
-fitmeasures(multisteps$fit.configural)
-fitmeasures(multisteps$fit.loadings)
-fitmeasures(multisteps$fit.intercepts)
-fitmeasures(multisteps$fit.residuals)
-
-##broke at strict
-partial = partialInvariance(multisteps, 
-                            type = "residuals")
-
-residualsfree = partial$results 
-
-partialstrict = measurementInvariance(overallmodel, 
-                                      data = nomissnop, 
-                                      group = 'Source', 
-                                      strict = T, 
-                                      group.partial = c("Q3_13~~Q3_13"))
-
-fitmeasures(partialstrict$fit.configural)
-fitmeasures(partialstrict$fit.loadings)
-fitmeasures(partialstrict$fit.intercepts)
-fitmeasures(partialstrict$fit.residuals)
-
-##q3_13 was released. re ran it and it fits now. 
-
 ```
 
 # Method
@@ -481,7 +200,7 @@ fittedrandom = scale(fakerandom$fitted.values)
 
 ##normality
 skewness(finalrandomP[ , ], na.rm = T)
-kurtosis(finalrandomP[ , ], na.rm = T)
+moments::kurtosis(finalrandomP[ , ], na.rm = T)
 #hist(standardizedrandom)
 
 ##linearity
@@ -539,7 +258,7 @@ fittednotrandom = scale(fakenotrandom$fitted.values)
 
 ##normality
 skewness(finalnotrandomP[ , ], na.rm = T)
-kurtosis(finalnotrandomP[ , ], na.rm = T)
+moments::kurtosis(finalnotrandomP[ , ], na.rm = T)
 #hist(standardizednotrandom)
 
 ##linearity
@@ -934,6 +653,146 @@ apa_table(
 ```
 
 Total scores were created by summing the items for each participant across all twenty PIL questions. The mean total score for nonrandomized testing was *M* = `r apa(MTnrP, 2)` (*SD* = `r apa(SDTnrP, 2)`) with excellent reliability (\alpha = 0.93), while the mean for randomizing testing was *M* = `r apa(MTrP, 2)` (*SD* = `r apa(SDTrP, 2)`) with excellent reliability (\alpha = 0.92). This difference was examined with an independent *t*-test and was not significant, `r apa_print(TPt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TPd$d, 2)` 95% CI [`r apa(TPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. We tested if scores were changed by 5% (`r apa(totcutoff, 2)` points), and the TOST test indicated that the lower, *t*(1897) = `r apa(TPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(1897) = `r apa(TPtost$TOST_t2, 2)`, *p* < .001 were within this area of null change. The BF results also supported the null model, 0.25 <0.01%.
+
+```{r mg-pil, include = FALSE, echo = FALSE, eval = FALSE}
+####pil 
+overallmodel = '
+PIL =~ PIL1 + PIL2 + PIL3 + PIL4 + PIL5 + PIL6 + PIL7 + PIL8 + PIL9 + PIL10 + PIL11 + PIL12 + PIL13 + PIL14 + PIL15 + PIL16 + PIL17 + PIL18 + PIL19 + PIL20
+'
+
+overallPIL = rbind(finalnotrandomP, finalrandomP)
+overallPIL$group = c(rep("not", nrow(finalnotrandomP)),
+                     rep("random", nrow(finalrandomP)))
+
+##fit for pill
+overall.fit = cfa(model = overallmodel, 
+                  data = overallPIL, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##fit for random 
+random.fit = cfa(overallmodel, 
+                 data = finalrandomP, 
+                 meanstructure = TRUE)
+summary(random.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+
+fitMeasures(random.fit) 
+
+##fit for not random 
+notrandom.fit = cfa(overallmodel, 
+                    data = finalnotrandomP, 
+                    meanstructure = TRUE)
+summary(notrandom.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+
+fitmeasures(notrandom.fit)
+
+##invariances 
+multisteps = measurementInvariance(overallmodel, 
+                                   data = overallPIL, 
+                                   group = 'group', 
+                                   strict = T)
+
+fitMeasures(multisteps$fit.configural)
+fitMeasures(multisteps$fit.loadings)
+fitMeasures(multisteps$fit.intercepts)
+fitMeasures(multisteps$fit.residuals)
+fitMeasures(multisteps$fit.means)
+```
+
+```{r mg-lpq, include = FALSE, echo = FALSE, eval = FALSE}
+
+overallmodel = '
+LPQ =~ lpq1_1 + lpq2_1 + lpq3_1 + lpq4_1 + lpq5_1 + lpq6_1 + lpq7_1 + lpq8_1 + lpq9_1 + lpq10_1 + lpq11_1 + lpq12_1 + lpq13_1 + lpq14_1 + lpq15_1 + lpq16_1 + lpq17_1 + lpq18_1 + lpq19_1 + lpq20_1
+'
+
+overallLPQ = rbind(finalnotrandomL, finalrandomL)
+overallLPQ$group = c(rep("not", nrow(finalnotrandomL)),
+                     rep("random", nrow(finalrandomL)))
+
+overall.fit = cfa(model = overallmodel, 
+                  data=overallLPQ, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=finalrandomL, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=finalnotrandomL, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+###measurement invariance
+multisteps = measurementInvariance(overallmodel, 
+                                   data = overallLPQ, 
+                                   group = "group",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+##broke at strict
+partial = partialInvariance(multisteps, 
+                            type = "intercepts")
+
+interceptsfree = partial$results 
+
+partialintercepts = measurementInvariance(overallmodel, 
+                                      data = overallLPQ, 
+                                      group = 'group', 
+                                      strict = T, 
+                                      group.partial = c("lpq13_1~1
+"))
+
+partial = partialInvariance(partialintercepts, 
+                            type = "residuals")
+
+residualsfree = partial$results 
+
+partialresiduals = measurementInvariance(overallmodel, 
+                                      data = overallLPQ, 
+                                      group = 'group', 
+                                      strict = T, 
+                                      group.partial = c("lpq13_1~1
+", "lpq13_1~~lpq13_1"))
+
+fitmeasures(partialresiduals$fit.configural)
+fitmeasures(partialresiduals$fit.loadings)
+fitmeasures(partialresiduals$fit.intercepts)
+fitmeasures(partialresiduals$fit.residuals)
+
+##q3_13 was released. re ran it and it fits now. 
+
+```
+
 
 ## LPQ Analyses
 
