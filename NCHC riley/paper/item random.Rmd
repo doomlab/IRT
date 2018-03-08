@@ -132,18 +132,19 @@ fake = lm(random~., data=noout[ , -c(1:3)])
 
 ##get the linearity plot
 ##create the standardized residuals
+fitvalues = scale(fake$fitted.values)
 standardized = rstudent(fake)
 qqnorm(standardized)
-abline(0,1)
+{plot(fitvalues, standardized)
+  abline(0,1)}
 
 ##multivariate normality
 hist(standardized, breaks=15)
 
 ##homogeneity and homoscedaticity
-fitvalues = scale(fake$fitted.values)
-plot(fitvalues, standardized) 
+{plot(fitvalues, standardized) 
 abline(0,0)
-abline(v = 0)
+abline(v = 0)}
 
 ##Scoring
 PIL <- rowSums(noout[, c(4:23)])
@@ -265,17 +266,17 @@ fake = lm(random~., data=noout[ , -c(1:3)])
 ##get the linearity plot
 ##create the standardized residuals
 standardized = rstudent(fake)
-qqnorm(standardized)
-abline(0,1)
+{qqnorm(standardized)
+abline(0,1)}
 
 ##multivariate normality
 hist(standardized, breaks=15)
 
 ##homogeneity and homoscedaticity
 fitvalues = scale(fake$fitted.values)
-plot(fitvalues, standardized) 
+{plot(fitvalues, standardized) 
 abline(0,0)
-abline(v = 0)
+abline(v = 0)}
 
 ##scoring 
 LPQ <- rowSums(noout[, c(4:23)])
@@ -776,7 +777,8 @@ z_differenceP = (z_notrandomP - z_randomP) / sqrt((1/(nrow(finalnotrandomP) - 3)
 
 #Zobserved = (z1 – z2) / (square root of [ (1 / N1 – 3) + (1 / N2 – 3) ]
 write.csv(z_differenceP, "z_differenceP.csv", row.names = F)
-sum(abs(z_difference) > 1.96, na.rm = T) / 2
+sum(abs(z_differenceP) > 1.96, na.rm = T) / 2
+
 
 ```
 
@@ -931,7 +933,7 @@ apa_table(
 
 ```
 
-Total scores were created by summing the items for each participant across all twenty PIL questions. The mean total score for nonrandomized testing was *M* = `r apa(MTnrP, 2)` (*SD* = `r apa(SDTnrP, 2)`), while the mean for randomizing testing was *M* = `r apa(MTrP, 2)` (*SD* = `r apa(SDTrP, 2)`). This difference was examined with an independent *t*-test and was not significant, `r apa_print(TPt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TPd$d, 2)` 95% CI [`r apa(TPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. We tested if scores were changed by 5% (`r apa(totcutoff, 2)` points), and the TOST test indicated that the lower, *t*(1897) = `r apa(TPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(1897) = `r apa(TPtost$TOST_t2, 2)`, *p* < .001 were within this area of null change. The BF results also supported the null model, 0.25 <0.01%.
+Total scores were created by summing the items for each participant across all twenty PIL questions. The mean total score for nonrandomized testing was *M* = `r apa(MTnrP, 2)` (*SD* = `r apa(SDTnrP, 2)`) with excellent reliability (\alpha = 0.93), while the mean for randomizing testing was *M* = `r apa(MTrP, 2)` (*SD* = `r apa(SDTrP, 2)`) with excellent reliability (\alpha = 0.92). This difference was examined with an independent *t*-test and was not significant, `r apa_print(TPt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TPd$d, 2)` 95% CI [`r apa(TPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. We tested if scores were changed by 5% (`r apa(totcutoff, 2)` points), and the TOST test indicated that the lower, *t*(1897) = `r apa(TPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(1897) = `r apa(TPtost$TOST_t2, 2)`, *p* < .001 were within this area of null change. The BF results also supported the null model, 0.25 <0.01%.
 
 ## LPQ Analyses
 
@@ -973,9 +975,20 @@ Covariance structure for the LPQ was found to be the same across both randomized
 ```{r Cortest.matLPQ, include = FALSE}
 ## cortest.mat(R1,R2=NULL,n1=NULL,n2 = NULL) #an alternative test
 
-nrow(finalnotrandomL)
-nrow(finalrandomL)
-cortest.mat(not_corL, rand_corL, n1 = 750, n2 = 883)
+cor_notrandomL = cor(finalnotrandomL, use="pairwise")
+cor_randomL = cor(finalrandomL, use="pairwise")
+## cortest.mat(R1,R2=NULL,n1=NULL,n2 = NULL) #an alternative test
+cortest.mat(cor_notrandomL, cor_randomL, 
+            n1 = nrow(finalnotrandomL), n2 = nrow(finalrandomL))
+
+z_notrandomL = fisherz(cor_notrandomL)
+z_randomL = fisherz(cor_randomL)
+z_differenceL = (z_notrandomL - z_randomL) / sqrt((1/(nrow(finalnotrandomL) - 3)) + (1/(nrow(finalrandomL) - 3)))
+
+#Zobserved = (z1 – z2) / (square root of [ (1 / N1 – 3) + (1 / N2 – 3) ]
+write.csv(z_differenceL, "z_differenceL.csv", row.names = F)
+sum(abs(z_differenceL) > 1.96, na.rm = T) / 2
+
 
 ## it's significant!
 ```
@@ -1129,7 +1142,7 @@ apa_table(
 
 ```
 
-LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`). An independent *t*-test indicated that the testing did not change total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST test indicated that the scores were withing a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06 ±0.04%.
+LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), with good reliability (\alpha = 0.82), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`) and good reliability (\alpha = 0.84). An independent *t*-test indicated that the testing did not change total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST test indicated that the scores were withing a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06 ±0.04%.
 
 # Discussion
 
