@@ -45,14 +45,15 @@ kable(tableprint, caption = "Final Table") %>%
 
 ```
 
+```{r overalldata, include = FALSE}
+master = read.csv("all_data_combined_edit.csv") ##might need to make an import data chunk maybe?
+summary(master)
+```
+
 # Boredom Proness Scale
 citation will go here
 
 ```{r BPS, include=FALSE}
-setwd("~/Desktop")
-master = read.csv("all_data_combined_edit.csv") ##might need to make an import data chunk maybe?
-summary(master)
-
 ##Reverse Code
 ##in the qualtrics true = 1, false = 2
 ##recode the false ones so that all 1s get 1 point, 
