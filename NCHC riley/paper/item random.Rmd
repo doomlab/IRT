@@ -151,7 +151,7 @@ Minimum and maximum values indicate the lower and upper end of the answer choice
 As discussed in the introduction, another approach to measuring equivalence would be through a MGCFA framework, analyzing measurement invariance. Those analyses were calculated as a supplement to the analyses described above and a summary is provided online. The original goal of this project was to calculate potential reactivity to item order through analyses that would be accessible to most researchers using questionnaires in their research. MGCFA requires not only specialized knowledge, but also specific software and the associated learning curve. We used *R* in our analyses, however, all analyses presented can be recreated with free software. The writers of *BayesFactor* have published online calculators for their work at http://pcl.missouri.edu/bayesfactor, and BF values are also avaliable in JASP [CITEJASP]. The TOST analyses may be calculated using an Excel spreedsheet avaliable from the author at https://osf.io/qzjaj/ or as an add-in module in the program jamovi [CITEJAMOVI]. Both JASP and jamovi are user friendly programs that researchers familiar with point and click software like Excel or SPSS will be able to use with ease. 
 
 ## Data Screening 
-Each dataset was analyzed separately by splitting on scale and randomization, and first, all data were screened for accuracy and missing data. Participants with more than 5% missing data (i.e. 2 or more items) were excluded. Data were imputed using the *mice* package in *R* for participants with less than 5% of missing data [@VanBuuren2011]. Next, each dataset was examined for multivariate outliers using Mahalanobis distance [@Tabachnick2012]. Each dataset was then screened for multivariate assumptions of additivity, linearity, normality, homogeneity, and homoscedasticity. While some data skew was present, large sample sizes allowed for the assumption of normality of the sampling distribution. Information about the number of excluded data points in each step is presented in Table \@ref(tab:demo-table).
+Each dataset was analyzed separately by splitting on scale and randomization, and first, all data were screened for accuracy and missing data. Participants with more than 5% missing data (i.e., 2 or more items) were excluded. Data were imputed using the *mice* package in *R* for participants with less than 5% of missing data [@VanBuuren2011]. Next, each dataset was examined for multivariate outliers using Mahalanobis distance [@Tabachnick2012]. Each dataset was then screened for multivariate assumptions of additivity, linearity, normality, homogeneity, and homoscedasticity. While some data skew was present, large sample sizes allowed for the assumption of normality of the sampling distribution. Information about the number of excluded data points in each step is presented in Table \@ref(tab:demo-table).
 
 ```{r PIL-Data-Screening, include = FALSE}
 ####import the files####
@@ -465,38 +465,7 @@ apa_table(
 
 ## PIL Analyses
 
-### Covariance Matrices
-
-```{r Pcov-analysis, include=FALSE}
-###make covariance tables
-not_corP = cov(finalnotrandomP, use="pairwise")
-rand_corP = cov(finalrandomP, use="pairwise")
-
-#mean tables
-notrandommP = unlist(sapply(finalnotrandomP, function(cl) list(means=mean(cl,na.rm=TRUE))))
-randommP = unlist(sapply(finalrandomP, function(cl) list(means=mean(cl,na.rm=TRUE))))
-
-##rsme mean, cov, mean, cov
-RMSEP = rmse.muS(notrandommP, not_corP, randommP, rand_corP)
-##figure out how to do standardized residuals
-
-##formula is cov - cov / sqrt ( var one - var other )
-#do var 1 - var 1.1, then var 2 - var 2.2, then take the variance of that vector
-not_vP = apply(finalnotrandomP, 2, var)
-rand_vP = apply(finalrandomP, 2, var)
-
-##figure out how to report these since you can't just divide by 2 - use csvs to figure out which and how many are over. 
-##sum up the standardized residuals that are over 1.96
-stdP = (not_corP - rand_corP) / sqrt(var(not_vP - rand_vP))
-overP = sum(as.numeric(abs(stdP)) > 1.96)
-##print out the standardized residuals to put online
-write.csv(stdP, "stdres_not_randomP.csv")
-
-##pil 7 rand_corP[7,7]
-
-```
-
-Covariance structure was considered different [i.e. above .10; @Hu1999] for the randomized and not randomized forms of item order, *RMSE* = `r apa(RMSEP, 2, F)`. Standardized residuals were calculated by dividing the difference in covariance tables by the variance of the differences [@Hausman1978]. While *RMSE* indicated partial misfit between the covariance relationships, only `r overP` values were significantly different using *Z* of 1.96 as a criterion: the variances of PIL 7 and 14. PIL 7 in a randomized form had less variance ($SD^2$ = `r apa(rand_corP[7,7], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[7,7], 2)`). Likewise, PIL 14 randomized had a smaller variance ($SD^2$ = `r apa(rand_corP[14,14], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[14,14], 2)`). Questions about retirement and freedom to make choices decreased in variance when they were randomly presented. 
+### Correlation Matrices
 
 ```{r Cortest.matPIL, include = FALSE}
 options(scipen = 999)
@@ -504,7 +473,7 @@ options(scipen = 999)
 cor_notrandomP = cor(finalnotrandomP, use="pairwise")
 cor_randomP = cor(finalrandomP, use="pairwise")
 
-cortest.mat(cor_notrandomP, cor_randomP, 
+cortestPIL = cortest.mat(cor_notrandomP, cor_randomP, 
             n1 = nrow(finalnotrandomP), n2 = nrow(finalrandomP))
 
 z_notrandomP = fisherz(cor_notrandomP)
@@ -513,12 +482,13 @@ z_differenceP = (z_notrandomP - z_randomP) / sqrt((1/(nrow(finalnotrandomP) - 3)
 
 #Zobserved = (z1 – z2) / (square root of [ (1 / N1 – 3) + (1 / N2 – 3) ]
 write.csv(z_differenceP, "z_differenceP.csv", row.names = F)
-sum(abs(z_differenceP) > 1.96, na.rm = T) / 2
-
-
+diffPIL = sum(abs(z_differenceP) > 1.96, na.rm = T) / 2
 ```
 
-IF YOU DO NOT CHANGE THIS WHOLE SECTION BE SURE TO TALK ABOUT PIL 16 IS THE OTHER ONE WE MISSED.  
+The correlation matrices for the randomized and nonrandomized versions of the PIL were found to be significantly different, $\chi^2$(`r cortestPIL$df`) = `r printnum(cortest$chi2)`, *p* < .001. The *Z* score differences were examined, and `diffPIL` correlations were different across the possible 190 tests. A summary of differences can be found in Table XX. For each item, the total number of differences was calculated, as shown in column two, and those specific items are listed in column three. Next, we summarized if the item had effects more on the items that would come before or after the item in a nonrandom format, as Knolwescontext has suggested that the items after a question should experience context effects. We additionally added information on if an item directly effected the next item (i.e., one and two are different), as strong reactions might have a more immediate impact. The last two columns summarize the directions of these effects. Positive *Z*-scores indicated stronger correlations between nonrandomized items, while negative *Z*-scores indicated stronger correlations for randomized items (summarized in the last column).
+
+
+While *RMSE* indicated partial misfit between the covariance relationships, only `r overP` values were significantly different using *Z* of 1.96 as a criterion: the variances of PIL 7 and 14. PIL 7 in a randomized form had less variance ($SD^2$ = `r apa(rand_corP[7,7], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[7,7], 2)`). Likewise, PIL 14 randomized had a smaller variance ($SD^2$ = `r apa(rand_corP[14,14], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[14,14], 2)`). Questions about retirement and freedom to make choices decreased in variance when they were randomly presented.   
 
 ### Factor Loadings
 
