@@ -449,6 +449,7 @@ demotable[ , 6] = as.numeric(demotable[ , 5]) -
 demotable[ , 7] = as.numeric(demotable[ , 5]) - as.numeric(demotable[ , 6]) - 
                   c(nrow(finalrandomP), nrow(finalnotrandomP),
                     nrow(finalrandomL), nrow(finalnotrandomL))
+
 ##note for PIL random 256 of those are the bad data with one question, so added that to the missing column. 
 demotable[1, 6] = as.numeric(demotable[1, 6]) + 256
 demotable[1, 7] = as.numeric(demotable[1, 7]) - 256
@@ -485,10 +486,18 @@ write.csv(z_differenceP, "z_differenceP.csv", row.names = F)
 diffPIL = sum(abs(z_differenceP) > 1.96, na.rm = T) / 2
 ```
 
-The correlation matrices for the randomized and nonrandomized versions of the PIL were found to be significantly different, $\chi^2$(`r cortestPIL$df`) = `r printnum(cortest$chi2)`, *p* < .001. The *Z* score differences were examined, and `diffPIL` correlations were different across the possible 190 tests. A summary of differences can be found in Table XX. For each item, the total number of differences was calculated, as shown in column two, and those specific items are listed in column three. Next, we summarized if the item had effects more on the items that would come before or after the item in a nonrandom format, as Knolwescontext has suggested that the items after a question should experience context effects. We additionally added information on if an item directly effected the next item (i.e., one and two are different), as strong reactions might have a more immediate impact. The last two columns summarize the directions of these effects. Positive *Z*-scores indicated stronger correlations between nonrandomized items, while negative *Z*-scores indicated stronger correlations for randomized items (summarized in the last column).
+The correlation matrices for the randomized and nonrandomized versions of the PIL were found to be significantly different, $\chi^2$(`r cortestPIL$df`) = `r printnum(cortest$chi2)`, *p* < .001. The *Z* score differences were examined, and `diffPIL` correlations were different across the possible 190 tests. A summary of differences can be found in Table \@ref(tab:cor-table). For each item, the total number of differences was calculated, as shown in column two, and those specific items are listed in column three. Next, we summarized if the item had effects more on the items that would come before or after the item in a nonrandom format, as Knolwescontext has suggested that the items after a question should experience context effects. We additionally added information on if an item directly effected the next item (i.e., one and two are different), as strong reactions might have a more immediate impact. The last two columns summarize the directions of these effects. Positive *Z*-scores indicated stronger correlations between nonrandomized items, while negative *Z*-scores indicated stronger correlations for randomized items (summarized in the last column). Two questions had strong context effects (i.e., impacted many questions), question 2 *exciting life* and question 15 *prepared for death*. Interestingly, the impact is the reverse for these two items, as question 2 showed stronger relationships to items when randomized, while question 15 showed stronger relationships to items when nonrandomized. 
 
-
-While *RMSE* indicated partial misfit between the covariance relationships, only `r overP` values were significantly different using *Z* of 1.96 as a criterion: the variances of PIL 7 and 14. PIL 7 in a randomized form had less variance ($SD^2$ = `r apa(rand_corP[7,7], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[7,7], 2)`). Likewise, PIL 14 randomized had a smaller variance ($SD^2$ = `r apa(rand_corP[14,14], 2)`) than the nonrandomized form ($SD^2$ = `r apa(not_corP[14,14], 2)`). Questions about retirement and freedom to make choices decreased in variance when they were randomly presented.   
+```{r cor-table, echo=FALSE, results = 'asis'}
+cor_table = read.csv("CorrCompFullTable.csv")
+apa_table(cor_table,
+          align = c("l", rep("c", 5)),
+          caption = "Correlation Matrices Results by Item",
+          col.names = c("Item", "Differences", "Items Effected", "Where Effected", 
+                        "Item Directly After", "Direction of Effect", 
+                        "Items Stronger Randomized")
+          )
+```
 
 ### Factor Loadings
 
@@ -525,7 +534,7 @@ FLPbf = ttestBF(x = FLrandomP$loadings[1:20], y = FLnotP$loadings[1:20], paired 
 ##note I hard coded the p values for TOST and BF, need to change if we change things. 
 ```
 
-Table \@ref(tab:Ptable) includes the factor loadings from the one-factor EFA analysis. These loadings were compared using a dependent *t*-test matched on item, and they were not significantly different, `r apa_print(FLPt)$full_result`. The effect size for this test was correspondingly negligible, $d_{av}$ = `r apa(FLPd$d, 2)` 95% CI [`r apa(FLPd$dlow, 2)`, `r apa(FLPd$dhigh, 2)`]. The TOST test was significant for both the lower, *t*(19) = `r apa(FLPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(FLPtost$TOST_t2, 2)`, *p* < .001. This result indicated that the change score was within the confidence band of expected negligible changes. Lastly, the BF for this test was 0.24 ±0.02%, which indicated support for the null model. 
+Table \@ref(tab:Ptable) includes the factor loadings from the one-factor EFA analysis. These loadings were compared using a dependent *t*-test matched on item, and they were not significantly different, `r apa_print(FLPt)$full_result`. The effect size for this test was correspondingly negligible, $d_{av}$ = `r apa(FLPd$d, 2)` 95% CI [`r apa(FLPd$dlow, 2)`, `r apa(FLPd$dhigh, 2)`]. The TOST test was significant for both the lower, *t*(19) = `r apa(FLPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(FLPtost$TOST_t2, 2)`, *p* < .001. This result indicated that the change score was within the confidence band of expected negligible changes. Lastly, the BF for this test was 0.24, which indicated support for the null model. 
 
 ### Item Means
 
@@ -872,7 +881,7 @@ FLLtost = TOSTpaired.raw(n = length(FLrandomL$loadings[1:20]),
 FLLbf = ttestBF(x = FLrandomL$loadings[1:20], y = FLnotL$loadings[1:20], paired = TRUE)
 ```
 
-Table \@ref(tab:Ltable) includes the factor loadings from the one-factor EFA analysis using tetrachoric correlations. The loadings from randomized and nonrandomized versions were compared using a dependent *t*-test matched on item, which indicated they were not significantly different, `r apa_print(FLLt)$full_result`. The difference found for this test was negligible, $d_{av}$ = `r apa(FLLd$d, 2)` 95% CI [`r apa(FLLd$dlow, 2)`, `r apa(FLLd$dhigh, 2)`]. The TOST test examined if any change was within .10 change, as described earlier. The lower, *t*(19) = `r apa(FLLtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(FLLtost$TOST_t2, 2)`, *p* < .001 were both significant, indicating that the change was within the expected change. Further, in support of the null model, the BF was 0.34 ±0.02%. 
+Table \@ref(tab:Ltable) includes the factor loadings from the one-factor EFA analysis using tetrachoric correlations. The loadings from randomized and nonrandomized versions were compared using a dependent *t*-test matched on item, which indicated they were not significantly different, `r apa_print(FLLt)$full_result`. The difference found for this test was negligible, $d_{av}$ = `r apa(FLLd$d, 2)` 95% CI [`r apa(FLLd$dlow, 2)`, `r apa(FLLd$dhigh, 2)`]. The TOST test examined if any change was within .10 change, as described earlier. The lower, *t*(19) = `r apa(FLLtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(FLLtost$TOST_t2, 2)`, *p* < .001 were both significant, indicating that the change was within the expected change. Further, in support of the null model, the BF was 0.34. 
 
 ### Item Means
 
@@ -913,7 +922,7 @@ ILtost = TOSTpaired.raw(n = length(MnrL),
 ILbf = ttestBF(x = MnrL, y = MrL, paired = T)
 ```
 
-Means and standard deviations of each item are presented in Table \@ref(tab:Ltable). We again matched items and tested if there was a significant change using a dependent *t*-test. The test was not significant, `r apa_print(ILt)$full_result`, and the corresponding effect size reflects how little these means changed, $d_{av}$ = `r apa(ILd$d, 2)` 95% CI [`r apa(ILd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. Using a 5% change criterion, items were tested to determine if they changed less than (`r apa(cutoff, 2)`). The TOST test indicated both lower, *t*(19) = `r apa(ILtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(ILtost$TOST_t2, 2)`, *p* < .001, were within the null range. The BF also supported the null model, 0.24 ±0.02%.
+Means and standard deviations of each item are presented in Table \@ref(tab:Ltable). We again matched items and tested if there was a significant change using a dependent *t*-test. The test was not significant, `r apa_print(ILt)$full_result`, and the corresponding effect size reflects how little these means changed, $d_{av}$ = `r apa(ILd$d, 2)` 95% CI [`r apa(ILd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. Using a 5% change criterion, items were tested to determine if they changed less than (`r apa(cutoff, 2)`). The TOST test indicated both lower, *t*(19) = `r apa(ILtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(ILtost$TOST_t2, 2)`, *p* < .001, were within the null range. The BF also supported the null model, 0.24.
 
 ### Total Scores
 
@@ -987,7 +996,7 @@ apa_table(
 
 ```
 
-LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), with good reliability ($\alpha$ = 0.82), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`) and good reliability ($\alpha$ = 0.84). An independent *t*-test indicated that the testing did not change total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST test indicated that the scores were within a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06 ±0.04%.
+LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), with good reliability ($\alpha$ = 0.82), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`) and good reliability ($\alpha$ = 0.84). An independent *t*-test indicated that the testing did not change total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST test indicated that the scores were within a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06.
 
 # Discussion
 
