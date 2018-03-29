@@ -4,17 +4,19 @@
 \begin{center}
 \begin{threeparttable}
 \caption{\label{tab:demo-table}Demographic and Data Screening Information}
-\begin{tabular}{lcccccc}
+\small{
+\begin{tabular}{lccccccc}
 \toprule
-Group & \multicolumn{1}{c}{Female} & \multicolumn{1}{c}{White} & \multicolumn{1}{c}{Age (SD)} & \multicolumn{1}{c}{Original N} & \multicolumn{1}{c}{Missing N} & \multicolumn{1}{c}{Outlier N}\\
+Group & \multicolumn{1}{c}{Female} & \multicolumn{1}{c}{White} & \multicolumn{1}{c}{Age (SD)} & \multicolumn{1}{c}{Original N} & \multicolumn{1}{c}{Missing N} & \multicolumn{1}{c}{Outlier N} & \multicolumn{1}{c}{Final N}\\
 \midrule
-PIL Random & 61.6 & 81.1 & 19.50 (2.93) & 1462 & 333 & 59\\
-PIL Not Random & 54.1 & 78.6 & 19.68 (3.58) & 915 & 51 & 36\\
-LPQ Random & - & - & - & 1462 & 555 & 24\\
-LPQ Not Random & - & - & - & 915 & 150 & 16\\
+PIL Random & 61.6 & 81.1 & 19.50 (2.93) & 1462 & 333 & 59 & 1070\\
+PIL Not Random & 54.1 & 78.6 & 19.68 (3.58) & 915 & 51 & 36 & 828\\
+LPQ Random & - & - & - & 1462 & 555 & 24 & 883\\
+LPQ Not Random & - & - & - & 915 & 150 & 16 & 749\\
 \bottomrule
 \addlinespace
 \end{tabular}
+}
 \begin{tablenotes}[para]
 \textit{Note.} Participants took both the PIL and LPQ scale, therefore, random and not random demographics are the same. Not every participant was given the LPQ, resulting in missing data for those subjects. Several PIL participants were removed because they were missing an item on their scale.
 \end{tablenotes}
@@ -28,53 +30,38 @@ LPQ Not Random & - & - & - & 915 & 150 & 16\\
 [tbp]
 \begin{center}
 \begin{threeparttable}
-\caption{\label{tab:cor-table}Correlation Matrices Results by Item}
-\begin{tabular}{lcccccl}
+\caption{\label{tab:cor-table-pil}Correlation Matrices Results by Item for the PIL}
+\small{
+\begin{tabular}{lcccc}
 \toprule
-Item & Differences & Items Changed & Where Changed & Item Directly After & Direction of Change & Items Stronger Randomized\\
+Item & Differences & Items Changed & Direction of Change & Stronger Randomized\\
 \midrule
-PIL 1 & 3 & 2, 12, 15 & After & Yes & 2 Negative; 1 Positive & 2 \& 12\\
-PIL 2 & 9 & 1, 3, 4, 8, 9, 15, 18, 19, 20 & 1 Before \& 8 After & Yes & 8 Negative; 1 Positive & 1, 3, 4, 8, 9, 18, 19, 20\\
-PIL 3 & 1 & 2 & Before & No & 1 Negative & 2\\
-PIL 4 & 2 & 2, 15 & 1 Before \& 1 After & No & 1 Negative; 1 Positive & 2\\
-PIL 5 & 2 & 9, 15 & After & No & 1 Negative; 1 Positive & 9\\
-PIL 6 & 2 & 12, 15 & After & No & 2 Positive & N/A\\
-PIL 7 & 2 & 17, 19 & After & No & 2 Positive & N/A\\
-PIL 8 & 1 & 2 & Before & No & 1 Negative & 2\\
-PIL 9 & 3 & 2, 5, 15 & 2 Before \& 1 After & No & 2 Negative; 1 Positive & 2 \& 5\\
-PIL 10 & 2 & 12, 15 & After & No & 2 Positive & N/A\\
-PIL 11 & 3 & 12, 15, 20 & After & Yes & 3 Positive & N/A\\
-PIL 12 & 6 & 1, 6, 10, 11, 14, 20 & 4 Before \& 2 After & No & 2 Negative; 4 Positive & 1 \& 14\\
-PIL 13 & 0 & N/A & N/A & N/A & N/A & N/A\\
-PIL 14 & 2 & 12, 18 & 1 Before \& 1 After & No & 2 Negative & 12 \& 18\\
-PIL 15 & 10 & 1, 2, 4, 5, 6, 9, 10, 11, 17, 19 & 8 Before \& 2 After & No & 10 Positive & N/A\\
-PIL 16 & 0 & N/A & N/A & N/A & N/A & N/A\\
-PIL 17 & 4 & 7, 15, 18, 19 & 2 Before \& 2 After & Yes & 4 Positive & N/A\\
-PIL 18 & 3 & 2, 14, 17 & Before & No & 2 Negative; 1 Positive & 2 \& 14\\
-PIL 19 & 5 & 2, 7, 15, 17, 20 & 4 Before \& 1 After & Yes & 1 Negative; 4 Positive & 2\\
-PIL 20 & 4 & 2, 11, 12, 19 & Before & N/A & 1 Negative; 3 Positive & 2\\
-LPQ 1 & 3 & 11, 13, 18 & After & No & 1 Negative; 2 Positive & 18\\
-LPQ 2 & 1 & 6 & After & No & 1 Positive & N/A\\
-LPQ 3 & 1 & 8 & After & No & 1 Negative & 8\\
-LPQ 4 & N/A & N/A & N/A & N/A & N/A & N/A\\
-LPQ 5 & 2 & 6, 11 & After & Yes & 2 Positive & N/A\\
-LPQ 6 & 2 & 2, 5 & Before & No & 2 Positive & N/A\\
-LPQ 7 & 3 & 13, 18, 20 & After & No & 3 Positive & N/A\\
-LPQ 8 & 2 & 3, 20 & Before \& After & No & 2 Negative & 3 \& 20\\
-LPQ 9 & 2 & 11, 13 & After & No & 2 Positive & N/A\\
-LPQ 10 & 1 & 20 & After & No & 1 Positive & N/A\\
-LPQ 11 & 4 & 1, 5, 9, 12 & Before \& After & Yes & 4 Positive & N/A\\
-LPQ 12 & 2 & 11, 13 & Before \& After & Yes & 2 Positive & N/A\\
-LPQ 13 & 6 & 1, 7, 12, 15, 16 & Before \& After & No & 6 Positive & N/A\\
-LPQ 14 & N/A & N/A & N/A & N/A & N/A & N/A\\
-LPQ 15 & N/A & N/A & N/A & N/A & N/A & N/A\\
-LPQ 16 & 1 & 13 & Before & No & 1 Positive & N/A\\
-LPQ 17 & 1 & 13 & Before & No & 1 Positive & N/A\\
-LPQ 18 & 3 & 1, 7, 20 & Before \& After & No & 1 Negative; 2 Positive & 1\\
-LPQ 19 & N/A & N/A & N/A & N/A & N/A & N/A\\
-LPQ 20 & 4 & 7, 8, 10, 18 & Before & No & 1 Negative; 3 Positive & 8\\
+1.00 & 3 & 2, 12, 15 & 2 Negative; 1 Positive & 2 \& 12\\
+2.00 & 9 & 1, 3, 4, 8, 9,
+15, 18, 19, 20 & 8 Negative; 1 Positive & 1, 3, 4, 8, 9,
+18, 19, 20\\
+3.00 & 1 & 2 & 1 Negative & 2\\
+4.00 & 2 & 2, 15 & 1 Negative; 1 Positive & 2\\
+5.00 & 2 & 9, 15 & 1 Negative; 1 Positive & 9\\
+6.00 & 2 & 12, 15 & 2 Positive & N/A\\
+7.00 & 2 & 17, 19 & 2 Positive & N/A\\
+8.00 & 1 & 2 & 1 Negative & 2\\
+9.00 & 3 & 2, 5, 15 & 2 Negative; 1 Positive & 2 \& 5\\
+10.00 & 2 & 12, 15 & 2 Positive & N/A\\
+11.00 & 3 & 12, 15, 20 & 3 Positive & N/A\\
+12.00 & 6 & 1, 6, 10, 11, 14, 20 & 2 Negative; 4 Positive & 1 \& 14\\
+13.00 & 0 & N/A & N/A & N/A\\
+14.00 & 2 & 12, 18 & 2 Negative & 12 \& 18\\
+15.00 & 10 & 1, 2, 4, 5, 6, 9,
+10, 11, 17, 19 & 10 Positive & N/A\\
+16.00 & 0 & N/A & N/A & N/A\\
+17.00 & 4 & 7, 15, 18, 19 & 4 Positive & N/A\\
+18.00 & 3 & 2, 14, 17 & 2 Negative; 1 Positive & 2 \& 14\\
+19.00 & 5 & 2, 7, 15, 17, 20 & 1 Negative; 4 Positive & 2\\
+20.00 & 4 & 2, 11, 12, 19 & 1 Negative; 3 Positive & 2\\
 \bottomrule
 \end{tabular}
+}
 \end{threeparttable}
 \end{center}
 \end{table*}
@@ -116,6 +103,45 @@ Item & \multicolumn{1}{c}{FL-R} & \multicolumn{1}{c}{FL-NR} & \multicolumn{1}{c}
 \begin{tablenotes}[para]
 \textit{Note.} FL = Factor Loadings, M = Mean, SD = Standard Deviation, R = Random, NR = Not Random
 \end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:cor-table-lpq}Correlation Matrices Results by Item for the LPQ}
+\small{
+\begin{tabular}{lcccc}
+\toprule
+Item & Differences & Items Changed & Direction of Change & Stronger Randomized\\
+\midrule
+1.00 & 3 & 11, 13, 18 & 1 Negative; 2 Positive & 18\\
+2.00 & 1 & 6 & 1 Positive & N/A\\
+3.00 & 1 & 8 & 1 Negative & 8\\
+4.00 & 0 & N/A & N/A & N/A\\
+5.00 & 2 & 6, 11 & 2 Positive & N/A\\
+6.00 & 2 & 2, 5 & 2 Positive & N/A\\
+7.00 & 3 & 13, 18, 20 & 3 Positive & N/A\\
+8.00 & 2 & 3, 20 & 2 Negative & 3 \& 20\\
+9.00 & 2 & 11, 13 & 2 Positive & N/A\\
+10.00 & 1 & 20 & 1 Positive & N/A\\
+11.00 & 4 & 1, 5, 9, 12 & 4 Positive & N/A\\
+12.00 & 2 & 11, 13 & 2 Positive & N/A\\
+13.00 & 6 & 1, 7, 12, 15, 16 & 6 Positive & N/A\\
+14.00 & 0 & N/A & N/A & N/A\\
+15.00 & 0 & N/A & N/A & N/A\\
+16.00 & 1 & 13 & 1 Positive & N/A\\
+17.00 & 1 & 13 & 1 Positive & N/A\\
+18.00 & 3 & 1, 7, 20 & 1 Negative; 2 Positive & 1\\
+19.00 & 0 & N/A & N/A & N/A\\
+20.00 & 4 & 7, 8, 10, 18 & 1 Negative; 3 Positive & 8\\
+\bottomrule
+\end{tabular}
+}
 \end{threeparttable}
 \end{center}
 \end{table*}
