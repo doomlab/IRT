@@ -61,6 +61,7 @@ citation will go here
 
 ##make a new dataset with the columns we need 
 bps = master[ , c(409:436, 955, 956, 14)]
+names(bps)
 
 bps$BP1 = recode(bps$BP1, "1='2'; 2='1'")
 bps$BP7 = recode(bps$BP7, "1='2'; 2='1'")
@@ -95,7 +96,7 @@ dontpeople = notypos[ missing > 5 , ]
 ##source, year, partno
 apply(replacepeople, 2, percentmiss)
 replacecolumn = replacepeople[ , -c(29,30,31)]
-dontcolumn = replacepeople[ , c(1:28)]
+dontcolumn = replacepeople[ , c(29,30,31)]
 
 ##MICE
 tempnomiss = mice(replacecolumn)
@@ -115,23 +116,24 @@ summary(filledin_none)
 
 ##Outliers##
 ##Mahal
+names(filledin_none)
 
-mahal = mahalanobis(filledin_none[ , -c(29:31)], 
-                    colMeans(filledin_none[ , -c(29:31)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(29:31)], use="pairwise.complete.obs"))
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
 
 summary(mahal)
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(29:31)])) 
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
 summary(mahal < cutoff)
 noout = filledin_none[ mahal < cutoff, ]
 
 ##Additivity: correlations
-correlations = cor(noout[,-c(29:31)], use="pairwise.complete.obs")
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
 symnum(correlations)
 
 ##Make the random stuff & exclude the ID columns 
 random = rchisq(nrow(noout), 7)
-fake = lm(random~., data=noout[ , -c(29:31)])
+fake = lm(random~., data=noout[ , -c(1:3)])
 
 ##Linearity plot
 ##Create the standardized residuals
@@ -150,7 +152,8 @@ abline(v = 0)}
 
 ##Scoring
 ##This scale is true/false. The number of True and False for each question quantified below.
-score = rowSums(noout[ , 1:28])
+names(noout)
+score = rowSums(noout[ , 4:31])
 summary(score)
 
 ##Factoring source##
@@ -159,7 +162,7 @@ table(bps$source)
 nooutnop = subset(noout, source != 'paper') ##excludes paper
 nomissnop = subset(filledin_none, source != 'paper') ##excludes paper
 
-notrandom = subset(nomissnop, source == 'not random')
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
 random = subset(nomissnop, source == 'random')
 
 ####overall cfa everyone together##
@@ -278,7 +281,7 @@ kable(tableBPS,
 ```{r BPS-SF, echo=FALSE}
 
 bpssf = master[ , c(437:448, 14, 955,956)]
-summary(master)
+names(bpssf)
 
 ##No reverse coded items.
 
@@ -300,7 +303,7 @@ replacecolumn = replacepeople[ , -c(13:15)]
 dontcolumn = replacepeople[ , c(13:15)]
 
 ##MICE not needed here. If was we would have to replace and bind
-nomiss = replacepeople
+nomiss = replacepeople ##no combine 
 
 ##Small note: When MICE is run on this project the YEAR column
 ##is moved from the last column to the thrid column.
@@ -490,7 +493,7 @@ kable(tableBPSSF,
 
 ```{r BRS, include=FALSE}
 brs = master[ , c(850:855,14,955,956) ]
-summary(master)
+names(brs)
 
 ##Reverse coded items.
 brs$BRS2 = recode(brs$BRS2, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
@@ -672,6 +675,7 @@ kable(tableBRS,
 ```{r DMS, include=FALSE}
 
 dms = master[ ,c(449:470,14,955,956) ]
+names(dms)
 
 
 ##Reverse Code. No reverse coding. Stopped here for scoring.
@@ -710,22 +714,23 @@ summary(filledin_none)
 
 ##Outliers##
 ##Mahal
-mahal = mahalanobis(filledin_none[ , -c(23:25)], 
-                    colMeans(filledin_none[ , -c(23:25)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(23:25)], use="pairwise.complete.obs"))
+names(filledin_none)
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
 
 summary(mahal)
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(23:25)])) 
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
 summary(mahal < cutoff)
 noout = filledin_none[ mahal < cutoff, ]
 
 ##additivity: correlations
-correlations = cor(noout[,-c(23:25)], use="pairwise.complete.obs")
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
 symnum(correlations)
 
 ##make the random stuff 
 random = rchisq(nrow(noout), 7)
-fake = lm(random~., data=noout[ , -c(23:25)])
+fake = lm(random~., data=noout[ , -c(1:3)])
 
 ##get the linearity plot
 ##create the standardized residuals
@@ -876,7 +881,7 @@ kable(tableDMS,
 ```{r ELM, include=FALSE}
 
 elm = master[ , c(740:779,14,955,956)]
-summary(elm)
+names(elm)
 
 ##Reverse Code. No Reverse Coding.
 
@@ -912,23 +917,24 @@ filledin_none = cbind(dontcolumn, nomiss)
 summary(filledin_none)
 
 ##Outliers##
-mahal = mahalanobis(filledin_none[ , -c(41:43)], 
-                    colMeans(filledin_none[ , -c(41:43)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(41:43)], use="pairwise.complete.obs"))
+names(filledin_none)
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
 
 summary(mahal)
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(41:43)])) 
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
 summary(mahal < cutoff)
 noout = filledin_none[ mahal < cutoff, ]
 
 ##additivity: correlations
-correlations = cor(noout[,-c(41:43)], use="pairwise.complete.obs")
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
 symnum(correlations)
 
 ##make the random stuff
 random = rchisq(nrow(noout), 7)
 ##be sure here not to include the ID columns!
-fake = lm(random~., data=noout[ , -c(41:43)])
+fake = lm(random~., data=noout[ , -c(1:3)])
 
 ##get the linearity plot
 ##create the standardized residuals
@@ -1086,11 +1092,11 @@ kable(tableELM,
 ```{r ELQ, include=FALSE}
 
 elq = master[ , c(66:84, 14,955,956)]
-summary(elq)
+names(elq)
 
 ##reverse items 2, 7, 14, 18
 names(elq)
-master[ , c(2, 7, 14, 18)] = 6 - master[ , c(2, 7, 14, 18)]
+elq[ , c(2, 7, 14, 18)] = 6 - elq[ , c(2, 7, 14, 18)]
 
 ####DATA SCREENING####
 
@@ -1111,6 +1117,7 @@ replacecolumn = replacepeople[ , -c(20:22)]
 dontcolumn = replacepeople[ , c(20:22)]
 
 nomiss = replacepeople
+names(nomiss)
 
 ##Outliers##
 mahal = mahalanobis(nomiss[ , -c(20:22)], 
@@ -1280,7 +1287,7 @@ kable(tableELQ,
 ```{r EMAS, include=FALSE}
 
 emas = master[ , c(606:617,14,955,956)]
-summary(emas)
+names(emas)
 
 ##No reverse coded items.
 
@@ -1304,6 +1311,7 @@ replacecolumn = replacepeople[ , -c(13:15)]
 dontcolumn = replacepeople[ , c(13:15)]
 
 nomiss = replacepeople
+names(nomiss)
 
 ##Outliers##
 mahal = mahalanobis(nomiss[ , -c(13:15)], 
@@ -1467,7 +1475,7 @@ names(ems)
 ##Reverse Code. 1, 4, 7, 8, 9, 10, 13, 17, 19
 ##the paper says that seven of them were reverse coded but doesn't say which
 ##these items definitely are reversed given the histograms
-master[ , c(1, 4, 7:10, 13, 17, 19)] = 6 - master[ , c(1, 4, 7:10, 13, 17, 19)] 
+ems[ , c(1, 4, 7:10, 13, 17, 19)] = 6 - ems[ , c(1, 4, 7:10, 13, 17, 19)] 
 
 ####DATA SCREENING####
 
@@ -1500,21 +1508,22 @@ filledin_none = cbind(dontcolumn, nomiss)
 summary(filledin_none)
 
 ##Outliers##
-mahal = mahalanobis(filledin_none[ , -c(21:23)], 
-                    colMeans(filledin_none[ , -c(21:23)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(21:23)], use="pairwise.complete.obs"))
+names(filledin_none)
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
 
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(21:23)])) 
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
 summary(mahal < cutoff)
 noout = filledin_none[ mahal < cutoff, ]
 
 ##additivity: correlations
-correlations = cor(noout[,-c(21:23)], use="pairwise.complete.obs")
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
 symnum(correlations)
 
 ##make the random stuff
 random = rchisq(nrow(noout), 7)
-fake = lm(random~., data=noout[ , -c(21:23)])
+fake = lm(random~., data=noout[ , -c(1:3)])
 
 ##get the linearity plot
 ##create the standardized residuals
@@ -1646,7 +1655,7 @@ kable(tableEMS,
 ```{r ES, include=FALSE}
 
 es = master [, c(20:65,14,955,956)]
-summary(es)
+names(es)
 
 ##Reverse Code. 2, 15, 21, 26, 36
 names(es)
@@ -1688,23 +1697,24 @@ summary(filledin_none)
 
 
 ##Outliers##
-mahal = mahalanobis(filledin_none[ , -c(47:49)], 
-                    colMeans(filledin_none[ , -c(47:49)], na.rm = TRUE),
-                    cov(filledin_none[ , -c(47:49)], use="pairwise.complete.obs"))
+names(filledin_none)
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
 
 summary(mahal)
-cutoff = qchisq(.999,ncol(filledin_none[ , -c(47:49)])) 
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
 summary(mahal < cutoff)
 noout = filledin_none[ mahal < cutoff, ]
 
 ##additivity: correlations
-correlations = cor(noout[,-c(47:49)], use="pairwise.complete.obs")
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
 symnum(correlations)
 
 ##make the random stuff
 random = rchisq(nrow(noout), 7)
 ##be sure here not to include the ID columns!
-fake = lm(random~., data=noout[ , -c(47:49)])
+fake = lm(random~., data=noout[ , -c(1:3)])
 
 #get the linearity plot
 ##create the standardized residuals
@@ -1844,7 +1854,7 @@ names(FOM)
 summary(master)
 
 ##fix qualtrics coding that's incorrect 1-5 instead of 0-4
-FOM[ , c(1:12)] = master[ , c(1:12)] - 1
+FOM[ , c(1:12)] = FOM[ , c(1:12)] - 1
 
 ##Reverse Code. 2, 4, 5, 7, 9 , 11
 FOM[ , c(2, 4, 5, 7, 9, 11)] = 4 - FOM[ , c(2, 4, 5, 7, 9, 11)] 
@@ -1874,6 +1884,7 @@ dontcolumn = replacepeople[ , c(13:15)]
 nomiss = replacepeople
 
 ##Outliers##
+names(nomiss)
 mahal = mahalanobis(nomiss[ , -c(13:15)], 
                     colMeans(nomiss[ , -c(13:15)], na.rm = TRUE),
                     cov(nomiss[ , -c(13:15)], use="pairwise.complete.obs"))
@@ -2033,7 +2044,7 @@ kable(tableFOM,
 ```{r GLPS, include=FALSE}
 
 glps = master[ , c(491:505,14,955,956)]
-summary(glps)
+names(glps)
 
 ##Reverse Code. 5 8 and 13
 glps[ , c(5, 8, 13)] =  8 - glps[ , c(5, 8, 13)]
@@ -2057,12 +2068,14 @@ dontpeople = notypos[ missing > 5 , ]
 
 ##figure out the columns to exclude (survey data)
 apply(replacepeople, 2, percentmiss)
+names(replacepeople)
 replacecolumn = replacepeople[ , -c(16:18)]
 dontcolumn = replacepeople[ , c(16:18)]
 
 nomiss = replacepeople
 
 ##Outliers##
+names(nomiss)
 mahal = mahalanobis(nomiss[ , -c(16:18)], 
                     colMeans(nomiss[ , -c(16:18)], na.rm = TRUE),
                     cov(nomiss[ , -c(16:18)], use="pairwise.complete.obs"))
@@ -2226,8 +2239,8 @@ kable(tableGLPS,
 
 
 ```{r LAP, include=FALSE}
-master = read.csv("Meaning_Scales_LAP_Reker_RR_RN_Paper.csv")
-summary(master)
+
+
 
 
 
@@ -2235,13 +2248,194 @@ summary(master)
 
 ```{r LAPtable, echo = FALSE, results = 'asis'}
 
+
 ```
 
 ```{r LAP-R, include=FALSE}
 
+lapr = master[ , c(630:685,14,955,956)]
+names(lapr)
+
+##Reverse Code. No Reverse Coding.
+library(car)
+lapr$LAPR16 = recode(lapr$LAPR16, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+##here I excluded the first two columns because they were 
+##included for everyone as IDs, so I don't want to count that
+##as part of the percent toward what they did
+notypos = lapr
+names(notypos)
+missing = apply(notypos[ , 1:56], 1, percentmiss) 
+table(missing)
+
+##replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##figure out the columns to exclude (survey data)
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(57,58,59)]
+dontcolumn = replacepeople[ , c(57,58,59)]
+
+##let's mice it!
+tempnomiss = mice(replacecolumn)
+nomiss = complete(tempnomiss, 1)
+summary(nomiss)
+
+##put everything back together
+filledin_none = cbind(dontcolumn, nomiss)
+summary(filledin_none)
+
+##Outliers##
+names(filledin_none)
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
+
+summary(mahal)
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
+summary(mahal < cutoff)
+noout = filledin_none[ mahal < cutoff, ]
+
+##additivity: correlations
+names(noout)
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(1:3)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##STOPPED HERE FOR THIS ONE
+##Scoring
+LP <- rowSums(noout[, c(14,22,23,30,31,38,39,46)])
+LP
+
+EV <- rowSums(noout[, c(4,12,16,20,28,34,40)])
+EV
+
+LC <- rowSums(noout[, c(17,25,41)])
+LC
+
+Death <- rowSums(noout[, c(19,27,35,43)])
+Death
+
+WM <- rowSums(noout[, c(7,9,15,36,44,47)])
+WM
+
+GS <- rowSums(noout[, c(21,24,29,37)])
+GS
+
+FMF <- rowSums(noout[, c(5,8,13,45)])
+FMF
+
+##exclude paper people using noout dataset 
+nooutnop = subset(noout, Source < 2)
+nomissnop = subset(filledin_none, Source < 2)
+
+##overallmodel 
+names(nomissnop)
+library(lavaan)
+overallmodel = '
+LP =~ Q22_11 + Q22_19 + Q22_20 + Q22_27 + Q22_28 + Q22_35 + Q22_36 + Q22_43
+EV =~ Q22_1 + Q22_9 + Q22_13 + Q22_17 + Q22_25 + Q22_31 + Q22_37
+LC =~ Q22_14 + Q22_22 + Q22_38
+Death =~ Q22_16 + Q22_24 + Q22_32 + Q22_40
+WM =~ Q22_4 + Q22_6 + Q22_12 + Q22_33 + Q22_41 + Q22_44 
+GS =~ Q22_18 + Q22_21 + Q22_26 + Q22_34 
+FMF =~ Q22_2 + Q22_5 + Q22_10 + Q22_42
+'
+fit = cfa(overallmodel, 
+          data = nomissnop, 
+          meanstructure = TRUE)
+
+fitMeasures(fit)
+table(nomissnop$Source)
+inspect(fit,"cov.lv")
+
+##subset 
+random = subset(nomissnop, Source == "1")
+notrandom = subset(nomissnop, Source =="0")
+
+##fit for random 
+random.fit = cfa(overallmodel, 
+                 data = random, 
+                 meanstructure = TRUE)
+summary(random.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(random.fit)
+
+
 ```
 
 ```{r LAP-Rtable, echo = FALSE, results = 'asis'}
+
+tableGLPS = matrix(NA, nrow = 7, ncol = 8)
+tableGLPS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableGLPS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableGLPS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableGLPS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableGLPS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableGLPS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.loadings)["cfi"] - fitmeasures(multisteps2$fit.configural)["cfi"])
+
+tableGLPS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.intercepts)["cfi"] - fitmeasures(multisteps2$fit.loadings)["cfi"])
+
+tableGLPS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.residuals)["cfi"] - fitmeasures(multisteps2$fit.intercepts)["cfi"])
+
+tableGLPS[ , 3] = printnum(as.numeric(tableGLPS[ , 3]), big.mark = "")
+tableGLPS[ , 5:8] = printnum(as.numeric(tableGLPS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableGLPS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
