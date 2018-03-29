@@ -1,4 +1,4 @@
-\documentclass[english,man]{apa6}
+\documentclass[english,man, mask]{apa6}
 
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -40,7 +40,7 @@
   {\end{ThreePartTable}\end{center}\end{landscape}}
 
   \usepackage{ifthen} % Only add declarations when endfloat package is loaded
-  \ifthenelse{\equal{\string man}{\string man}}{%
+  \ifthenelse{\equal{\string man, mask}{\string man}}{%
    \DeclareDelayedFloatFlavor{ThreePartTable}{table} % Make endfloat play with longtable
    % \DeclareDelayedFloatFlavor{ltable}{table} % Make endfloat play with lscape
    \DeclareDelayedFloatFlavor{lltable}{table} % Make endfloat play with lscape & longtable
@@ -946,7 +946,7 @@ was \emph{M} = 104.48 (\emph{SD} = 17.81) with excellent reliability
 (\(\alpha\) = .92). The total score difference was examined with an
 independent \emph{t}-test and was not significant, \(t(1,896) = -1.76\),
 \(p = .079\). The effect size for this difference was negligible,
-\(d_{av}\) = -0.08 95\% CI {[}-0.17, 0.29{]}. We tested if scores were
+\(d_{s}\) = -0.08 95\% CI {[}-0.17, 0.29{]}. We tested if scores were
 changed by 5\% (6.00 points), and the TOST analysis indicated that the
 lower, \emph{t}(1897) = 5.43, \emph{p} \textless{} .001 and the upper
 bound, \emph{t}(1897) = -8.95, \emph{p} \textless{} .001 were within
@@ -1079,7 +1079,7 @@ mean for nonrandomized testing was \emph{M} = 14.19 (\emph{SD} = 4.22)
 and good reliability (\(\alpha\) = .84). An independent \emph{t}-test
 indicated that testing did not change the total score,
 \(t(1,630) = 0.23\), \(p = .819\). The effect size for this difference
-was negligible, \(d_{av}\) = 0.01 95\% CI {[}-0.09, 0.45{]}. The TOST
+was negligible, \(d_{s}\) = 0.01 95\% CI {[}-0.09, 0.45{]}. The TOST
 analysis indicated that the scores were within a 5\% (1.00 points)
 change, lower: \emph{t}(1627) = 5.13, \emph{p} \textless{} .001 and
 upper: \emph{t}(1627) = -4.67, \emph{p} \textless{} .001. The BF results

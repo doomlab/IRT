@@ -45,8 +45,8 @@ footnotelist      : no
 lineno            : yes
 
 lang              : "english"
-class             : "man"
-#class             : "man, mask"
+#class             : "man"
+class             : "man, mask"
 output            : papaja::apa6_pdf
 replace_ampersands: yes
 csl               : apa6.csl
@@ -659,7 +659,7 @@ apa_table(
 
 ```
 
-Total scores were created by summing the items for each participant across all twenty PIL questions. The mean total score for nonrandomized testing was *M* = `r apa(MTnrP, 2)` (*SD* = `r apa(SDTnrP, 2)`) with excellent reliability ($\alpha$ = .93), while the mean for randomizing testing was *M* = `r apa(MTrP, 2)` (*SD* = `r apa(SDTrP, 2)`) with excellent reliability ($\alpha$ = .92). The total score difference was examined with an independent *t*-test and was not significant, `r apa_print(TPt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TPd$d, 2)` 95% CI [`r apa(TPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. We tested if scores were changed by 5% (`r apa(totcutoff, 2)` points), and the TOST analysis indicated that the lower, *t*(1897) = `r apa(TPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(1897) = `r apa(TPtost$TOST_t2, 2)`, *p* < .001 were within this area of null change. The BF results also supported the null model, 0.25.
+Total scores were created by summing the items for each participant across all twenty PIL questions. The mean total score for nonrandomized testing was *M* = `r apa(MTnrP, 2)` (*SD* = `r apa(SDTnrP, 2)`) with excellent reliability ($\alpha$ = .93), while the mean for randomizing testing was *M* = `r apa(MTrP, 2)` (*SD* = `r apa(SDTrP, 2)`) with excellent reliability ($\alpha$ = .92). The total score difference was examined with an independent *t*-test and was not significant, `r apa_print(TPt)$statistic`. The effect size for this difference was negligible, $d_{s}$ = `r apa(TPd$d, 2)` 95% CI [`r apa(TPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. We tested if scores were changed by 5% (`r apa(totcutoff, 2)` points), and the TOST analysis indicated that the lower, *t*(1897) = `r apa(TPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(1897) = `r apa(TPtost$TOST_t2, 2)`, *p* < .001 were within this area of null change. The BF results also supported the null model, 0.25.
 
 ```{r mg-pil, include = FALSE, echo = FALSE, eval = FALSE}
 ####pil 
@@ -901,7 +901,7 @@ apa_table(
 
 ```
 
-LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), with good reliability ($\alpha$ = .82), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`) and good reliability ($\alpha$ = .84). An independent *t*-test indicated that testing did not change the total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{av}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST analysis indicated that the scores were within a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06.
+LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), with good reliability ($\alpha$ = .82), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`) and good reliability ($\alpha$ = .84). An independent *t*-test indicated that testing did not change the total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{s}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST analysis indicated that the scores were within a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06.
 
 ```{r mg-lpq, include = FALSE, echo = FALSE, eval = FALSE}
 
