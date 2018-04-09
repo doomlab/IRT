@@ -6255,53 +6255,1011 @@ kable(tablePPMS,
 QE = master[ , c(699:719,14,955,956)]
 names(QE)
 
+##No reverse coded items.
+library(car)
+QE$QEWB3 = recode(QE$QEWB3, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+QE$QEWB7 = recode(QE$QEWB7, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+QE$QEWB11 = recode(QE$QEWB11, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+QE$QEWB12 = recode(QE$QEWB12, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+QE$QEWB16 = recode(QE$QEWB16, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+QE$QEWB19 = recode(QE$QEWB19, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+QE$QEWB20 = recode(QE$QEWB20, "1='5'; 2='4'; 3='3'; 4='2'; 5='1'")
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = QE
+names(notypos)
+missing = apply(notypos[ , 1:21], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(22:24)]
+dontcolumn = replacepeople[ , c(22:24)]
+
+##MICE
+tempnomiss = mice(replacecolumn)
+nomiss = complete(tempnomiss, 1)
+
+##(By your powers) Combine (I am Captain Planet!)
+filledin_none = cbind(dontcolumn, nomiss)
+
+##Small note: When MICE is run on this project the YEAR column
+##is moved from the last column to the thrid column.
+##This trend is not observed with data that does not need
+##to be MICE'd. All code exluding ID columns has been corrected
+##for this. 
+#~Hannah 
+
+##Outliers##
+##Mahal
+names(filledin_none)
+
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
+
+summary(mahal)
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##Additivity: correlations
+correlations = cor(filledin_none[,-c(1:3)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##Make the random stuff & exclude the ID columns 
+random = rchisq(nrow(filledin_none), 7)
+fake = lm(random~., data=filledin_none[ , -c(1:3)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=30)
+
+##homogeneity and homoscedasticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+QWEB <- rowSums(noout[, c(1:21)])
+QWEB
+
+##exclude paper people using noout dataset 
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(filledin_none, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+##overall model 
+overallmodel = '
+QEWB =~ QEWB1 + QEWB2 + QEWB3 + QEWB4 + QEWB5 + QEWB6 + QEWB7 + QEWB8 + QEWB9 + QEWB10 + QEWB11 + QEWB12 + QEWB13 + QEWB14 + QEWB15 + QEWB16 + QEWB17 + QEWB18 + QEWB19 + QEWB20 + QEWB21
+'
+
+overall.fit = cfa(overallmodel, 
+          data = nomissnop, 
+          meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(overall.fit)
+
+
+##fit for random 
+overall.fit.r = cfa(overallmodel, 
+                 data = random, 
+                 meanstructure = TRUE)
+summary(overall.fit.r, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(overall.fit.r)
+
+##fit for not random 
+overall.fit.nr = cfa(overallmodel, 
+                    data = notrandom, 
+                    meanstructure = TRUE)
+summary(overall.fit.nr, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE) 
+fitMeasures(overall.fit.nr)
+
+##invariances 
+library(semTools)
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = 'source', 
+                                   strict = T)
+fitmeasures(multisteps)
+fitMeasures(multisteps$fit.configural)
+fitMeasures(multisteps$fit.loadings)
+fitMeasures(multisteps$fit.intercepts)
+fitMeasures(multisteps$fit.residuals)
+fitMeasures(multisteps$fit.means)
+
+#partial invariances 
+partial = partialInvariance(multisteps, 
+                            type = "metric")
+strictfree = partial$results
+
+
+##after letting it go 
+partialstrict = measurementInvariance(overallmodel, 
+                                      data = nomissnop, 
+                                      group = 'source', 
+                                      strict = T, 
+                                      group.partial = c("QEWB=~QEWB16"))
+
+fitMeasures(partialstrict$fit.loadings)
+fitMeasures(partialstrict$fit.intercepts)
+
+##partials2 breaks on intercepts
+partial2 = partialInvariance(partialstrict, type = "scalar")
+strictfree2 = partial2$results
+
+partialstrict2 = measurementInvariance(overallmodel, 
+                                       data = nomissnop, 
+                                       group = 'source', 
+                                       strict = T, 
+                                       group.partial = c("QEWB=~QEWB16","QEWB6~1" ))
+fitMeasures(partialstrict2$fit.intercepts)
+fitMeasures(partialstrict2$fit.residuals)
+
+##partials3 
+partial3 = partialInvariance(partialstrict2, type = "strict")
+strictfree3 = partial3$results
+
+partialstrict3 = measurementInvariance(overallmodel, 
+                                       data = nomissnop, 
+                                       group = 'Source', 
+                                       strict = T, 
+                                       group.partial = c("QEWB=~QEWB16","QEWB6~1", "QEWB19~~QEWB19" ))
+fitMeasures(partialstrict3$fit.residuals)
+
 ```
 
 ```{r QEtable, echo=FALSE, results='asis'}
+
+##partialstrict3
+
+tableQE = matrix(NA, nrow = 7, ncol = 8)
+tableQE[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableQE[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableQE[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableQE[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableQE[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(partialstrict3$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableQE[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(partialstrict3$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(partialstrict3$fit.loadings)["cfi"] - fitmeasures(partialstrict3$fit.configural)["cfi"])
+
+tableQE[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(partialstrict3$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(partialstrict3$fit.intercepts)["cfi"] - fitmeasures(partialstrict3$fit.loadings)["cfi"])
+
+tableQE[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(partialstrict3$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(partialstrict3$fit.residuals)["cfi"] - fitmeasures(partialstrict3$fit.intercepts)["cfi"])
+
+tableQE[ , 3] = printnum(as.numeric(tableQE[ , 3]), big.mark = "")
+tableQE[ , 5:8] = printnum(as.numeric(tableQE[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableQE, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
+
+
 
 ```
 
 ```{r RS14, include=FALSE}
 
+RS14 = master[ , c(836:849,14,955,956)]
+names(RS14)
+
+##No reverse coded items.
+
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = RS14
+missing = apply(notypos[ , 1:14], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(15:17)]
+dontcolumn = replacepeople[ , c(15:17)]
+
+##no missing data.
+nomiss = replacepeople
+
+##Outliers##
+names(nomiss)
+mahal = mahalanobis(nomiss[ , -c(15:17)], 
+                    colMeans(nomiss[ , -c(15:17)], na.rm = TRUE),
+                    cov(nomiss[ , -c(15:17)], use="pairwise.complete.obs"))
+cutoff = qchisq(.999,ncol(nomiss[ , -c(15:17)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##additivity: correlations
+correlations = cor(noout[,-c(15:17)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(15:17)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+R14 = rowSums(noout[, c(1:14)])
+summary(R14)
+
+####CFA####
+##subsetting data
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(nomiss, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+####overall model for everyone together##
+overallmodel = '
+ResScale =~
+RS1 + RS2 + RS3 + RS4 + RS5 + 
+RS6 + RS7 + RS8 + RS9 + RS10 +
+RS11 + RS12 + RS13 + RS14
+'
+
+overall.fit = cfa(model = overallmodel, 
+                  data=nomissnop, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=random, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=notrandom, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+
+####multi group testing####
+###measurement invariance
+options(scipen = 999)
+
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = "Source",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+
+
+
 ```
 
 ```{r RS14table, echo=FALSE, results='asis'}
+
+tableRS14 = matrix(NA, nrow = 7, ncol = 8)
+tableRS14[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableRS14[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableRS14[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableRS14[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableRS14[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableRS14[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableRS14[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableRS14[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableRS14[ , 3] = printnum(as.numeric(tableRS14[ , 3]), big.mark = "")
+tableRS14[ , 5:8] = printnum(as.numeric(tableRS14[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableRS14, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
 ```{r SWL, include=FALSE}
 
+SWL = master[ , c(322:326,14,955,956)]
+names(SWL)
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = SWL
+missing = apply(notypos[ , 1:5], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+replacecolumn = replacepeople[ , -c(6:8)]
+dontcolumn = replacepeople[ , c(6:8)]
+
+nomiss = replacepeople
+
+##Small note: When MICE is run on this project the YEAR column
+##is moved from the last column to the thrid column.
+##This trend is not observed with data that does not need
+##to be MICE'd. All code exluding ID columns has been corrected
+##for this. 
+#~Hannah 
+
+##Outliers##
+##Mahal
+names(nomiss)
+mahal = mahalanobis(nomiss[ , -c(6:8)], 
+                    colMeans(nomiss[ , -c(6:8)], na.rm = TRUE),
+                    cov(nomiss[ , -c(6:8)], use="pairwise.complete.obs"))
+
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(6:8)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##Additivity: correlations
+correlations = cor(noout[,-c(6:8)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##Make the random stuff & exclude the ID columns 
+random = rchisq(nrow(noout), 7)
+fake = lm(random~., data=noout[ , -c(6:8)])
+
+##Linearity plot
+##Create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##Multivariate normality
+hist(standardized, breaks=15)
+
+##Homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+SWLS <- rowSums(noout[, c(1:5)])
+SWLS
+
+##exclude paper people using noout dataset 
+nooutnop = subset(noout, source != 'paper')
+nomissnop = subset(nomiss, source != 'paper')
+
+notrandom = subset(nomissnop, source == 'not random')
+random = subset(nomissnop, source == 'random')
+
+##overallmodel 
+
+overallmodel = '
+SWLS =~ SWLS1 + SWLS2 + SWLS3 + SWLS4 + SWLS5
+'
+overall.fit = cfa(overallmodel, 
+          data = nomissnop, 
+          meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(overall.fit)
+
+
+##fit for random 
+overall.fit.r = cfa(overallmodel, 
+                 data = random, 
+                 meanstructure = TRUE)
+summary(overall.fit.r, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(overall.fit.r)
+
+##fit for not random 
+overall.fit.nr = cfa(overallmodel, 
+                    data = notrandom, 
+                    meanstructure = TRUE)
+summary(overall.fit.nr, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE) 
+fitMeasures(overall.fit.nr)
+
+##invariances 
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = 'source', 
+                                   strict = T)
+fitmeasures(multisteps)
+fitMeasures(multisteps$fit.configural)
+fitMeasures(multisteps$fit.loadings)
+fitMeasures(multisteps$fit.intercepts)
+fitMeasures(multisteps$fit.residuals)
+fitMeasures(multisteps$fit.means)
+
 ```
 
 ```{r SWLtable, echo=FALSE, results='asis'}
+
+tableSWLS = matrix(NA, nrow = 7, ncol = 8)
+tableSWLS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableSWLS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableSWLS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableSWLS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableSWLS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableSWLS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableSWLS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableSWLS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableSWLS[ , 3] = printnum(as.numeric(tableSWLS[ , 3]), big.mark = "")
+tableSWLS[ , 5:8] = printnum(as.numeric(tableSWLS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableSWLS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
 ```{r SONG, include=FALSE}
 
+SONG = master[ , c(720:739,14,955,956)]
+names(SONG)
+
+##Reverse Code. 9
+library(car)
+SONG$SONG3 = recode(SONG$SONG3, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG4 = recode(SONG$SONG4, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG5 = recode(SONG$SONG5, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG6 = recode(SONG$SONG6, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG9 = recode(SONG$SONG9, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG12 = recode(SONG$SONG12, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG13 = recode(SONG$SONG13, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG15 = recode(SONG$SONG15, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG18 = recode(SONG$SONG18, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SONG$SONG20 = recode(SONG$SONG20, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = SONG
+names(notypos)
+missing = apply(notypos[ , 1:20], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+replacecolumn = replacepeople[ , -c(21:23)]
+dontcolumn = replacepeople[ , c(21:23)]
+
+##MICE
+tempnomiss = mice(replacecolumn)
+nomiss = complete(tempnomiss, 1)
+summary(nomiss)
+
+##(By your powers) Combine (I am Captain Planet!)
+filledin_none = cbind(dontcolumn, nomiss)
+summary(filledin_none)
+
+##Small note: When MICE is run on this project the YEAR column
+##is moved from the last column to the thrid column.
+##This trend is not observed with data that does not need
+##to be MICE'd. All code exluding ID columns has been corrected
+##for this. 
+#~Hannah 
+
+##Outliers##
+##Mahal
+names(filledin_none)
+mahal = mahalanobis(filledin_none[ , -c(1:3)], 
+                    colMeans(filledin_none[ , -c(1:3)], na.rm = TRUE),
+                    cov(filledin_none[ , -c(1:3)], use="pairwise.complete.obs"))
+
+summary(mahal)
+cutoff = qchisq(.999,ncol(filledin_none[ , -c(1:3)])) 
+summary(mahal < cutoff)
+noout = filledin_none[ mahal < cutoff, ]
+
+##Additivity: correlations
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##Make the random stuff & exclude the ID columns 
+random = rchisq(nrow(noout), 7)
+fake = lm(random~., data=noout[ , -c(1:3)])
+
+##Linearity plot
+##Create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##Multivariate normality
+hist(standardized, breaks=15)
+
+##Homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+##Existential vacu
+vac = colSums(noout[,c("SONG3", "SONG4", "SONG8", "SONG9", "SONG11", "SONG12", "SONG13", "SONG14","SONG17", "SONG19")])
+vac
+
+vactot = sum(vac)
+vactot
+
+#Life perspective 
+WM = rowSums(noout[,c("SONG1", "SONG6", "SONG7", "SONG10", "SONG15", "SONG18", "SONG20")])
+WM
+
+##exclude paper people using noout dataset 
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(filledin_none, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+
+##overallmodel 
+library(lavaan)
+names(filledin_none)
+overallmodel = '
+VA =~ SONG3 + SONG4 + SONG8 + SONG9 + SONG11 + SONG12 + SONG13 + SONG14 + SONG17 + SONG19
+WM =~ SONG1 + SONG6 + SONG7 + SONG10 + SONG15 + SONG18 + SONG20
+'
+overall.fit = cfa(overallmodel, 
+          data = nomissnop, 
+          meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(overall.fit)
+
+##fit for random 
+overall.fit.r = cfa(overallmodel, 
+                 data = random, 
+                 meanstructure = TRUE)
+summary(overall.fit.r, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+fitMeasures(overall.fit.r)
+
+##fit for not random 
+overall.fit.nr = cfa(overallmodel, 
+                    data = notrandom, 
+                    meanstructure = TRUE)
+summary(overall.fit.nr, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE) 
+fitMeasures(overall.fit.nr)
+
+##invariances 
+library(semTools)
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = 'source', 
+                                   strict = T)
+fitmeasures(multisteps)
+fitMeasures(multisteps$fit.configural)
+fitMeasures(multisteps$fit.loadings)
+fitMeasures(multisteps$fit.intercepts)
+fitMeasures(multisteps$fit.residuals)
+fitMeasures(multisteps$fit.means)
+
+
+
 ```
 
 ```{r SONGtable, echo=FALSE, results='asis'}
+
+tableSONG = matrix(NA, nrow = 7, ncol = 8)
+tableSONG[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableSONG[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableSONG[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableSONG[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableSONG[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableSONG[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableSONG[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableSONG[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableSONG[ , 3] = printnum(as.numeric(tableSONG[ , 3]), big.mark = "")
+tableSONG[ , 5:8] = printnum(as.numeric(tableSONG[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableSONG, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
 ```{r SOC, include=FALSE}
 
+SOC = master[ , c(327:356,14,955,956)]
+names(SOC)
+
+##No reverse coded items.
+library(car)
+SOC$SCS7 = recode(SOC$SCS7, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS9 = recode(SOC$SCS9, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS11 = recode(SOC$SCS11, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS12 = recode(SOC$SCS12, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS13 = recode(SOC$SCS13, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS14 = recode(SOC$SCS14, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS16 = recode(SOC$SCS16, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS19 = recode(SOC$SCS19, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS20 = recode(SOC$SCS20, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS21 = recode(SOC$SCS21, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS23 = recode(SOC$SCS23, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS24 = recode(SOC$SCS24, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS27 = recode(SOC$SCS27, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS28 = recode(SOC$SCS28, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+SOC$SCS29 = recode(SOC$SCS29, "1='7'; 2='6'; 3='5'; 4='4'; 5='3'; 6='2'; 7='1'")
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = SOC
+names(notypos)
+missing = apply(notypos[ , 1:30], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(31:33)]
+dontcolumn = replacepeople[ , c(31:33)]
+
+##MICE
+tempnomiss = mice(replacecolumn)
+nomiss = complete(tempnomiss, 1)
+summary(nomiss)
+
+##(By your powers) Combine (I am Captain Planet!)
+filledin_none = cbind(dontcolumn, nomiss)
+summary(filledin_none)
+
+##Small note: When MICE is run on this project the YEAR column
+##is moved from the last column to the thrid column.
+##This trend is not observed with data that does not need
+##to be MICE'd. All code exluding ID columns has been corrected
+##for this. 
+#~Hannah 
+
+##Outliers##
+##Mahal
+names(filledin_none)
+mahal = mahalanobis(nomiss[ , -c(1:3)], 
+                    colMeans(nomiss[ , -c(1:3)], na.rm = TRUE),
+                    cov(nomiss[ , -c(1:3)], use="pairwise.complete.obs"))
+
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(1:3)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##Additivity: correlations
+correlations = cor(noout[,-c(1:3)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##Make the random stuff & exclude the ID columns 
+random = rchisq(nrow(noout), 7)
+fake = lm(random~., data=noout[ , -c(1:3)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=30)
+
+##homogeneity and homoscedasticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##scoring (only one factor from the PDF)
+SCS = rowSums(filledin_none[ , c(3:31)])
+
+##subsetting data
+#Zero = notrandom, One = random, Two = paper
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(filledin_none, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+
+##problem here - 30 items show up in data, but scale is 29 item. leaving for now -Jeff 
+
+library(lavaan)
+##data sets
+overallmodel = '
+Comprehensibility =~
+Managability =~
+Meaningfulness =~
+'
+
+
+
 ```
 
 ```{r SOCtable, echo=FALSE, results='asis'}
+
+##see comment above. 30 items on the all data combined but it should only be a 29-item scale. 
+
 
 ```
 
 ```{r SOM, include=FALSE}
 
+##this one needs to be resolved with the factor structure. I didn't screen it but am not sure what the structure is. - Jeff
+
+SOM = master[ , c(686:698,14,955,956)]
+names(SOM)
+
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = SOM
+names(notypos)
+missing = apply(notypos[ , 1:13], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+replacecolumn = replacepeople[ , -c(14:16)]
+dontcolumn = replacepeople[ , c(14:16)]
+
+##no missing data.
+nomiss = replacepeople
+
+##Outliers##
+names(nomiss)
+mahal = mahalanobis(nomiss[ , -c(14:16)], 
+                    colMeans(nomiss[ , -c(14:16)], na.rm = TRUE),
+                    cov(nomiss[ , -c(14:16)], use="pairwise.complete.obs"))
+mahal
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(14:16)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##additivity: correlations
+correlations = cor(noout[,-c(14:16)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(14:16)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##scoring
+##looks like each of the 13 are rated on each of the 10 constructs 
+##might not be right 
+Achievement = rowSums(filledin_none[ , c(3:15)])
+Framework = rowSums(filledin_none[ , c(3:15)])
+Religion = rowSums(filledin_none[ , c(3:15)])
+DeathAcceptance = rowSums(filledin_none[ , c(3:15)])
+InterpersonalSatisfaction = rowSums(filledin_none[ , c(3:15)])
+ExcitementFulfillment = rowSums(filledin_none[ , c(3:15)])
+GivingtoWorld = rowSums(filledin_none[ , c(3:15)])
+LackExistentialVacuum = rowSums(filledin_none[ , c(3:15)])
+Intimacy = rowSums(filledin_none[ , c(3:15)])
+Control = rowSums(filledin_none[ , c(3:15)])
 ```
 
 ```{r SOMtable, echo=FALSE, results='asis'}
-
+##see comment above. This one didn't get screened all the way through. 
 ```
 
 ```{r SMS, include=FALSE}
+SMS = master[ , c(239:254,14,955,956)]
+names(SMS)
 
 ```
 
