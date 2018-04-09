@@ -384,7 +384,7 @@ table(nomissnop$source)
 
 ##subset 
 random = subset(nomissnop, source == 'random')
-notrandom = subset(nomissnop, Source =='not random')
+notrandom = subset(nomissnop, source =='not random')
 
 ##fit for random 
 random.fit = cfa(overallmodel, 
@@ -3027,9 +3027,9 @@ residualsfree = partial$results
 ####stopped because I don't know what I'm doing####
 multisteps2 = measurementInvariance(overallmodel,  
                                     data = nomissnop, 
-                                    group = "Source",
+                                    group = "source",
                                     strict = T,
-                                    group.partial = c("Q3_13~~Q3_13"))
+                                    group.partial = c("LPQ13~~LPQ13"))
 
 
 
@@ -3449,7 +3449,7 @@ partial = partialInvariance(multisteps,
 interceptsfree = partial$results
 multisteps2 = measurementInvariance(overallmodel,  
                                     data = nomissnop, 
-                                    group = "Source",
+                                    group = "source",
                                     strict = T,
                                     group.partial = c("MAPA19~1"))
 ##Now Strict
@@ -3458,7 +3458,7 @@ partial2 = partialInvariance(multisteps2,
 residualsfree = partial2$results
 multisteps3 = measurementInvariance(overallmodel,  
                                     data = nomissnop, 
-                                    group = "Source",
+                                    group = "source",
                                     strict = T,
                                     group.partial = c("MAPA19~1", "MAPA5~~MAPA5"))
 
@@ -3658,7 +3658,7 @@ library(semTools)
 options(scipen = 999)
 multisteps = measurementInvariance(overallmodel, 
                                    data = nomissnop, 
-                                   group = "Source",
+                                   group = "source",
                                    strict = T)
 
 fitmeasures(multisteps$fit.configural)
@@ -3857,7 +3857,7 @@ options(scipen = 999)
 
 multisteps = measurementInvariance(overallmodel, 
                                    data = nomissnop, 
-                                   group = "Source",
+                                   group = "source",
                                    strict = T)
 
 fitmeasures(multisteps$fit.configural)
@@ -4047,7 +4047,7 @@ options(scipen = 999)
 
 multisteps = measurementInvariance(overallmodel, 
                                    data = nomissnop, 
-                                   group = "Source",
+                                   group = "source",
                                    strict = T)
 
 fitmeasures(multisteps$fit.configural)
@@ -4231,7 +4231,7 @@ options(scipen = 999)
 
 multisteps = measurementInvariance(overallmodel, 
                                    data = nomissnop, 
-                                   group = "Source",
+                                   group = "source",
                                    strict = T)
 
 fitmeasures(multisteps$fit.configural)
@@ -4288,17 +4288,354 @@ kable(tableMLQ,
 
 ```{r MIL-Tomich, include=FALSE}
 
+MLT = master[ , c(184:187,14,955,956)]
+names(MLT)
+
+##Reverse Code. No reverse coding
+
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = MLT
+names(notypos)
+missing = apply(notypos[ , 1:4], 1, percentmiss) 
+table(missing)
+
+##replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##figure out the columns to exclude (survey data)
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(5:7)]
+dontcolumn = replacepeople[ , c(5:7)]
+
+nomiss = replacepeople
+
+##Outliers##
+names(nomiss)
+mahal = mahalanobis(nomiss[ , -c(5:7)], 
+                    colMeans(nomiss[ , -c(5:7)], na.rm = TRUE),
+                    cov(nomiss[ , -c(5:7)], use="pairwise.complete.obs"))
+mahal
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(5:7)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##additivity: correlations
+correlations = cor(noout[,-c(5:7)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(5:7)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+MLT <- rowMeans(noout[, c(1:4)])
+MLT
+
+##Factoring source##
+#Zero = notrandom, One = random, Two = paper
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(nomiss, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+####overall cfa everyone together##
+overallmodel = '
+MLT =~ MLT1 + MLT2 + MLT3 + MLT4
+'
+
+overall.fit = cfa(overallmodel, 
+                  data=nomissnop, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+####separate group models####
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=notrandom, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=random, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+
+####multi group testing####
+###measurement invariance
+options(scipen = 999)
+
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = "source",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
 ```
 
 ```{r MIL-Tomichtable, echo=FALSE, results='asis'}
+
+tableMLT = matrix(NA, nrow = 7, ncol = 8)
+tableMLT[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableMLT[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableMLT[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableMLT[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableMLT[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableMLT[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tableMLT[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tableMLT[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tableMLT[ , 3] = printnum(as.numeric(tableMLQ[ , 3]), big.mark = "")
+tableMLT[ , 5:8] = printnum(as.numeric(tableMLQ[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableMLT, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
 ```{r MIL-Warner, include=FALSE}
 
+ML = master[ , c(592:605, 14,955,956)]
+names(ML)
+
+####DATA SCREENING####
+##accuracy##
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = ML
+names(notypos)
+missing = apply(notypos[ , 1:14], 1, percentmiss) 
+table(missing)
+
+##replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##figure out the columns to exclude (survey data)
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(15:17)]
+dontcolumn = replacepeople[ , c(15:17)]
+
+nomiss = replacepeople
+
+##Outliers##
+names(nomiss)
+mahal = mahalanobis(nomiss[ , -c(15:17)], 
+                    colMeans(nomiss[ , -c(15:17)], na.rm = TRUE),
+                    cov(nomiss[ , -c(15:17)], use="pairwise.complete.obs"))
+mahal
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(15:17)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##additivity: correlations
+correlations = cor(noout[,-c(15:17)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(15:17)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+###Scoring
+ML <- rowSums(noout[, c(1:14)])
+ML
+
+##subsetting data
+#Zero = notrandom, One = random, Two = paper
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(nomiss, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+library(lavaan)
+##data sets
+
+overallmodel = 'ML =~ ML1 + ML2 + ML3 + ML4 + ML5 + ML6 + ML7 + ML8 +
+      ML9 + ML10 + ML11 + ML12 + ML13 + ML14
+'
+overall.fit = cfa(model = overallmodel, 
+                   data=nomissnop, 
+                   meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=random, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=notrandom, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+####Multigroup Testing####
+library(semTools)
+options(scipen = 999)
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = "source",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+## broke down on strict invariance 
+partial = partialInvariance(multisteps, 
+                            type = "residuals")
+redidualsfree = partial$results
+multisteps2 = measurementInvariance(overallmodel,  
+                                    data = nomissnop, 
+                                    group = "source",
+                                    strict = T,
+                                    group.partial = c("ML8~~ML8"))
+
 ```
 
 ```{r MIL-Warnertable, echo=FALSE, results='asis'}
+
+tableML = matrix(NA, nrow = 7, ncol = 8)
+tableML[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tableML[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tableML[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tableML[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tableML[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tableML[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.loadings)["cfi"] - fitmeasures(multisteps2$fit.configural)["cfi"])
+
+tableML[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.intercepts)["cfi"] - fitmeasures(multisteps2$fit.loadings)["cfi"])
+
+tableML[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps2$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps2$fit.residuals)["cfi"] - fitmeasures(multisteps2$fit.intercepts)["cfi"])
+
+tableML[ , 3] = printnum(as.numeric(tableML[ , 3]), big.mark = "")
+tableML[ , 5:8] = printnum(as.numeric(tableML[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tableML, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
