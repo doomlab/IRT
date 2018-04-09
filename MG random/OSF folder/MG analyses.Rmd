@@ -5543,9 +5543,186 @@ kable(tableOHS,
 
 ```{r PVS, include=FALSE}
 
+PVS = master[ , c(856:873,14,955,956)]
+names(PVS)
+
+##fix to 0-3, since qualtrics did 1-4
+PVS[ , c(1:18)] = PVS[ , c(1:18)] - 1
+
+##reverse coding 2, 4, 5, 7, 10, 12, 13, 15, 18
+PVS[ , c(2,4,5,7,10,12,13,15,18)] = 3 - PVS[ , c(2,4,5,7,10,12,13,15,18)]
+apply(PVS[ , c(3:20)],2,table)
+
+####DATA SCREENING####
+
+##Missing Data##
+library(mice)
+percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
+
+##Going by rows ONLY
+notypos = PVS
+names(notypos)
+missing = apply(notypos[ , 1:18], 1, percentmiss) 
+table(missing)
+
+##Replace only the data that you should
+replacepeople = notypos[ missing <= 5 , ]  
+dontpeople = notypos[ missing > 5 , ]
+
+##Figure out the columns to exclude
+apply(replacepeople, 2, percentmiss)
+names(replacepeople)
+replacecolumn = replacepeople[ , -c(19:21)]
+dontcolumn = replacepeople[ , c(19:21)]
+
+##no missing data.
+nomiss = replacepeople
+
+##Outliers##
+names(nomiss)
+mahal = mahalanobis(nomiss[ , -c(19:21)], 
+                    colMeans(nomiss[ , -c(19:21)], na.rm = TRUE),
+                    cov(nomiss[ , -c(19:21)], use="pairwise.complete.obs"))
+summary(mahal)
+cutoff = qchisq(.999,ncol(nomiss[ , -c(19:21)])) 
+summary(mahal < cutoff)
+noout = nomiss[ mahal < cutoff, ]
+
+##additivity: correlations
+
+correlations = cor(noout[,-c(19:21)], use="pairwise.complete.obs")
+symnum(correlations)
+
+##make the random stuff
+random = rchisq(nrow(noout), 7)
+##be sure here not to include the ID columns!
+fake = lm(random~., data=noout[ , -c(19:21)])
+
+##get the linearity plot
+##create the standardized residuals
+standardized = rstudent(fake)
+qqnorm(standardized)
+abline(0,1)
+
+##multivariate normality
+hist(standardized, breaks=15)
+
+##homogeneity and homoscedaticity
+fitvalues = scale(fake$fitted.values)
+plot(fitvalues, standardized) 
+abline(0,0)
+abline(v = 0)
+
+##Scoring
+PVSIII <- rowSums(noout[, c(1:18)])
+summary(PVSIII)
+
+####CFA####
+##subsetting data
+#Zero = notrandom, One = random, Two = paper
+##subset the data
+nooutnop = subset(noout, source != 'paper') ##excludes paper
+nomissnop = subset(filledin_none, source != 'paper') ##excludes paper
+
+notrandom = subset(nomissnop, source == 'not random') ##noout and filled in none same dataset
+random = subset(nomissnop, source == 'random')
+
+####overall model for everyone together##
+colnames(nomissnop)
+overallmodel = '
+PVS =~
+PVS1 + PVS2 + PVS3 + PVS4 + PVS5 + PVS6 + PVS7 + PVS8 +
+PVS9 + PVS10 + PVS11 + PVS12 + PVS13 + PVS14 + PVS15 +
+PVS16 + PVS17 + PVS18
+'
+
+overall.fit = cfa(model = overallmodel, 
+                  data=nomissnop, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=random, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=notrandom, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+####Multigroup Testing####
+library(semTools)
+options(scipen = 999)
+multisteps = measurementInvariance(overallmodel, 
+                                   data = nomissnop, 
+                                   group = "source",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+
 ```
 
 ```{r PVStable, echo=FALSE, results='asis'}
+
+tablePVS = matrix(NA, nrow = 7, ncol = 8)
+tablePVS[ , 1] = c("Overall Model", "Random", "Not Random", 
+                   "Configural", "Metric", "Scalar", "Strict")
+
+fitused = c("chisq", "df", "rmsea", "srmr", "cfi")
+
+tablePVS[1, 2:8 ] = c(nrow(nomissnop), 
+                      fitmeasures(overall.fit, fit.measures = fitused), 
+                      "-")
+tablePVS[2, 2:8] = c(nrow(random), 
+                      fitmeasures(overall.fit.r, fit.measures = fitused), 
+                      "-")
+
+tablePVS[3, 2:8] = c(nrow(notrandom), 
+                      fitmeasures(overall.fit.nr, fit.measures = fitused), 
+                      "-")
+
+tablePVS[4, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.configural, fit.measures = fitused), 
+                      "-")
+
+tablePVS[5, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.loadings, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.loadings)["cfi"] - fitmeasures(multisteps$fit.configural)["cfi"])
+
+tablePVS[6, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.intercepts, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.intercepts)["cfi"] - fitmeasures(multisteps$fit.loadings)["cfi"])
+
+tablePVS[7, 2:8] = c(nrow(nomissnop), 
+                      fitmeasures(multisteps$fit.residuals, fit.measures = fitused), 
+                      fitmeasures(multisteps$fit.residuals)["cfi"] - fitmeasures(multisteps$fit.intercepts)["cfi"])
+
+tablePVS[ , 3] = printnum(as.numeric(tablePVS[ , 3]), big.mark = "")
+tablePVS[ , 5:8] = printnum(as.numeric(tablePVS[ , 5:8]), gt1 = F, digits = 3)
+
+
+kable(tablePVS, 
+      col.names = c("Model", "N", "Chi-Square", 
+                       "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
 
