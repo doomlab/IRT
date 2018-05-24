@@ -1,0 +1,1007 @@
+---
+title             : "Does the Delivery Matter? Examining Randomization at the Item Level"
+shorttitle        : "Item Randomization"
+
+author: 
+  - name          : "Erin M. Buchanan"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "901 S. National Ave"
+    email         : "erinbuchanan@missouristate.edu"
+  - name          : "Riley E. Foreman"
+    affiliation   : "1"
+  - name          : "Becca N. Johnson"
+    affiliation   : "1"
+  - name          : "Jeffrey M. Pavlacic"
+    affiliation   : "2"
+  - name          : "Rachel L. Swadley"
+    affiliation   : "1"
+  - name          : "Stefan E. Schulenberg"
+    affiliation   : "2"
+  
+
+affiliation:
+  - id            : "1"
+    institution   : "Missouri State University"
+  - id            : "2"
+    institution   : "University of Mississippi"
+
+author_note: >
+  Erin M. Buchanan is an Associate Professor of Quantitative Psychology at Missouri State University. Riley E. Foreman received his undergraduate degree in Psychology and Cell and Molecular Biology at Missouri State University and is currently at Kansas City University of Medicine and Biosciences. Becca N. Johnson is a masters degree candidate at Missouri State University. Jeffrey M. Pavlacic is a doctoral candidate at The University of Mississippi. Rachel N. Swadley completed her master's degree in Psychology at Missouri State University. Stefan E. Schulenberg is a Professor of Clinical Psychology at The University of Mississippi and Director of the Clinical Disaster Research Center.
+  On behalf of all authors, the corresponding author states that there is no conflict of interest.
+
+abstract: >
+  Scales that are psychometrically sound, meaning those that meet established standards regarding reliability and validity when measuring one or more constructs of interest, are customarily evaluated based on a set modality (i.e., computer or paper) and administration (fixed-item order). Deviating from an established administration profile could result in non-equivalent response patterns, indicating the possible evaluation of a dissimilar construct. Randomizing item administration may alter or eliminate these effects. Therefore, we examined the differences in scale relationships for randomized and nonrandomized computer delivery for two scales measuring meaning/purpose in life. These scales have questions about suicidality, depression, and life goals that may cause item reactivity (i.e., a changed response to a second item based on the answer to the first item). Results indicated that item randomization does not alter scale psychometrics for meaning in life scales, which implies that results are comparable even if researchers implement different delivery modalities. 
+
+  
+keywords          : "scales, randomization, item analysis"
+
+bibliography      : ["item random.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : yes
+
+lang              : "english"
+#class             : "man"
+class             : "man, mask"
+output            : papaja::apa6_pdf
+replace_ampersands: yes
+csl               : apa6.csl
+---
+
+The use of the Internet has been integrated into daily life as a means of accessing information, interacting with others, and tending to required tasks. The International Telecommunication Union reports that over half the world is online, and 70% of 15-24 year olds are on the internet [@Sanou2017]. Further, the Nielson Total Audience report from 2016 indicates that Americans spend nearly 11 hours a day in media consumption [@Media2016]. Researchers discovered that online data collection can be advantageous over laboratory and paper data collection, as it is often cheaper and more efficient [@Ilieva2001; @Schuldt1994; @Reips2012]. Internet questionnaires first appeared in the early 90s when HTML scripting code integrated form elements, and the first experiments appeared soon after [@Musch2000; @Reips2002a]. The first experimental lab on the internet was the Web Experimental Psychology Lab formed by Reips (http://www.wexlab.eu), and the use of the Internet to collect data has since grown rapidly [@Reips2002a]. What started with email and HTML forms has since moved to whole communities of available participants including websites like Amazon’s Mechanical Turk and Qualtrics' Participant Panels. Participants of all types and forms are easily accessible for somewhat little to no cost. 
+
+Our ability to collect data on the Internet has inevitably lead to the question of equivalence between in person and online data collection methods [@Meyerson2003; @Buchanan2005]. We will use the term equivalence as a global term for measurement of the same underlying construct between groups, forms, or testing procedures given no other manipulations. A related concept is measurement invariance, which focuses on the statistical and psychometric structure of measurement [@Meredith1993; @Brown2006]. Multigroup confirmatory factor analysis (MGCFA) and multiple-indicators-multiple causes (MIMIC) structural models are often used to explore invariance in groups [@Brown2006; @Steenkamp1998]. The general approach through MGCFA explores if the latent structure of the proposed model is similar across groups (equal form or configural invariance), followed by more stringent tests indicating equal factor loadings (metric invariance), equal item intercepts (scalar invariance), and potentially, equal error variances (strict invariance). These steps can be used to determine where and how groups differ when providing responses to questionnaires and to propose changes to interpretations of test scores [for an example, see @Trent2013]. Measurement invariance implies equivalence between examined groups, while overall equivalence studies may not imply the psychometric concept of invariance. 
+
+Research has primarily focused on simple equivalence, with more uptick in research that specifically focuses on measurement invariance with the advent of programs that make such procedures easier. When focusing on equivalence, @Deutskens2006 found that mail surveys and online surveys produce nearly identical results regarding the accuracy of the data collected online versus by mail. Only minor differences arise between online surveys and mail in surveys when it comes to participant honesty and suggestions. For example, participants who responded to surveys online provided more suggestions, lengthier answers, and greater information about competitors in the field that they may prefer [@Deutskens2006]. The hypothesis as to why individuals may be more honest online than in person is that the individual may feel more anonymity and less social desirability effects due to the nature of the online world, therefore less concerned about responding in a socially polite way [@Joinson1999]. A trend found by @Fang2012a shows individuals are more likely to respond to surveys online with extreme scores, rather than mid-range responses on scales due to the lessened social desirability factor. There may be slight cultural differences in responses online. For example, collectivistic cultures showed greater tendency toward mid-range responses on scales via in-person and online due to placing greater value on how they are socially perceived; however, the trend is still the same as scores are more extreme online versus in person or by mail [@Fang2012]. 
+
+Although work by Dillman and his group [@Frick2001; @Smyth2006; @Dillman2008], among others, has shown that many web surveys are plagued by problems of usability, display, coverage, sampling, non-response, or technology, other studies have found internet data to be reliable and almost preferable as it produces a varied demographic response compared to the traditional sample of introduction to psychology college students while also maintaining equivalence [@Lewis2009]. However, equivalence in factor structure may be problematic, as @Buchanan2005 have shown that factor structure was not replicable in online and in person surveys. Other work has shown equivalence using a comparison of correlation matrices [@Meyerson2003] or *t*-tests [@Schulenberg1999; @Schulenberg2001], and the literature is mixed on how different methodologies impact factor structure. @Weigold2013 recently examined both quantitative and research design questions (i.e., missing data) on Internet and paper-and-pencil administration which showed that the administrations were generally equivalent for quantitative structure but research design issues showed non-equivalence. Other potential limitations to online surveys include the accessibility of different populations to the Internet [@Frick2001], selection bias [@Bethlehem2010], response rates [@Cook2000; @Hox1994; @DeLeeuw1988; @Cantrell2007], attrition [@Cronk2002], and distraction [@Tourangeau1999]. Many of these concerns have been alleviated in the years since online surveys were first developed, especially with the advent of panels and Mechanical Turk to reach a large, diverse population of participants [@Buhrmester2011]. 
+
+With the development of advanced online survey platforms such as Qualtrics and Survey Monkey, researchers have the potential to control for confounding research design issues through randomization, although other issues may still be present, such as participant misbehavior [@Nosek2002]. Randomization has been a hallmark of good research practice, as the order or presentation of stimuli can be a noise variable in a study with multiple measures [@Keppel2004]. Thus, researchers have often randomized scales by rotating the order of presentation in paper format or simply clicking the randomization button for web-based studies. This practice has counterbalanced out any order effects of going from one scale to the next [@Keppel2004]. However, while scale structure has remained constant, these items are still stimuli within a larger construct. Therefore, these construct-related items have the ability to influence the items that appear later on the survey, which we call item reactivity. For example, a question about being *prepared for death* or *thoughts about suicide* might change the responses to further questions, especially if previous questions did not alert participants to be prepared for that subject matter.
+
+Scale development typically starts with an underlying latent variable that a researcher wishes to examine through measured items or questions [@DeVellis2016a]. Question design is a well-studied area that indicates that measurement is best achieved through questions that are direct, positively worded, and understandable to the subject [@Dillman2008]. @Olson2010 suggests researchers design a multitude of items in order to investigate and invite subject matter experts to examine these questions. Subject matter experts were found to be variable in their agreement, but excellent at identifying potentially problematic questions. After suggested edits from these experts, a large sample of participant data is collected. While item response theory is gaining traction, classical test theory has dominated this area through the use of exploratory and confirmatory factor analysis [EFA, CFA; @Worthington2006]. EFA elucidates several facets of how the measured items represent the latent trait through factor loadings [@Tabachnick2012]. Factor structure represents the correlation between item scores and factors, where a researcher wishes to find items that are strongly related to latent traits. Items that are not related to the latent trait, usually with factor loadings below .300 [@Preacher2003] are discarded. Model fit is examined when simple structure has been achieved (i.e., appropriate factor loadings for each item), and these fit indices inform if the items and factor structure model fit the data well. Well-designed scales include items that are highly related to their latent trait and have excellent fit indices. Scale development additionally includes the examination of other measures of reliability and validity but the focus of the scale shifts to subscale or total scores [@Buchanan2014]. Published scales are then distributed for use in the form that is presented in the publication, as item order is often emphasized through important notes about reverse scoring and creating subscale scores. 
+
+The question is no longer whether web-based surveys are reliable sources of data collection; the theory now is in need of a shift to whether or not item-randomization in survey data collection creates psychometric differences. These scale development procedures focus on items, and EFA/CFA statistically try to mimic variance-covariance structure by creating models of the data with the same variance-covariance matrix. If we imagine that stimuli in a classic experimental design can influence the outcome of a study because of their order, then certainly the stimuli on a scale (i.e., the items) can influence the pattern of responses for items. Measuring an attitude or phenomena invokes a reaction in the participant [@Knowles1992]. Often, this reaction or reactivity is treated as error in measurement, rather than a variable to be considered in the experiment [@Webb1966]. Potentially, reaction to items on a survey could integrate self-presentation or social desirability [@Webb1966] but cognitive factors also contribute to the participant response. @Rogers1974 and @Tourangeau1988 suggested a four part integration process that occurs when responses are formulated to questions. First, the participant must interpret the item. The interpretation process usually allows for one construal, and other interpretations may be ignored [@Lord1984]. Based on this process, information about the item must be pulled from memory. The availability heuristic will bias information found for the next stage, the judgment process, especially given the mood of the participant [@Tversky1973; @MacLeod1992]. These memories and information, by being recalled as part of answering an item, are often strengthened for future judgments or recall [@Posner1978; @Bargh1986]. 
+
+The judgment process has important consequences for the answers provided on a questionnaire. Judgments are often polarized because of the cognitive processes used to provide that answer [@Tesser1978]. The participant may become more committed to the answer provided [@Feldman1988], and future judgments are "anchored" against this initial judgment [@Higgins1983; @Strack1985]. Finally, future memory searches will be confirmatory for the judgment decision [@Petty1986]. The response selection is the final stage of the @Rogers1974 and @Tourangeau1988 models. This model provides an excellent framework through which to view the consequences of merely being asked a question. In this study, the focus is on the final stage of response selection, as it is the recordable output of these cognitive processes. @Knowles1992 discuss that the item order may create a context effect for each subsequent question, wherein participants are likely to confuse the content of an item with the context of the previous questions. Their meaning-change hypothesis posits that each following item will be influenced by the previous set of items and does have important consequences for the factor loadings and reliability of the scale. Indeed, @Salancik1992 indicate that item order creates a specific context that integrates with background knowledge during the answering process, which can create ambiguity in measurement of the interested phenomenon. @Panter1992 discuss these effects from classic studies of item ordering, wherein agreement to a specific item first reduces agreement to a more general item second [@Strack1987]. 
+
+Given this previous research on item orderings, this study focuses on potential differences in results based on item randomization delivery methodology. This work is especially timely given the relative ease with which randomization can be induced with survey software. The current project examined large samples on two logotherapy-related scales, as these scales include potentially reactive items (e.g., death and suicide items embedded in positive psychology questions), as well as both a dichotomous True/False and traditional 1-7 format for the same items. Large samples were desirable to converge on a stable, representative population; however, false positives (i.e., Type I errors) can occur by using large *N*. Recent developments in the literature focusing on null hypothesis testing make it especially important to present potential alternatives to *p*-values [@Valentine2017]. While a large set of researchers have argued that the literature is full of Type I errors [@Benjamin2017], and thus, the $\alpha$ value should be shifted lower (i.e., *p* < .005 for statistical significance), an equally large set of researchers counter this argument as unfounded and weak [@Lakens2017]. We provide multiple sources of evidence (*p*-values, effect sizes, Bayes Factors, and tests of equivalence) to determine if differences found are not only statistically significant, but also practically significant. In our study, we expand to item randomization for online based surveys, examining the impact on factor loadings, correlation structure, item means, and total scores again providing evidence of difference/non-difference from multiple statistical sources. Finally, we examine these scenarios with a unique set of scales that have both dichotomous True/False and traditional 1-7 formats to explore how the answer response options might impact any differences found between randomized and nonrandomized methodologies. 
+
+```{r libraries, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+library(papaja)
+library(car)
+library(memisc)
+library(moments)
+library(mice)
+library(monomvn)
+library(psych)
+library(TOSTER)
+library(MOTE)
+library(BayesFactor)
+library(lavaan)
+library(semTools)
+```
+
+# Method
+
+## Participants
+The sample population consisted of undergraduate students at a large Midwestern University, placing the approximate age of participants at around 18-22. Table \@ref(tab:demo-table) includes the demographic information about all datasets. Only two scales were used from each dataset, as described below. Participants were generally enrolled in an introductory psychology course that served as a general education requirement for the university. As part of the curriculum, the students were encouraged to participate in psychology research programs, resulting in their involvement in this study. These participants were given course credit for their participation. 
+
+## Materials
+Of the surveys included within each larger study, two questionnaires were utilized: the Purpose in Life Questionnaire [PIL; @Crumbaugh1964] and the Life Purpose Questionnaire [LPQ; @Hutzell1988].
+
+### The Purpose in Life Questionnaire
+The PIL is a 20-item questionnaire that assesses perceived meaning and life purpose. Items are structured in a 7-point type response format; however, each item has different anchoring points that focus on item content. No items are reverse scored, although, items are presented such that the 7 point end would be equally presented on the left and right when answering. Therefore, these items would need to be reverse coded if computer software automatically codes each item from 1 to 7 in a left to right format. Total scores are created by summing the items, resulting in a range of 20 to 140 for the overall score. The reliability reported for the scale has previously ranged from .70 to .90 [@Schulenberg2004; @Schulenberg2010]. Previous work on validity for the PIL showed viable one- and two-factor models, albeit factor loadings varied across publications [see @Schulenberg2010 for a summary], and these fluctuating results lead to the development of a 4-item PIL short form [@Schulenberg2011]. 
+
+### Life Purpose Questionnaire
+The LPQ was modeled after the full 20-item PIL questionnaire, also measuring perceived meaning and purpose in life. The items are structured in a true/false response format, in contrast to the 1-7 response format found on the PIL. Each question is matched to the PIL with the same item content, altering the question to create binary answer format. After reverse coding, scoring a zero on an item would indicate low meaning, while scoring a one on an item would indicate high meaning. A total score is created by summing item scores, resulting in a range from 0 to 20. In both scales, higher scores indicated greater perceived meaning in life. Reliability reported for this scale is usually in the .80 range [@Melton2008; @Schulenberg2004].
+
+These two scales were selected because they contained the same item content with differing response formats, which would allow for cross comparisons between results for each scale. 
+
+## Procedure
+The form of administration was of interest to this study, and therefore, two formats were included: computerized administration in nonrandom order and computerized administration with a randomized question order. Computerized questionnaires were available for participants to access electronically, and they were allowed to complete the experiment from anywhere with the Internet through Qualtrics. To ensure participants were properly informed, both an introduction and a debriefing were included within the online form. Participants were randomly assigned to complete a nonrandomized or randomized version of the survey. Nonrandomized questionnaires followed the original scale question order, consistent with paper delivery format. A different group of participants were given each question in a randomized order within each scale (i.e., all PIL and LPQ questions will still grouped together on one page). The order of administration of the two scales was randomized across participants for both groups. Once collected, the results were then amalgamated into a database for statistical analysis.
+
+# Results
+
+## Hypotheses and Data-Analytic Plan
+Computer forms were analyzed by randomized and nonrandomized groups to examine the impact of randomization on equivalence through correlation matrices, factor loadings, item means, and total scores. We expected to find that these forms may potentially vary across correlation structure and item means, which would indicate differences in reactivity and item context to questions [i.e., item four always has item three as a precursor on a nonrandom form, while item four may have a different set of answers when prefaced with other questions; @Knowles1992]. Factor loadings were assessed to determine if differences in randomization caused a change in loadings [@Buchanan2005]. However, we did not predict if these values would be different, as previous research indicates that participants may have a change in context with a different item order, but this change may not impact the items relationship with the factor. Last, we examined total scores; however, it was unclear if these values would change. A difference in item means may result in changes in total scores, but may also result in no change if some item means decrease, while others increase. 
+
+Each hypothesis was therefore tested using four dependent measures. First, we examined the correlation matrix for each type of delivery and compared the matrices to each other by using the *cortest.mat* function in the *psych* package [@Revelle2017]. This test provides a $\chi^2$ value that represents the difference between a pair of correlation matrices. If this value was significant, we followed up by exploring the differences between correlations individually using Fisher's r to z transformation. Each pair of correlations (i.e., random $r_{12}$ versus nonrandom $r_{12}$) was treated as an independent correlation and the difference between them was calculated by:
+
+$$
+Z_{difference} = \frac{(Z_{1} - Z_{2})} { \sqrt{ \frac{1} {N_{1} - 3} + \frac{1} {N_{2} - 3}} }
+$$
+Critical $Z_{difference}$ was considered +/- 1.96 for this analysis, and all values are provided online on at https://osf.io/gvx7s/. This manuscript was written in *R* markdown with the *papaja* package [@Aust2017], and this document, the data, and all scripts used to calculate our statistics are available on the OSF page. 
+
+We then conducted an exploratory factor analysis on both scales using one-factor models to examine the loading of each item on its latent trait. The PIL factor structure is contested [@Strack2009] with many suggestions as to latent structure for one- and two-factor models. The LPQ has seen less research on factor structure [@Schulenberg2004]. This paper focused on loadings on one global latent trait to determine if the manipulation of delivery impacted factor loadings. We used a one-factor model and included all questions to focus on the loadings, rather than the factor structure. The analysis was performed using the *psych* package in *R* with maximum likelihood estimation. The LPQ factor analysis used tetrachoric correlation structure to control for the dichotomous format of the scale, rather than traditional Pearson correlation structure. The loadings were then compared using a matched dependent *t*-test (i.e., item one to item one, item two to item two) to examine differences between nonrandomized and randomized computer samples. 
+
+Next, item averages were calculated across all participants for each item. These 20 items were then compared in a matched dependent *t*-test to determine if delivery changed the mean of the item on the PIL or LPQ. While correlation structure elucidates the varying relations between items, we may still find that item averages are pushed one direction or another by a change in delivery and still maintain the same correlation between items. If this test was significant, we examined the individual items across participants for large effect sizes, as the large sample sizes in this study would create significant *t*-test follow ups. 
+
+Last, the total scores for each participant were compared across delivery type using an independent *t*-test. Item analyses allow a focus on specific items that may show changes, while total scores allow us to investigate if changes in delivery alter the overall score that is used in other analyses or possible clinical implications. For analyses involving *t*-tests, we provide multiple measures of evidentiary value so that researchers can weigh the effects of randomization on their own criterion. Recent research on $\alpha$ criteria has shown wide disagreement on the usefulness of *p*-values and set cut-off scores [@Benjamin2017; @Lakens2017]. Therefore, we sought to provide traditional null hypothesis testing results (*t*-tests, *p*-values) and supplement these values with effect sizes [*d* and non-central confidence intervals, @Buchanan2017; @Cumming2014; @Smithson2001], Bayes Factors [@Kass1995a; @Morey2015b], and two one-sided tests of equivalence [TOST, @Cribbie2004; @Lakens2017a; @Schuirmann1987; @Rogers1993]. 
+
+For dependent *t*-tests, we used the average standard deviation of each group as the denominator for *d* calculation as follows [@Cumming2012]:
+
+$$
+d_{av} = \frac {(M_1 -  M_2) } { \frac{SD_1 + SD_2 } {2} }
+$$
+This effect size for repeated measures was used instead of the traditional $d_z$ formula, wherein mean differences are divided by the standard deviation of the difference scores [@Lakens2013]. The difference scores standard deviation is often much smaller than the average of the standard deviations of each level, which can create an upwardly biased effect size [@Cumming2014]. This bias can lead researchers to interpret larger effects for a psychological phenomenon than actually exist. @Lakens2013 recommends using $d_{av}$ over $d_z$ because $d_z$ can overestimate the effect size [see also, @Dunlap1996a] and $d_{av}$ can be more comparable to between subjects designs *d* values. For independent *t*-tests, we used the $d_s$ formula [@Cohen1988]: 
+
+$$
+d_s = \frac {(M_1 -  M_2) } { \sqrt{\frac{(N_1-1)SD_1 + (N_2-1)SD_2 } {N_1+N_2-2}} }
+$$
+
+   
+
+The normal frequentist approach (NHST) focuses largely on significance derived from *p*-values while Bayesian approaches allow for the calculation of Bayes Factors that provide estimates of the support for one model as compared to another [@Dienes2014; @Wagenmakers2007]. NHST methods traditionally involve two competing hypotheses: a null or nil hypothesis of no change between groups [@Cohen1994] and an alternative or research hypothesis of change between groups, as a mish-mash of Fisherian and Neyman-Pearson methods. However, one limitation to this approach is the inability to support the null hypothesis [@Gallistel2009]. Within a Bayesian framework, one focuses on the uncertainty or probability of phenomena, including the likelihood of no differences between groups [@Lee2012]. Again, we can create two models: one of the null where both groups arise from the distribution with given parameters and one of the alternative where each group arises from different distributions with their own unique parameters. For both these models, before seeing the data, the researcher decides what they believe the distributions of these parameters look like before creating prior distributions. When data is collected, it is used to inform and update these prior distributions creating posterior distributions. Because the Bayesian framework focuses on updating previous beliefs with the data collected to form new beliefs, any number of hypotheses may be tested [for a humorous example, see @Wagenmakers2016]. A Bayesian version of significance testing may be calculated by using model comparison through Bayes Factors [@Etz2015; @Kass1995a; @Rouder2009]. Bayes Factors are calculated as a ratio of the marginal likelihood of the two models. Bayes Factors provide a numeric value for how likely one model is over another model, much like likelihood or odds ratios.
+
+Here, Bayes Factors (BF) are calculated as the marginal likelihood of the observed data under the alternative hypothesis divided by the marginal likelihood of the data with the null hypothesis. The resulting ratio can therefore give evidence to the support of one model as compared to another, where BF values less than one indicate support for the null model, values near one indicate both models are equally supported, and values larger than one indicate support for the alternative model. While some researchers have proposed conventions for BF values to discuss the strength of the evidence [@Kass1995a], we will present these values as a continuum to allow researchers to make their own decisions [@Morey2015b; @Morey2015c]. Using this Bayesian approach, we are then able to show support for or against the null model, in contrast to NHST where we can only show support against the null [@Gallistel2009].
+
+Specifically, we used the *BayesFactor* package [@Morey2015b] with the recommended default priors that cover a wide range of data [@Morey2015b; @Rouder2009; @Ly2016] of a Jeffreys prior with a fixed rscale (0.5) and random rscale (1.0). The choice of prior distribution can heavily influence the posterior belief, in that uninformative priors allow the data to comprise the posterior distribution. However, most researchers have a background understanding of their field, thus, making completely uninformative priors a tenuous assumption. Because of the dearth of literature in this field, there is not enough previous information to create a strong prior distribution, which would suppress the effect of the data on posterior belief. Therefore, we used the default options in *BayesFactor* to model this belief. 
+
+Using Bayes Factors, we may be able to show evidence of the absence of an effect. Often, non-significant *p*-values from a NHST analysis are misinterpreted as evidence for the null hypothesis [@Lakens2017a]. However, we can use the traditional frequentist approach to determine if an effect is within a set of equivalence bounds. We used the two one-sided tests (TOST) approach to specify a range of raw-score equivalence that would be considered supportive of the null hypothesis (i.e., no worthwhile effects or differences). TOST are then used to determine if the values found are outside of the equivalence range. Significant TOST values indicate that the effects are *within* the range of equivalence. We used the *TOSTER* package [@Lakens2017a] to calculate these values, and graphics created from this package can be found online on our OSF page. 
+
+The equivalence ranges are often tested by computing an expected effect size of negligible range; however, the TOST for dependent *t* uses $d_z$, which can overestimate the effect size of a phenomena [@Cumming2014; @Lakens2013]. Therefore, we calculated TOST analyses on raw score differences to alleviate the overestimation issues. For EFA, we used a change score of .10 in the loadings, as @Comrey1992 suggested loading estimation ranges, such as .32 (poor) to .45 (fair) to .55 (good), and the differences in these ranges are approximately .10 [as cited in @Tabachnick2012, p. 654]. Additionally, this score would amount to a small correlation change using traditional guidelines for interpretation of *r* [@Cohen1992a]. For item and total score differences, we chose a 5% change in magnitude as the raw score cut off as a modest raw score change. To calculate that change for total scores, we used the following formula:
+
+$$
+(Max*N_{Questions} - Min*N_{Questions}) * Change
+$$
+Minimum and maximum values indicate the lower and upper end of the answer choices (i.e., 1 and 7), and change represented the proportion magnitude change expected. Therefore, for total PIL scores, we proposed a change in 6 points to be significant, while LPQ scores would need to change 1 point to be significant. For item analyses, we divided the total score change by the number of items to determine how much each item should change to impact the total score a significant amount (PIL = 0.30, LPQ = .05).
+
+As discussed in the introduction, another approach to measuring equivalence would be through a MGCFA framework, analyzing measurement invariance. Those analyses were calculated as a supplement to the analyses described above and a summary is provided online. The original goal of this project was to calculate potential reactivity to item order through analyses that would be accessible to most researchers using questionnaires in their research. MGCFA requires not only specialized knowledge, but also specific software and the associated learning curve. We used *R* in our analyses, however, all analyses presented can be recreated with free software. The writers of *BayesFactor* have published online calculators for their work at http://pcl.missouri.edu/bayesfactor, and BF values are also available in *JASP* [@JASP2018]. The TOST analyses may be calculated using an Excel spreadsheet available from the author at https://osf.io/qzjaj/ or as an add-in module in the program *jamovi* [@jamovi2018]. Both *JASP* and *jamovi* are user friendly programs that researchers familiar with point and click software like Excel or SPSS will be able to use with ease. 
+
+## Data Screening 
+
+Each dataset was analyzed separately by splitting on scale and randomization, and first, all data were screened for accuracy and missing data. Participants with more than 5% missing data (i.e., 2 or more items) were excluded, as @Tabachnick2012 have suggested that 5% or less of missing data may be safely filled in with minimal effects on hypothesis testing. Table \@ref(tab:demo-table) indicates the number of participants who were excluded for each set as a function of: 1) missing more than 5% of their data, 2) were missing data due to experimenter error (i.e., some versions of the PIL did not have one item, and these were excluded), or 3) missing values for the LPQ include participants who did not see this scale in some original rounds of the survey. Because we were examining context item-order effects, it did not seem prudent to include participants who were missing larger portions of their data, as it would be unclear if their context was the same as participants who did complete the entire survey. Our final sample sizes, as shown in Table \@ref(tab:demo-table) remained sufficiently large for analyses described below. 
+
+For participants with less than 5% missing data, we used the *mice* package in *R* to impute multiple datasets with those points filled in [@VanBuuren2011]. For the PIL randomized, *n* = 43 data points were imputed, *n* = 60 for the nonrandomized PIL, *n* = 15 for the randomized LPQ, and *n* = 33 for the nonrandomized LPQ. The advantage to using the *mice* package is the automatic estimation of missing data points based on the data type (i.e., 1-7 versus binary), rather than simple mean estimation. The default number of imputations is five, and one was selected to combine with the original dataset for analyses described below. 
+
+Next, each dataset was examined for multivariate outliers using Mahalanobis distance. As described in @Tabachnick2012, Mahalanobis values were calculated for each participant based on their answer choice patterns for each of the twenty questions. These *D* values are compared to a $\chi^2$(20)$_{p<.001}$ = 45.31, and observations with *D* values greater than this score were counted as outliers. This analysis is similar to using a *z*-score criterion of three standard deviations away from the mean. Each dataset was then screened for multivariate assumptions of additivity, linearity, normality, homogeneity, and homoscedasticity. While some data skew was present, large sample sizes allowed for the assumption of normality of the sampling distribution. Information about the number of excluded data points and final sample size in each step is presented in Table \@ref(tab:demo-table).
+
+```{r PIL-Data-Screening, include = FALSE}
+####import the files####
+PIL = read.csv("PIL.csv")
+
+##reverse coding the PIL
+PIL[ , c("PIL2", "PIL5", "PIL7", "PIL10", "PIL14", "PIL15", "PIL17", "PIL18", "PIL19")] = 8 - PIL[ , c("PIL2", "PIL5","PIL7", "PIL10", "PIL14", "PIL15", "PIL17", "PIL18", "PIL19")]
+
+##subsetting the PIL dataset
+nr = subset(PIL, Source == "not random")
+r = subset(PIL, Source == "random")
+
+######Random data screening#####
+randomcomputer = r[, c(3:22)]
+summary(randomcomputer)
+apply(randomcomputer, 2, table)
+
+##missing data
+##participants (row)
+percentmiss = function(x) { sum(is.na(x))/length(x)*100}
+missingrandomcomputer = apply(randomcomputer, 1, percentmiss)
+table(missingrandomcomputer)
+replacepeoplerandom = subset(randomcomputer, missingrandomcomputer <= 5)
+summary(replacepeoplerandom)
+
+##variables (column)
+apply(replacepeoplerandom, 2, percentmiss)
+replacecolumnrandom = replacepeoplerandom[ , -15]
+dontcolumnrrandom = replacepeoplerandom[ , 15]
+
+##replace data
+tempnomissrandom = mice(replacecolumnrandom, seed = 165)
+replacedrandom_temp = complete(tempnomissrandom, 1)
+
+replacedrandom = cbind(replacedrandom_temp[ , 1:14], 
+                       PIL15 = dontcolumnrrandom, 
+                       replacedrandom_temp[ , 15:19])
+ summary(replacedrandom)
+
+##outliers
+mahalrandom = mahalanobis(replacedrandom[ , ],
+                    colMeans(replacedrandom[ , ], na.rm = T),
+                    cov(replacedrandom[ , ], use = "pairwise.complete.obs"))
+
+cutoff = qchisq(1-.001, ncol(replacedrandom[ , ]))
+ncol(replacedrandom[ , ])
+cutoff
+summary(mahalrandom < cutoff)
+nooutrandom = subset(replacedrandom, mahalrandom < cutoff)
+
+##assumptions
+##additivity
+correlrandom = cor(nooutrandom[ , ])
+symnum(correlrandom)
+
+finalrandomP = nooutrandom
+
+##set up for assumptions
+randomrandom = rchisq(nrow(finalrandomP), 7)
+fakerandom = lm(randomrandom ~ ., data = finalrandomP)
+standardizedrandom = rstudent(fakerandom)
+fittedrandom = scale(fakerandom$fitted.values)
+
+##normality
+skewness(finalrandomP[ , ], na.rm = T)
+moments::kurtosis(finalrandomP[ , ], na.rm = T)
+#hist(standardizedrandom)
+
+##linearity
+#qqnorm(standardizedrandom)
+#abline(0,1)
+
+##homog + s
+#plot(fittedrandom, standardizedrandom)
+#abline(0,0)
+#abline(v = 0)
+
+######NOTRandom data screening#####
+notrandomcomputer = nr[, c(3:22)]
+summary(notrandomcomputer)
+apply(notrandomcomputer, 2, table)
+
+##missing data
+##participants (row)
+missingnotrandomcomputer = apply(notrandomcomputer, 1, percentmiss)
+table(missingnotrandomcomputer)
+replacepeoplenotrandom = subset(notrandomcomputer, missingnotrandomcomputer <= 5)
+summary(replacepeoplenotrandom)
+
+##variables (columns)
+apply(replacepeoplenotrandom, 2, percentmiss)
+
+##replace the data
+tempnomissnotrandom = mice(replacepeoplenotrandom, seed = 583)
+replacednotrandom = complete(tempnomissnotrandom, 1)
+summary(replacednotrandom)
+
+##outliers
+mahalnotrandom = mahalanobis(replacednotrandom[ , ],
+                          colMeans(replacednotrandom[ , ], na.rm = T),
+                          cov(replacednotrandom[ , ], use = "pairwise.complete.obs"))
+
+cutoff = qchisq(1-.001, ncol(replacednotrandom[ , ]))
+ncol(replacednotrandom[ , ])
+cutoff
+summary(mahalnotrandom < cutoff)
+nooutnotrandom = subset(replacednotrandom, mahalnotrandom < cutoff)
+
+##assumptions
+##additivity
+correlnotrandom = cor(nooutnotrandom[ , ])
+symnum(correlnotrandom)
+
+finalnotrandomP = nooutnotrandom
+
+##set up for assumptions
+randomnotrandom = rchisq(nrow(finalnotrandomP), 7)
+fakenotrandom = lm(randomnotrandom ~ ., data = finalnotrandomP)
+standardizednotrandom = rstudent(fakenotrandom)
+fittednotrandom = scale(fakenotrandom$fitted.values)
+
+##normality
+skewness(finalnotrandomP[ , ], na.rm = T)
+moments::kurtosis(finalnotrandomP[ , ], na.rm = T)
+#hist(standardizednotrandom)
+
+##linearity
+#qqnorm(standardizednotrandom)
+#abline(0,1)
+
+##homog + s
+#plot(fittednotrandom, standardizednotrandom)
+#abline(0,0)
+#abline(v = 0)
+```
+
+```{r LPQ-Data-Screening, include=FALSE}
+##import the data files
+LPQallcompiled = read.csv("LPQ.csv")
+
+###changing to 0 and 1 - columns are currently 1 true, 2 false, so subtract 2
+names(LPQallcompiled)
+summary(LPQallcompiled)
+##fix the 12 typo
+LPQallcompiled$lpq16_1[ LPQallcompiled$lpq16_1 == 12] = NA
+
+allcolumns = c("lpq1_1", "lpq2_1", "lpq3_1", "lpq4_1", "lpq5_1", "lpq6_1", "lpq7_1", "lpq8_1", "lpq9_1", "lpq10_1", "lpq11_1", "lpq12_1", "lpq13_1", "lpq14_1", "lpq15_1", "lpq16_1", "lpq17_1", "lpq18_1", "lpq19_1", "lpq20_1")
+LPQallcompiled[ , allcolumns] = 2 - LPQallcompiled[ , allcolumns]
+
+###reverse code items 1, 2, 5, 8, 9, 11, 12, 14, 15, 16, 19
+reverse = c("lpq1_1", "lpq2_1", "lpq5_1", "lpq8_1", "lpq9_1", "lpq11_1", "lpq12_1", "lpq14_1", "lpq15_1", "lpq16_1", "lpq19_1")
+LPQallcompiled[ , reverse] = 1 - LPQallcompiled[ , reverse]
+summary(LPQallcompiled)
+
+##make sure this dataaset doesn't have any decimals or weird numbers
+apply(LPQallcompiled[ , allcolumns], 2, table)
+
+##the csv files are a mix of computer and paper, so need to subset
+LPQallcompiledrandom = subset(LPQallcompiled, Source == 'random')
+LPQallcompilednotrandom = subset(LPQallcompiled, Source == 'not random')
+
+####Random data screening####
+LPQallcompiledrandom = LPQallcompiledrandom[ , 3:22]
+summary(LPQallcompiledrandom)
+
+##missing lpqallcompiled random 
+missingallcompiledrandom = apply(LPQallcompiledrandom, 1, percentmiss)
+table(missingallcompiledrandom)
+replacepeopleallcompiledrandom = subset(LPQallcompiledrandom, missingallcompiledrandom <=5)
+
+##check for columns
+apply(replacepeopleallcompiledrandom, 2, percentmiss)
+
+##replace data
+tempnomiss = mice(replacepeopleallcompiledrandom, seed = 784)
+replacedallcompiledrandom = complete(tempnomiss, 1)
+summary(replacedallcompiledrandom)
+
+##outliers
+mahal = mahalanobis(replacedallcompiledrandom, 
+                    colMeans(replacedallcompiledrandom, na.rm = T), 
+                    cov(replacedallcompiledrandom, use = "pairwise.complete.obs"))
+cutoff = qchisq(1-.001, ncol(replacedallcompiledrandom))
+cutoff
+ncol(replacedallcompiledrandom)
+summary(mahal < cutoff)
+nooutreplacedallcompiledrandom = subset(replacedallcompiledrandom, mahal < cutoff)
+
+##assumptions 
+##additivity
+correlreplacedallcompiledrandom = cor(nooutreplacedallcompiledrandom)
+symnum(correlreplacedallcompiledrandom) ##good
+
+##set up for assumptions 
+random = rchisq(nrow(nooutreplacedallcompiledrandom), 7)
+fake = lm(random ~ ., data = nooutreplacedallcompiledrandom)
+standardized = rstudent(fake)
+fitted = scale(fake$fitted.values)
+
+##normality 
+#hist(standardized) ##positive skew
+
+##linearity 
+#qqnorm(standardized)
+#abline(0, 1) ##looks good
+
+##homog and s
+#plot(fitted, standardized)
+#abline(0, 0)
+#abline(v = 0)##yes!
+
+finalrandomL = nooutreplacedallcompiledrandom
+
+####Not random data screening####
+LPQallcompilednotrandom = LPQallcompilednotrandom[ , 3:22]
+summary(LPQallcompilednotrandom)
+
+##missing lpqallcompilednotrandom
+missingallcompilednotrandom = apply(LPQallcompilednotrandom, 1, percentmiss)
+table(missingallcompilednotrandom)
+replacepeopleallcompilednotrandom = subset(LPQallcompilednotrandom, missingallcompilednotrandom <= 5)
+
+##columns
+apply(replacepeopleallcompilednotrandom,2,percentmiss)
+
+##replace data
+tempnomiss = mice(replacepeopleallcompilednotrandom, seed = 489)
+replacedallcompilednotrandom = complete(tempnomiss, 1)
+summary(replacedallcompilednotrandom)
+
+##outliers
+mahal = mahalanobis(replacedallcompilednotrandom, 
+                    colMeans(replacedallcompilednotrandom, na.rm = T), 
+                    cov(replacedallcompilednotrandom, use = "pairwise.complete.obs"))
+cutoff = qchisq(1-.001, ncol(replacedallcompilednotrandom))
+cutoff
+ncol(replacedallcompilednotrandom)
+summary(mahal < cutoff)
+nooutreplacedallcompilednotrandom = subset(replacedallcompilednotrandom, mahal < cutoff)
+
+##assumptions 
+##additivity
+correlreplacedallcompilednotrandom = cor(nooutreplacedallcompilednotrandom)
+symnum(correlreplacedallcompilednotrandom) ##yay
+
+##set up for assumptions 
+random = rchisq(nrow(nooutreplacedallcompilednotrandom), 7)
+fake = lm(random ~ ., data = nooutreplacedallcompilednotrandom)
+standardized = rstudent(fake)
+fitted = scale(fake$fitted.values)
+
+##normality 
+#hist(standardized) ##positive skew still
+
+##linearity 
+#qqnorm(standardized)
+#abline(0, 1) ##its okay 
+
+##homog and s
+#plot(fitted, standardized)
+#abline(0, 0)
+#abline(v = 0)##meets both
+
+finalnotrandomL = nooutreplacedallcompilednotrandom
+```
+
+```{r demo-table, results = 'asis', echo = FALSE}
+demo = read.csv("demographics.csv")
+gender = tapply(demo$Gender, demo$Source, table)
+ethnic = tapply(demo$Ethnicity, demo$Source, table)
+Mage = tapply(demo$Age, demo$Source, mean, na.rm = T)
+SDage = tapply(demo$Age, demo$Source, sd, na.rm = T)
+##make a blank table
+demotable = matrix(NA, nrow = 4, ncol = 8)
+
+##create column names
+colnames(demotable) = c("Group", "Female", "White", "Age (SD)", "Original N", "Missing N", "Outlier N", "Final N")
+
+##stick in the information you need
+demotable[ , 1] = c("PIL Random", "PIL Not Random", "LPQ Random", "LPQ Not Random")
+demotable[ , 2] = c(apa(gender$random["female"]/sum(gender$random)*100,1), 
+                    apa(gender$`not random`["female"] / sum(gender$`not random`)*100, 1),
+                    "-", "-")
+demotable[ , 3] = c(apa(ethnic$random["White"] / sum(ethnic$random)*100, 1), 
+                    apa(ethnic$`not random`["White"] / sum(ethnic$`not random`)*100, 1),
+                    "-", "-")
+demotable[ , 4] = c(paste( apa(Mage["random"],2), " (", apa(SDage["random"],2), ")", sep = ""),
+                    paste( apa(Mage["not random"],2), " (", apa(SDage["not random"], 2), ")", sep = ""),
+                    "-", "-")
+demotable[ , 5] = c(nrow(randomcomputer), nrow(notrandomcomputer), 
+                    nrow(LPQallcompiledrandom), nrow(LPQallcompilednotrandom))
+demotable[ , 6] = as.numeric(demotable[ , 5]) - 
+                  c(nrow(replacedrandom) , nrow(replacednotrandom),
+                    nrow(replacedallcompiledrandom), nrow(replacedallcompilednotrandom))
+demotable[ , 7] = as.numeric(demotable[ , 5]) - as.numeric(demotable[ , 6]) - 
+                  c(nrow(finalrandomP), nrow(finalnotrandomP),
+                    nrow(finalrandomL), nrow(finalnotrandomL))
+demotable[ , 8] = c(nrow(finalrandomP), nrow(finalnotrandomP),
+                    nrow(finalrandomL), nrow(finalnotrandomL))
+##note for PIL random 256 of those are the bad data with one question, so added that to the missing column. 
+demotable[1, 6] = as.numeric(demotable[1, 6]) + 256
+demotable[1, 7] = as.numeric(demotable[1, 7]) - 256
+
+
+##print it (apa)
+apa_table(
+  demotable
+  , align = c("l", rep("c", 7))
+  , caption = "Demographic and Data Screening Information",
+  note = "Participants took both the PIL and LPQ scale, therefore, random and not random demographics are the same. Not every participant was given the LPQ, resulting in missing data for those subjects. Several PIL participants were removed because they were missing an item on their scale. Columns titled 'Female' and 'White' are represented by percentages.",
+  small = T
+)
+```
+
+## PIL Analyses
+
+### Correlation Matrices
+
+```{r Cortest.matPIL, include = FALSE}
+options(scipen = 999)
+
+cor_notrandomP = cor(finalnotrandomP, use="pairwise")
+cor_randomP = cor(finalrandomP, use="pairwise")
+
+cortestPIL = cortest.mat(cor_notrandomP, cor_randomP, 
+            n1 = nrow(finalnotrandomP), n2 = nrow(finalrandomP))
+
+z_notrandomP = fisherz(cor_notrandomP)
+z_randomP = fisherz(cor_randomP)
+z_differenceP = (z_notrandomP - z_randomP) / sqrt((1/(nrow(finalnotrandomP) - 3)) + (1/(nrow(finalrandomP) - 3)))
+
+#Zobserved = (z1 – z2) / (square root of [ (1 / N1 – 3) + (1 / N2 – 3) ]
+write.csv(z_differenceP, "z_differenceP.csv", row.names = F)
+diffPIL = sum(abs(z_differenceP) > 1.96, na.rm = T) / 2
+```
+
+The correlation matrices for the randomized and nonrandomized versions of the PIL were found to be significantly different, $\chi^2$(`r cortestPIL$df`) = `r printnum(cortestPIL$chi2)`, *p* < .001. The *Z* score differences were examined, and `r diffPIL` correlations were different across the possible 190 tests. A summary of differences can be found in Table \@ref(tab:cor-table-pil). For each item, the total number of differences was calculated, as shown in column two, and those specific items are listed in column three. The last two columns summarize the directions of these effects. Positive *Z*-scores indicated stronger correlations between nonrandomized items, while negative *Z*-scores indicated stronger correlations for randomized items (summarized in the last column). Two items had strong context effects (i.e., impacted many items), item 2 *exciting life* and item 15 *prepared for death*. Interestingly, the impact is the reverse for these two items, as item 2 showed stronger relationships to items when randomized, while item 15 showed stronger relationships to items when nonrandomized.
+
+```{r cor-table-pil, echo=FALSE, results = 'asis'}
+cor_table = read.csv("CorrCompPIL.csv", stringsAsFactors = F)
+cor_table$Question = printnum(cor_table$Question, digits = 0)
+cor_table$Differences = printnum(cor_table$Differences, digits = 0)
+apa_table(cor_table,
+          align = c("l", rep("c", 4)),
+          caption = "Correlation Matrices Results by Item for the PIL",
+          col.names = c("Item", "Differences", "Items Changed", "Direction of Change", 
+                        "Stronger Randomized"),
+          small = TRUE
+          )
+```
+
+### Factor Loadings
+
+```{r Pfactor-load, include = FALSE}
+FLnotP= fa(finalnotrandomP, nfactors = 1, rotate = "oblimin", fm = "ml")
+FLrandomP = fa(finalrandomP, nfactors = 1, rotate = "oblimin", fm = "ml") 
+
+##dependent t-test to determine if they are p value different
+FLPt = t.test(FLnotP$loadings[1:20], FLrandomP$loadings[1:20], paired = T)
+
+##effect sizes
+FLPd = d.dep.t.avg(mean(FLrandomP$loadings[1:20]),mean(FLnotP$loadings[1:20]),
+                   sd(FLrandomP$loadings[1:20]), sd(FLnotP$loadings[1:20]),
+                   n = length(FLrandomP$loadings[1:20]), a = .05)
+
+FLPdz = d.dep.t.diff(mean(FLrandomP$loadings[1:20] - FLnotP$loadings[1:20]),
+                     sd(FLrandomP$loadings[1:20] - FLnotP$loadings[1:20]), 
+                     length(FLrandomP$loadings[1:20]), 
+                     a = .05)
+##toster
+##using a cut off score of 0.10 difference because it matches the definition of loadings
+FLPtost = TOSTpaired.raw(n = length(FLrandomP$loadings[1:20]),
+                         m1 = mean(FLrandomP$loadings[1:20]),
+                         m2 = mean(FLnotP$loadings[1:20]),
+                         sd1 = sd(FLrandomP$loadings[1:20]),
+                         sd2 = sd(FLnotP$loadings[1:20]),
+                         r12 = cor(FLrandomP$loadings[1:20], FLnotP$loadings[1:20]),
+                         low_eqbound = -0.10,
+                         high_eqbound = 0.10,
+                         alpha = .05)
+
+##bayes factor
+FLPbf = ttestBF(x = FLrandomP$loadings[1:20], y = FLnotP$loadings[1:20], paired = TRUE)
+##note I hard coded the p values for TOST and BF, need to change if we change things. 
+```
+
+Table \@ref(tab:Ptable) includes the factor loadings from the one-factor EFA. These loadings were compared using a dependent *t*-test matched on item, and they were not significantly different, `r apa_print(FLPt)$full_result`. The effect size for this test was correspondingly negligible, $d_{av}$ = `r apa(FLPd$d, 2)` 95% CI [`r apa(FLPd$dlow, 2)`, `r apa(FLPd$dhigh, 2)`]. The TOST analysis was significant for both the lower, *t*(19) = `r apa(FLPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(FLPtost$TOST_t2, 2)`, *p* < .001. This result indicated that the change score was within the confidence band of expected negligible changes. Lastly, the BF for this test was 0.24, which indicated support for the null model. 
+
+### Item Means
+
+```{r Pitem, include = FALSE}
+##means and sds for the table
+MnrP = apply(finalnotrandomP, 2, mean)
+SDnrP = apply(finalnotrandomP, 2, sd)
+MrP = apply(finalrandomP, 2, mean)
+SDrP = apply(finalrandomP, 2, sd)
+
+##t-test
+IPt = t.test(MnrP, MrP, paired = T)
+
+##effect size
+IPd = d.dep.t.avg(mean(MnrP), mean(MrP), sd(MnrP), sd(MrP), length(MnrP), .05)
+IPdz = d.dep.t.diff(mean(MnrP - MrP), sd(MnrP - MrP), length(MnrP), .05)
+
+##toster
+##first calculate the cut off score for a certain percent change you are interested in
+minscale = 1 #min scale point
+maxscale = 7 #max scale point
+noq = 20 #number of questions
+perchange = .05 #percent change of total you think is important
+
+cutoff = ((maxscale*noq - minscale*noq) * perchange) / noq
+
+IPtost = TOSTpaired.raw(n = length(MnrP),
+                         m1 = mean(MnrP),
+                         m2 = mean(MrP),
+                         sd1 = sd(MnrP),
+                         sd2 = sd(MrP),
+                         r12 = cor(MnrP, MrP),
+                         low_eqbound = -cutoff,
+                         high_eqbound = cutoff,
+                         alpha = .05)
+
+##bayes factor
+IPbf = ttestBF(x = MnrP, y = MrP, paired = T)
+```
+
+Table \@ref(tab:Ptable) includes the means and standard deviations of each item from the PIL scale. The item means were compared using a dependent *t*-test matched on item. Item means were significantly different `r apa_print(IPt)$full_result`. The effect size for this difference was small, $d_{av}$ = `r apa(IPd$d, 2)` 95% CI [`r apa(IPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. Even though the *t*-test was significant, the TOST analysis indicated that the difference was within the range of a 5% percent change in item means (`r apa(cutoff, 2)`). The TOST analysis for lower bound, *t*(19) = `r apa(IPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(IPtost$TOST_t2, 2)`, *p* < .001, suggested that the significant *t*-test may be not be interpreted as a meaningful change on the item means. The BF value for this test indicated 6.86, which is often considered weak evidence for the alternative model. Here, we find mixed results, indicating that randomization may change item means for the PIL. 
+
+### Total Scores 
+
+```{r Ptotal, include = FALSE}
+##create total scores
+finalnotrandomP$total = apply(finalnotrandomP, 1, sum)
+finalrandomP$total = apply(finalrandomP, 1, sum)
+
+##descriptives
+MTnrP = mean(finalnotrandomP$total)
+MTrP = mean(finalrandomP$total)
+SDTnrP = sd(finalnotrandomP$total)
+SDTrP = sd(finalrandomP$total)
+
+##t-test
+TPt = t.test(finalnotrandomP$total, finalrandomP$total,
+             var.equal = T,
+             paired = F)
+
+##effect size
+TPd = d.ind.t(MTnrP, MTrP, SDTnrP, SDTrP, 
+              length(finalnotrandomP$total), length(finalrandomP$total), a = .05)
+
+##toster
+##change cut off to the full number of questions
+totcutoff = cutoff * noq
+
+TPtost = TOSTtwo.raw(m1 = MTnrP, m2 = MTrP, sd1 = SDTnrP, sd2 = SDTrP,
+                 n1 = length(finalnotrandomP$total), n2 = length(finalrandomP$total), 
+                 low_eqbound = -totcutoff, high_eqbound = totcutoff, 
+                 alpha = .05, var.equal = T)
+
+
+##bayes factor
+TPbf = ttestBF(finalnotrandomP$total, finalrandomP$total, paired = F)
+```
+
+```{r ReliabilitiesPIL, include = FALSE}
+
+alpha(finalnotrandomP[, -21])
+##alpha = 0.93 excellent!
+alpha(finalrandomP[, -21])
+##alpha = 0.92 excellent!
+```
+
+```{r Ptable, echo = FALSE, results = 'asis'}
+##make a blank table
+Ptable = matrix(NA, nrow = 20, ncol = 7)
+
+##create column names
+colnames(Ptable) = c("Item","FL-R","FL-NR","M-R","M-NR","SD-R","SD-NR")
+
+##stick in the information you need
+Ptable[ , 1] = apa(1:20, 0)
+Ptable[ , 2] = apa(FLrandomP$loadings[1:20], 3, F)
+Ptable[ , 3] = apa(FLnotP$loadings[1:20], 3, F)
+Ptable[ , 4] = apa(MrP, 3)
+Ptable[ , 5] = apa(MnrP, 3)
+Ptable[ , 6] = apa(SDrP, 3)
+Ptable[ , 7] = apa(SDnrP, 3)
+
+##print it (apa)
+apa_table(
+  Ptable
+  , align = c("l", rep("c", 6))
+  , caption = "Item Statistics for the PIL Scale",
+  note = "FL = Factor Loadings, M = Mean, SD = Standard Deviation, R = Random, NR = Not Random"
+)
+
+```
+
+Total scores were created by summing the items for each participant across all twenty PIL questions. The mean total score for nonrandomized testing was *M* = `r apa(MTnrP, 2)` (*SD* = `r apa(SDTnrP, 2)`) with excellent reliability ($\alpha$ = .93), while the mean for randomizing testing was *M* = `r apa(MTrP, 2)` (*SD* = `r apa(SDTrP, 2)`) with excellent reliability ($\alpha$ = .92). The total score difference was examined with an independent *t*-test and was not significant, `r apa_print(TPt)$statistic`. The effect size for this difference was negligible, $d_{s}$ = `r apa(TPd$d, 2)` 95% CI [`r apa(TPd$dlow, 2)`, `r apa(IPd$dhigh, 2)`]. We tested if scores were changed by 5% (`r apa(totcutoff, 2)` points), and the TOST analysis indicated that the lower, *t*(1897) = `r apa(TPtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(1897) = `r apa(TPtost$TOST_t2, 2)`, *p* < .001 were within this area of null change. The BF results also supported the null model, 0.25.
+
+```{r mg-pil, include = FALSE, echo = FALSE, eval = FALSE}
+####pil 
+overallmodel = '
+PIL =~ PIL1 + PIL2 + PIL3 + PIL4 + PIL5 + PIL6 + PIL7 + PIL8 + PIL9 + PIL10 + PIL11 + PIL12 + PIL13 + PIL14 + PIL15 + PIL16 + PIL17 + PIL18 + PIL19 + PIL20
+'
+
+overallPIL = rbind(finalnotrandomP, finalrandomP)
+overallPIL$group = c(rep("not", nrow(finalnotrandomP)),
+                     rep("random", nrow(finalrandomP)))
+
+##fit for pill
+overall.fit = cfa(model = overallmodel, 
+                  data = overallPIL, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##fit for random 
+random.fit = cfa(overallmodel, 
+                 data = finalrandomP, 
+                 meanstructure = TRUE)
+summary(random.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+
+fitMeasures(random.fit) 
+
+##fit for not random 
+notrandom.fit = cfa(overallmodel, 
+                    data = finalnotrandomP, 
+                    meanstructure = TRUE)
+summary(notrandom.fit, 
+        standardized = TRUE, 
+        rsquare = TRUE, 
+        fit.measure = TRUE)
+
+fitmeasures(notrandom.fit)
+
+##invariances 
+multisteps = measurementInvariance(overallmodel, 
+                                   data = overallPIL, 
+                                   group = 'group', 
+                                   strict = T)
+
+fitMeasures(multisteps$fit.configural)
+fitMeasures(multisteps$fit.loadings)
+fitMeasures(multisteps$fit.intercepts)
+fitMeasures(multisteps$fit.residuals)
+fitMeasures(multisteps$fit.means)
+```
+
+## LPQ Analyses
+
+### Correlation Matrices 
+
+```{r Cortest.matLPQ, include = FALSE}
+## cortest.mat(R1,R2=NULL,n1=NULL,n2 = NULL) 
+
+cor_notrandomL = cor(finalnotrandomL, use="pairwise")
+cor_randomL = cor(finalrandomL, use="pairwise")
+cortestLPQ = cortest.mat(cor_notrandomL, cor_randomL, 
+            n1 = nrow(finalnotrandomL), n2 = nrow(finalrandomL))
+
+z_notrandomL = fisherz(cor_notrandomL)
+z_randomL = fisherz(cor_randomL)
+z_differenceL = (z_notrandomL - z_randomL) / sqrt((1/(nrow(finalnotrandomL) - 3)) + (1/(nrow(finalrandomL) - 3)))
+
+#Zobserved = (z1 – z2) / (square root of [ (1 / N1 – 3) + (1 / N2 – 3) ]
+write.csv(z_differenceL, "z_differenceL.csv", row.names = F)
+diffLPQ = sum(abs(z_differenceL) > 1.96, na.rm = T) / 2
+
+```
+
+Mirroring the results for the PIL, the correlation matrices for the randomized and nonrandomized versions of the LPQ were significantly different, $\chi^2$(`r cortestLPQ$df`) = `r printnum(cortestLPQ$chi2)`, *p* < .001. Less differences in correlation were found as compared to the PIL, only `r diffLPQ` out of the possible 190 combinations. The differences are summarized in Table \@ref(tab:cor-table-lpq). Most of the items affected one to four other items with item 13 *reliable person* showing the largest number of differences in correlation. All these changes were positive, meaning the correlations were larger for nonrandomized versions. 
+
+```{r cor-table-lpq, echo=FALSE, results = 'asis'}
+cor_table = read.csv("CorrCompLPQ.csv")
+cor_table$Question = printnum(cor_table$Question, digits = 0)
+cor_table$Differences = printnum(cor_table$Differences, digits = 0)
+apa_table(cor_table,
+          align = c("l", rep("c", 4)),
+          caption = "Correlation Matrices Results by Item for the LPQ",
+          col.names = c("Item", "Differences", "Items Changed", "Direction of Change", 
+                        "Stronger Randomized"),
+          small = TRUE
+          )
+```
+
+### Factor Loadings
+
+```{r Lfactor-load, include = FALSE}
+FLnotL= fa(finalnotrandomL, nfactors = 1, rotate = "oblimin", fm = "ml", cor = "tet")
+FLrandomL = fa(finalrandomL, nfactors = 1, rotate = "oblimin", fm = "ml", cor = "tet") 
+
+##dependent t-test to determine if they are p value different
+FLLt = t.test(FLnotL$loadings[1:20], FLrandomL$loadings[1:20], paired = T)
+
+##effect sizes
+FLLd = d.dep.t.avg(mean(FLrandomL$loadings[1:20]),mean(FLnotL$loadings[1:20]),
+                   sd(FLrandomL$loadings[1:20]), sd(FLnotL$loadings[1:20]),
+                   n = length(FLrandomL$loadings[1:20]), a = .05)
+
+FLLdz = d.dep.t.diff(mean(FLrandomL$loadings[1:20] - FLnotL$loadings[1:20]),
+                     sd(FLrandomL$loadings[1:20] - FLnotL$loadings[1:20]), 
+                     length(FLrandomL$loadings[1:20]), 
+                     a = .05)
+##toster
+##using a cut off score of 0.10 difference because it matches the definition of loadings
+FLLtost = TOSTpaired.raw(n = length(FLrandomL$loadings[1:20]),
+                         m1 = mean(FLrandomL$loadings[1:20]),
+                         m2 = mean(FLnotL$loadings[1:20]),
+                         sd1 = sd(FLrandomL$loadings[1:20]),
+                         sd2 = sd(FLnotL$loadings[1:20]),
+                         r12 = cor(FLrandomL$loadings[1:20], FLnotL$loadings[1:20]),
+                         low_eqbound = -0.10,
+                         high_eqbound = 0.10,
+                         alpha = .05)
+
+##bayes factor
+FLLbf = ttestBF(x = FLrandomL$loadings[1:20], y = FLnotL$loadings[1:20], paired = TRUE)
+```
+
+Table \@ref(tab:Ltable) includes the factor loadings from the one-factor EFA analysis using tetrachoric correlations. The loadings from randomized and nonrandomized versions were compared using a dependent *t*-test matched on item, which indicated they were not significantly different, `r apa_print(FLLt)$full_result`. The difference found for this test was negligible, $d_{av}$ = `r apa(FLLd$d, 2)` 95% CI [`r apa(FLLd$dlow, 2)`, `r apa(FLLd$dhigh, 2)`]. The TOST analysis examined if any change was within .10 change, as described earlier. The lower, *t*(19) = `r apa(FLLtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(FLLtost$TOST_t2, 2)`, *p* < .001 were both significant, indicating that the found change was within the expected change. Further, in support of the null model, the BF was 0.34. 
+
+### Item Means
+
+```{r Litem, include = FALSE}
+##means and sds for the table
+MnrL = apply(finalnotrandomL, 2, mean)
+SDnrL = apply(finalnotrandomL, 2, sd)
+MrL = apply(finalrandomL, 2, mean)
+SDrL = apply(finalrandomL, 2, sd)
+
+##t-test
+ILt = t.test(MnrL, MrL, paired = T)
+
+##effect size
+ILd = d.dep.t.avg(mean(MnrL), mean(MrL), sd(MnrL), sd(MrL), length(MnrL), .05)
+ILdz = d.dep.t.diff(mean(MnrL - MrL), sd(MnrL - MrL), length(MnrL), .05)
+
+##toster
+##first calculate the cut off score for a certain percent change you are interested in
+minscale = 0 #min scale point
+maxscale = 1 #max scale point
+noq = 20 #number of questions
+perchange = .05 #percent change of total you think is important
+
+cutoff = ((maxscale*noq - minscale*noq) * perchange) / noq
+
+ILtost = TOSTpaired.raw(n = length(MnrL),
+                         m1 = mean(MnrL),
+                         m2 = mean(MrL),
+                         sd1 = sd(MnrL),
+                         sd2 = sd(MrL),
+                         r12 = cor(MnrL, MrL),
+                         low_eqbound = -cutoff,
+                         high_eqbound = cutoff,
+                         alpha = .05)
+
+##bayes factor
+ILbf = ttestBF(x = MnrL, y = MrL, paired = T)
+```
+
+Means and standard deviations of each item are presented in Table \@ref(tab:Ltable). We again matched items and tested if there was a significant change using a dependent *t*-test. The test was not significant, `r apa_print(ILt)$full_result`, and the corresponding effect size reflects how little these means changed, $d_{av}$ = `r apa(ILd$d, 2)` 95% CI [`r apa(ILd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. Using a 5% change criterion, items were tested to determine if they changed less than (`r apa(cutoff, 2)`). The TOST analysis indicated both lower, *t*(19) = `r apa(ILtost$TOST_t1, 2)`, *p* < .001 and the upper bound, *t*(19) = `r apa(ILtost$TOST_t2, 2)`, *p* < .001, were within the null range. The BF also supported the null model, 0.24.
+
+### Total Scores
+
+```{r Ltotal, include = FALSE}
+##create total scores
+finalnotrandomL$total = apply(finalnotrandomL, 1, sum)
+finalrandomL$total = apply(finalrandomL, 1, sum)
+
+##descriptives
+MTnrL = mean(finalnotrandomL$total)
+MTrL = mean(finalrandomL$total)
+SDTnrL = sd(finalnotrandomL$total)
+SDTrL = sd(finalrandomL$total)
+
+##t-test
+TLt = t.test(finalnotrandomL$total, finalrandomL$total,
+             var.equal = T,
+             paired = F)
+
+##effect size
+TLd = d.ind.t(MTnrL, MTrL, SDTnrL, SDTrL, 
+              length(finalnotrandomL$total), length(finalrandomL$total), a = .05)
+
+##toster
+##change cut off to the full number of questions
+totcutoff = cutoff * noq
+
+TLtost = TOSTtwo.raw(m1 = MTnrL, m2 = MTrL, sd1 = SDTnrL, sd2 = SDTrL,
+                 n1 = length(finalnotrandomL$total), n2 = length(finalrandomL$total), 
+                 low_eqbound = -totcutoff, high_eqbound = totcutoff, 
+                 alpha = .05, var.equal = T)
+
+
+##bayes factor
+TLbf = ttestBF(finalnotrandomL$total, finalrandomL$total, paired = F)
+```
+
+```{r ReliabilitiesLPQ, include = FALSE}
+
+alpha(finalnotrandomL[,-21])
+## alpha = 0.84 good
+alpha(finalrandomL[,-21])
+## alpha = 0.82 good
+
+```
+
+```{r Ltable, echo = FALSE, results = 'asis'}
+##make a blank table
+Ltable = matrix(NA, nrow = 20, ncol = 7)
+
+##create column names
+colnames(Ltable) = c("Item","FL-R","FL-NR","M-R","M-NR","SD-R","SD-NR")
+
+##stick in the information you need
+Ltable[ , 1] = apa(1:20, 0)
+Ltable[ , 2] = apa(FLrandomL$loadings[1:20], 3, F)
+Ltable[ , 3] = apa(FLnotL$loadings[1:20], 3, F)
+Ltable[ , 4] = apa(MrL, 3, F)
+Ltable[ , 5] = apa(MnrL, 3, F)
+Ltable[ , 6] = apa(SDrL, 3, F)
+Ltable[ , 7] = apa(SDnrL, 3, F)
+
+##print it (apa)
+apa_table(
+  Ltable
+  , align = c("l", rep("c", 6))
+  , caption = "Item Statistics for the LPQ Scale",
+  note = "FL = Factor Loadings, M = Mean, SD = Standard Deviation, R = Random, NR = Not Random"
+)
+
+```
+
+LPQ total scores were created by summing the items for each participant. The mean total score for randomized testing was *M* = `r apa(MTrL, 2, F)` (*SD* = `r apa(SDTrL, 2, F)`), with good reliability ($\alpha$ = .82), and the mean for nonrandomized testing was *M* = `r apa(MTnrL, 2, F)` (*SD* = `r apa(SDTnrL, 2, F)`) and good reliability ($\alpha$ = .84). An independent *t*-test indicated that testing did not change the total score, `r apa_print(TLt)$statistic`. The effect size for this difference was negligible, $d_{s}$ = `r apa(TLd$d, 2)` 95% CI [`r apa(TLd$dlow, 2)`, `r apa(ILd$dhigh, 2)`]. The TOST analysis indicated that the scores were within a 5% (`r apa(totcutoff, 2)` points) change, lower: *t*(1627) = `r apa(TLtost$TOST_t1, 2)`, *p* < .001 and upper: *t*(1627) = `r apa(TLtost$TOST_t2, 2)`, *p* < .001. The BF results were in support of the null model, 0.06.
+
+```{r mg-lpq, include = FALSE, echo = FALSE, eval = FALSE}
+
+overallmodel = '
+LPQ =~ lpq1_1 + lpq2_1 + lpq3_1 + lpq4_1 + lpq5_1 + lpq6_1 + lpq7_1 + lpq8_1 + lpq9_1 + lpq10_1 + lpq11_1 + lpq12_1 + lpq13_1 + lpq14_1 + lpq15_1 + lpq16_1 + lpq17_1 + lpq18_1 + lpq19_1 + lpq20_1
+'
+
+overallLPQ = rbind(finalnotrandomL, finalrandomL)
+overallLPQ$group = c(rep("not", nrow(finalnotrandomL)),
+                     rep("random", nrow(finalrandomL)))
+
+overall.fit = cfa(model = overallmodel, 
+                  data=overallLPQ, 
+                  meanstructure = TRUE)
+
+summary(overall.fit, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##random
+overall.fit.r = cfa(overallmodel, 
+                    data=finalrandomL, 
+                    meanstructure = TRUE)
+
+summary(overall.fit.r, 
+        standardized=TRUE, 
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+##notrandom
+overall.fit.nr = cfa(overallmodel, 
+                     data=finalnotrandomL, 
+                     meanstructure = TRUE)
+
+summary(overall.fit.nr, 
+        standardized=TRUE,
+        rsquare=TRUE, 
+        fit.measure = TRUE)
+
+###measurement invariance
+multisteps = measurementInvariance(overallmodel, 
+                                   data = overallLPQ, 
+                                   group = "group",
+                                   strict = T)
+
+fitmeasures(multisteps$fit.configural)
+fitmeasures(multisteps$fit.loadings)
+fitmeasures(multisteps$fit.intercepts)
+fitmeasures(multisteps$fit.residuals)
+
+##broke at strict
+partial = partialInvariance(multisteps, 
+                            type = "intercepts")
+
+interceptsfree = partial$results 
+
+partialintercepts = measurementInvariance(overallmodel, 
+                                      data = overallLPQ, 
+                                      group = 'group', 
+                                      strict = T, 
+                                      group.partial = c("lpq13_1~1
+"))
+
+partial = partialInvariance(partialintercepts, 
+                            type = "residuals")
+
+residualsfree = partial$results 
+
+partialresiduals = measurementInvariance(overallmodel, 
+                                      data = overallLPQ, 
+                                      group = 'group', 
+                                      strict = T, 
+                                      group.partial = c("lpq13_1~1
+", "lpq13_1~~lpq13_1"))
+
+fitmeasures(partialresiduals$fit.configural)
+fitmeasures(partialresiduals$fit.loadings)
+fitmeasures(partialresiduals$fit.intercepts)
+fitmeasures(partialresiduals$fit.residuals)
+
+##q3_13 was released. re ran it and it fits now. 
+
+```
+
+# Discussion
+
+As technology has advanced, initial research questioned the validity of online assessments versus paper assessments. With further investigation, several researchers discovered equivalence with regard to computer surveys compared with paper surveys [@Deutskens2006; @Lewis2009]. However, with the addition of technology, @Fang2012a suggested that individuals respond with more extreme scores in online surveys than in-person surveys due to the social-desirability effect. Research on equivalence is mixed in results for paper and computer, and our work is a first-step on examining survey equivalence on an individual item-level for different forms of computer delivery. The findings from the current study are similar to those of @Knowles1992, in that we found differences in correlation matrices when items were randomized versus nonrandomized. These differences may be attributed to the context of the items when randomized, as described by @Salancik1992. When viewed through a meaning-change [@Knowles1992] or integration model [@Rogers1974; @Tourangeau1988], these differences may indicate that the context and background knowledge are shifting based on the order of the items presented. 
+
+As items showed these order context effects, randomization may present a way to combat those effects where the context of items is equalized across participants. However, it is important to show that randomization does not change the relationship of items with that underlying factor, rather just the context in which these items are presented. In both the PIL and LPQ scales, the factor loadings were found to be equivalent with results supporting the null hypothesis. For the PIL, we did find support for differences in item means using *p*-value criterion and Bayes Factor analyses. However, the effect size was small, meaning the differences were potentially not as meaningful as the *p*-values and BF analyses posit, in addition to considering the evidentiary values of the two one-sided tests, which supported the null range of expected values. Potentially, the small difference in item means was due to fluctuating context and order effects, with more change possible using a 1 to 7 item answer format (i.e., more possible range of answer change). The LPQ item means were not found to differ, and the correlational analysis showed less items changed in contrast to the PIL analysis. Finally, the total scores showed equivalence between randomization and nonrandomization which suggested that total scales were not considerably impacted with or without randomization of items. The match between results for two types of answer methodologies implied that randomization can be applied across a variety of scale types with similar effects. 
+
+Since the PIL and LPQ analyses predominately illustrated support for null effects of randomization, item randomization of scales is of practical use when there are potential concerns about item order and context effects described by the meaning-change hypotheses. Subject matter experts are usually involved in the scale development and this facet of reactivity should be considered in item development and deployment. Randomization has been largely viewed as virtuous research practice in terms of sample selection and order of stimuli presentation for years; now, we must decide if item reactivity earns the same amount of caution that has been granted to existing research procedures. Randomization will create a wider range of possible interpretation-integration context scenarios as participants react and respond to items. This procedure would even out context effects at the sample or group level, but individual differences will be present for each participant. 
+
+Since we found equivalence in terms of overall scoring of the PIL and LPQ, we advise that randomization can be used as a control mechanism, in addition to the ease of comparison between the scales if one researcher decided to randomize and one did not. Moreover, these results would imply that if an individual's total score on the PIL or LPQ is significantly different on randomized versus nonrandomized administrations, it is likely due to factors unrelated to delivery. Future research should investigate if this result is WEIRD (Western, Educated, Industrialized, Rich, and Democratic), as this study focused on college-age students in the Midwest [@Henrich2010]. As @Fang2012’s research indicates different effects for collectivistic cultures, other cultures may show different results based on randomization. Additionally, one should consider the effects of potential computer illiteracy on online surveys [@Charters2004]. 
+
+A second benefit to using the procedures outlined in this paper to examine for differences in methodology is the simple implementation of the analyses. While our analyses were performed in *R*, nearly all of these analyses can be performed in free point and click software, such as *jamovi* and *JASP*. Multigroup confirmatory factor analyses can additionally be used to analyze a very similar set of questions [@Brown2006]; however, multigroup analyses require a specialized skill and knowledge set. Bayes Factor and TOST analyses are included in these free programs and are easy to implement. In this paper, we have provided examples of how to test the null hypothesis, as well as ways to include multiple forms of evidentiary value to critically judge an analysis on facets other than *p*-values [@Valentine2017]. 
+
+\newpage
+
+# References
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
