@@ -1,4 +1,4 @@
-\documentclass[english,man, mask]{apa6}
+\documentclass[english,man]{apa6}
 
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -40,7 +40,7 @@
   {\end{ThreePartTable}\end{center}\end{landscape}}
 
   \usepackage{ifthen} % Only add declarations when endfloat package is loaded
-  \ifthenelse{\equal{\string man, mask}{\string man}}{%
+  \ifthenelse{\equal{\string man}{\string man}}{%
    \DeclareDelayedFloatFlavor{ThreePartTable}{table} % Make endfloat play with longtable
    % \DeclareDelayedFloatFlavor{ltable}{table} % Make endfloat play with lscape
    \DeclareDelayedFloatFlavor{lltable}{table} % Make endfloat play with lscape & longtable
@@ -171,16 +171,16 @@ researchers implement different delivery modalities.}
 
 
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}
+\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}
+\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
@@ -328,17 +328,14 @@ Fidell, 2012). Factor structure represents the correlation between item
 scores and factors, where a researcher wishes to find items that are
 strongly related to latent traits. Items that are not related to the
 latent trait, usually with factor loadings below .300 (Preacher \&
-MacCallum, 2003) are discarded. Model fit is examined when simple
-structure has been achieved (i.e., appropriate factor loadings for each
-item), and these fit indices inform if the items and factor structure
-model fit the data well. Well-designed scales include items that are
-highly related to their latent trait and have excellent fit indices.
-Scale development additionally includes the examination of other
-measures of reliability and validity but the focus of the scale shifts
-to subscale or total scores (Buchanan, Valentine, \& Schulenberg, 2014).
-Published scales are then distributed for use in the form that is
-presented in the publication, as item order is often emphasized through
-important notes about reverse scoring and creating subscale scores.
+MacCallum, 2003) are discarded. Well-designed scales include items that
+are highly related to their latent trait. Scale development additionally
+includes the examination of other measures of reliability and validity
+but the focus of the scale shifts to subscale or total scores (Buchanan,
+Valentine, \& Schulenberg, 2014). Published scales are then distributed
+for use in the form that is presented in the publication, as item order
+is often emphasized through important notes about reverse scoring and
+creating subscale scores.
 
 The question is no longer whether web-based surveys are reliable sources
 of data collection; the theory now is in need of a shift to whether or
@@ -663,17 +660,17 @@ against the null (Gallistel, 2009).
 
 Specifically, we used the \emph{BayesFactor} package (Morey \& Rouder,
 2015) with the recommended default priors that cover a wide range of
-data (Ly \& Verhagen, 2016; Morey \& Rouder, 2015; Rouder et al., 2009)
-of a Jeffreys prior with a fixed rscale (0.5) and random rscale (1.0).
-The choice of prior distribution can heavily influence the posterior
-belief, in that uninformative priors allow the data to comprise the
-posterior distribution. However, most researchers have a background
-understanding of their field, thus, making completely uninformative
-priors a tenuous assumption. Because of the dearth of literature in this
-field, there is not enough previous information to create a strong prior
-distribution, which would suppress the effect of the data on posterior
-belief. Therefore, we used the default options in \emph{BayesFactor} to
-model this belief.
+data (Ly, Verhagen, \& Wagenmakers, 2016; Morey \& Rouder, 2015; Rouder
+et al., 2009) of a Jeffreys prior with a fixed rscale (0.5) and random
+rscale (1.0). The choice of prior distribution can heavily influence the
+posterior belief, in that uninformative priors allow the data to
+comprise the posterior distribution. However, most researchers have a
+background understanding of their field, thus, making completely
+uninformative priors a tenuous assumption. Because of the dearth of
+literature in this field, there is not enough previous information to
+create a strong prior distribution, which would suppress the effect of
+the data on posterior belief. Therefore, we used the default options in
+\emph{BayesFactor} to model this belief.
 
 Using Bayes Factors, we may be able to show evidence of the absence of
 an effect. Often, non-significant \emph{p}-values from a NHST analysis
@@ -799,7 +796,7 @@ LPQ Not Random & - & - & - & 915 & 150 & 16 & 749\\
 \end{tabular}
 }
 \begin{tablenotes}[para]
-\textit{Note.} Participants took both the PIL and LPQ scale, therefore, random and not random demographics are the same. Not every participant was given the LPQ, resulting in missing data for those subjects. Several PIL participants were removed because they were missing an item on their scale.
+\textit{Note.} Participants took both the PIL and LPQ scale, therefore, random and not random demographics are the same. Not every participant was given the LPQ, resulting in missing data for those subjects. Several PIL participants were removed because they were missing an item on their scale. Columns titled 'Female' and 'White' are represented by percentages.
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -1165,7 +1162,7 @@ A second benefit to using the procedures outlined in this paper to
 examine for differences in methodology is the simple implementation of
 the analyses. While our analyses were performed in \emph{R}, nearly all
 of these analyses can be performed in free point and click software,
-such as \emph{jamovi} and \emph{JASP}. Multigroup confirmatory factory
+such as \emph{jamovi} and \emph{JASP}. Multigroup confirmatory factor
 analyses can additionally be used to analyze a very similar set of
 questions (Brown, 2006); however, multigroup analyses require a
 specialized skill and knowledge set. Bayes Factor and TOST analyses are
@@ -1206,13 +1203,13 @@ doi:\href{https://doi.org/10.1111/j.1751-5823.2010.00112.x}{10.1111/j.1751-5823.
 
 \hypertarget{ref-Brown2006}{}
 Brown, T. (2006). \emph{Confirmatory factor analysis for applied
-research}. New York, NY: The Guilford Press.
+research} (First Ed.). New York, NY: The Guilford Press.
 
 \hypertarget{ref-Buchanan2014}{}
 Buchanan, E. M., Valentine, K. D., \& Schulenberg, S. E. (2014).
 Exploratory and confirmatory factor analysis: Developing the Purpose in
 Life Test--Short Form. In P. Bindle (Ed.), \emph{SAGE research methods
-cases}. London, United Kingdom: SAGE Publications, Ltd.
+cases}. London, UK: SAGE Publications, Ltd.
 doi:\href{https://doi.org/10.4135/978144627305013517794}{10.4135/978144627305013517794}
 
 \hypertarget{ref-Buchanan2017}{}
@@ -1245,12 +1242,12 @@ Quarterly}, \emph{7}(1), 1--13.
 
 \hypertarget{ref-Cohen1988}{}
 Cohen, J. (1988). \emph{Statistical power analysis for the behavioral
-sciences} (2nd ed.). Hillsdale, NJ: Earlbaum.
+sciences} (Second Ed.). Hillsdale, NJ: Earlbaum.
 
 \hypertarget{ref-Cohen1992a}{}
 Cohen, J. (1992). A power primer. \emph{Psychological Bulletin},
 \emph{112}(1), 155--159.
-doi:\href{https://doi.org/10.1037//0033-2909.112.1.155}{10.1037//0033-2909.112.1.155}
+doi:\href{https://doi.org/10.1037/0033-2909.112.1.155}{10.1037/0033-2909.112.1.155}
 
 \hypertarget{ref-Cohen1994}{}
 Cohen, J. (1994). The earth is round (p \textless{} .05). \emph{American
@@ -1259,7 +1256,7 @@ doi:\href{https://doi.org/10.1037/0003-066X.49.12.997}{10.1037/0003-066X.49.12.9
 
 \hypertarget{ref-Comrey1992}{}
 Comrey, A. L., \& Lee, H. B. (1992). \emph{A first course in factor
-analysis} (Second.). Psychology Press.
+analysis} (Second Ed.). Hillsdale, NJ: Lawrence Erlbaum Associates, Inc.
 
 \hypertarget{ref-Cook2000}{}
 Cook, C., Heath, F., \& Thompson, R. L. (2000). A meta-analysis of
@@ -1289,8 +1286,8 @@ doi:\href{https://doi.org/10.1002/1097-4679(196404)20:2\%3C200::AID-JCLP22702002
 
 \hypertarget{ref-Cumming2012}{}
 Cumming, G. (2012). \emph{Understanding the new statistics: Effect
-sizes, confidence intervals, and meta-analysis}. New York, NY:
-Routledge.
+sizes, confidence intervals, and meta-analysis} (First Ed.). New York,
+NY: Routledge.
 
 \hypertarget{ref-Cumming2014}{}
 Cumming, G. (2014). The new statistics: Why and how. \emph{Psychological
@@ -1311,7 +1308,7 @@ doi:\href{https://doi.org/10.1177/1094670506286323}{10.1177/1094670506286323}
 
 \hypertarget{ref-DeVellis2016a}{}
 DeVellis, R. F. (2016). \emph{Scale development: Theory and
-applications} (Fourth.). Sage.
+applications} (Fourth Ed.). Sage.
 
 \hypertarget{ref-Dienes2014}{}
 Dienes, Z. (2014). Using Bayes to get the most out of non-significant
@@ -1321,7 +1318,7 @@ doi:\href{https://doi.org/10.3389/fpsyg.2014.00781}{10.3389/fpsyg.2014.00781}
 \hypertarget{ref-Dillman2008}{}
 Dillman, D. A., Smyth, J. D., \& Christian, L. M. (2008).
 \emph{Internet, mail, and mixed-mode surveys: The tailored design
-method} (Third.). Hoboken, NJ: John Wiley \& Sons, Inc.
+method} (Third Ed.). Hoboken, NJ: John Wiley \& Sons, Inc.
 
 \hypertarget{ref-Dunlap1996a}{}
 Dunlap, W. P., Cortina, J. M., Vaslow, J. B., \& Burke, M. J. (1996).
@@ -1353,13 +1350,13 @@ doi:\href{https://doi.org/10.1007/s11135-012-9783-3}{10.1007/s11135-012-9783-3}
 Feldman, J. M., \& Lynch, J. G. (1988). Self-generated validity and
 other effects of measurement on belief, attitude, intention, and
 behavior. \emph{Journal of Applied Psychology}, \emph{73}(3), 421--435.
-doi:\href{https://doi.org/10.1037//0021-9010.73.3.421}{10.1037//0021-9010.73.3.421}
+doi:\href{https://doi.org/10.1037/0021-9010.73.3.421}{10.1037/0021-9010.73.3.421}
 
 \hypertarget{ref-Frick2001}{}
 Frick, A., Bächtiger, M. T., \& Reips, U.-D. (2001). Financial
 incentives, personal information and dropout in online studies. In U.-D.
-Reips \& M. Bosnjak (Eds.), \emph{Dimensions of internet science} (pp.
-209--219).
+Reips \& M. Bosnjak (Eds.), \emph{Dimensions of internet science} (First
+Ed., pp. 209--219). Lengerich, Germany: Pabst Science Publishers.
 
 \hypertarget{ref-Gallistel2009}{}
 Gallistel, C. R. (2009). The importance of proving the null.
@@ -1414,14 +1411,15 @@ doi:\href{https://doi.org/10.2307/2291091}{10.2307/2291091}
 
 \hypertarget{ref-Keppel2004}{}
 Keppel, G., \& Wickens, T. (2004). \emph{Design and analysis: A
-researcher's handbook} (4th ed.). Upper Saddle River, NJ: Prentice Hall.
+researcher's handbook} (Fourth Ed.). Upper Saddle River, NJ: Prentice
+Hall.
 
 \hypertarget{ref-Knowles1992}{}
 Knowles, E. S., Coker, M. C., Cook, D. A., Diercks, S. R., Irwin, M. E.,
-Lundeen, E. J., \ldots{} Sibicky, M. E. (1992). Order Effects within
+Lundeen, E. J., \ldots{} Sibicky, M. E. (1992). Order effects within
 personality measures. In N. Schwarz \& S. Sudman (Eds.), \emph{Context
-effects in social and psychological research} (pp. 221--236). New York:
-Springer-Verlag.
+effects in social and psychological research} (First Ed., pp. 221--236).
+New York, NY: Springer-Verlag.
 
 \hypertarget{ref-Lakens2013}{}
 Lakens, D. (2013). Calculating and reporting effect sizes to facilitate
@@ -1440,9 +1438,10 @@ Argamon, S. E., \ldots{} Zwaan, R. A. (2018). Justify your alpha.
 \emph{Nature Human Behaviour}, \emph{2}(3), 168--171.
 doi:\href{https://doi.org/10.1038/s41562-018-0311-x}{10.1038/s41562-018-0311-x}
 
-\hypertarget{ref-Lee2012}{}
+\hypertarget{ref-Lee2014}{}
 Lee, M. D., \& Wagenmakers, E.-J. (2014). \emph{Bayesian cognitive
-modeling: A practical course}. Cambridge University Press.
+modeling: A practical course} (First Ed.). New York, NY: Cambridge
+University Press.
 
 \hypertarget{ref-Lewis2009}{}
 Lewis, I., Watson, B., \& White, K. M. (2009). Internet versus
@@ -1458,9 +1457,10 @@ Personality and Social Psychology}, \emph{47}(6), 1231--1243.
 doi:\href{https://doi.org/10.1037/0022-3514.47.6.1231}{10.1037/0022-3514.47.6.1231}
 
 \hypertarget{ref-Ly2016}{}
-Ly, A., \& Verhagen, J. (2016). Harold Jeffreys's default Bayes factor
-hypothesis tests: Explanation, extension, and application in psychology.
-\emph{Journal of Mathematical Psychology}, \emph{72}, 19--32.
+Ly, A., Verhagen, J., \& Wagenmakers, E.-J. (2016). Harold Jeffreys's
+default Bayes factor hypothesis tests: Explanation, extension, and
+application in psychology. \emph{Journal of Mathematical Psychology},
+\emph{72}, 19--32.
 doi:\href{https://doi.org/10.1016/J.JMP.2015.06.004}{10.1016/J.JMP.2015.06.004}
 
 \hypertarget{ref-MacLeod1992}{}
@@ -1468,7 +1468,7 @@ MacLeod, C., \& Campbell, L. (1992). Memory accessibility and
 probability judgments: An experimental evaluation of the availability
 heuristic. \emph{Journal of Personality and Social Psychology},
 \emph{63}(6), 890--902.
-doi:\href{https://doi.org/10.1037//0022-3514.63.6.890}{10.1037//0022-3514.63.6.890}
+doi:\href{https://doi.org/10.1037/0022-3514.63.6.890}{10.1037/0022-3514.63.6.890}
 
 \hypertarget{ref-Media2016}{}
 Media. (2016). \emph{The Total Audience Report: Q1 2016}.
@@ -1504,7 +1504,7 @@ Factors for common designs. Retrieved from
 \hypertarget{ref-Musch2000}{}
 Musch, J., \& Reips, U.-D. (2000). A brief history of web experimenting.
 In M. H. Birnbaum (Ed.), \emph{Psychological experiments on the
-internet} (pp. 61--87). Elsevier.
+internet} (First., pp. 61--87). Elsevier.
 doi:\href{https://doi.org/10.1016/B978-012099980-4/50004-6}{10.1016/B978-012099980-4/50004-6}
 
 \hypertarget{ref-Nosek2002}{}
@@ -1520,18 +1520,18 @@ doi:\href{https://doi.org/10.1177/1525822X10379795}{10.1177/1525822X10379795}
 
 \hypertarget{ref-Panter1992}{}
 Panter, A. T., Tanaka, J. S., \& Wellens, T. R. (1992). Psychometrics of
-order effects. In N. Schwarz \& S. Sudman (Eds.), \emph{Context efects
-in social and psychological research} (pp. 249--264). New York:
-Springer-Verlag.
+order effects. In N. Schwarz \& S. Sudman (Eds.), \emph{Context effects
+in social and psychological research} (First Ed., pp. 249--264). New
+York, NY: Springer-Verlag.
 
 \hypertarget{ref-Petty1986}{}
 Petty, R. E., \& Cacioppo, J. T. (1986). \emph{Communication and
-persuasion: Central and peripheral routes to attitude change}. New York:
-Springer-Verlag.
+persuasion: Central and peripheral routes to attitude change} (First
+Ed.). New York, NY: Springer-Verlag.
 
 \hypertarget{ref-Posner1978}{}
-Posner, M. I. (1978). \emph{Chronometric explorations of mind}.
-Hillsdale, NJ: Erlbaum.
+Posner, M. I. (1978). \emph{Chronometric explorations of mind} (First
+Ed.). Hillsdale, NJ: Erlbaum.
 
 \hypertarget{ref-Preacher2003}{}
 Preacher, K. J., \& MacCallum, R. C. (2003). Repairing Tom Swift's
@@ -1542,20 +1542,19 @@ doi:\href{https://doi.org/10.1207/S15328031US0201_02}{10.1207/S15328031US0201\_0
 \hypertarget{ref-Reips2002a}{}
 Reips, U.-D. (2002). Standards for Internet-based experimenting.
 \emph{Experimental Psychology}, \emph{49}(4), 243--256.
-doi:\href{https://doi.org/10.1026//1618-3169.49.4.243}{10.1026//1618-3169.49.4.243}
+doi:\href{https://doi.org/10.1026/1618-3169.49.4.243}{10.1026/1618-3169.49.4.243}
 
 \hypertarget{ref-Reips2012}{}
 Reips, U.-D. (2012). Using the Internet to collect data. In \emph{APA
 handbook of research methods in psychology, vol 2: Research designs:
 Quantitative, qualitative, neuropsychological, and biological.} (Vol. 2,
-pp. 291--310). Washington: American Psychological Association.
+pp. 291--310). Washington, DC: American Psychological Association.
 doi:\href{https://doi.org/10.1037/13620-017}{10.1037/13620-017}
 
 \hypertarget{ref-Revelle2017}{}
-Revelle, W. (2017). \emph{psych: Procedures for Psychological,
-Psychometric, and Personality Research}. Evanston, Illinois:
-Northwestern University. Retrieved from
-\url{https://cran.r-project.org/package=psych}
+Revelle, W. (2017). psych: Procedures for psychological, psychometric,
+and personality research. Evanston, IL: Northwestern University.
+Retrieved from \url{https://cran.r-project.org/package=psych}
 
 \hypertarget{ref-Rogers1993}{}
 Rogers, J. L., Howard, K. I., \& Vessey, J. T. (1993). Using
@@ -1579,7 +1578,7 @@ doi:\href{https://doi.org/10.3758/PBR.16.2.225}{10.3758/PBR.16.2.225}
 \hypertarget{ref-Salancik1992}{}
 Salancik, G. R., \& Brand, J. F. (1992). Context influences on the
 meaning of work. In N. Schwarz \& S. Sudman (Eds.), \emph{Context efects
-in social and psychological research} (pp. 237--247). New York:
+in social and psychological research} (pp. 237--247). New York, NY:
 Springer-Verlag.
 
 \hypertarget{ref-Sanou2017}{}
@@ -1651,8 +1650,8 @@ doi:\href{https://doi.org/10.1086/209528}{10.1086/209528}
 \hypertarget{ref-Strack1987}{}
 Strack, F., \& Martin, L. L. (1987). Thinking, judging, and
 communicating: A process account of context effects in attitude surveys.
-In \emph{Recent research in psychology} (pp. 123--148). Springer, New
-York, NY.
+In \emph{Recent research in psychology} (pp. 123--148). New York, NY:
+Springer.
 doi:\href{https://doi.org/10.1007/978-1-4612-4798-2_7}{10.1007/978-1-4612-4798-2\_7}
 
 \hypertarget{ref-Strack1985}{}
@@ -1660,7 +1659,7 @@ Strack, F., Schwarz, N., \& Gschneidinger, E. (1985). Happiness and
 reminiscing: The role of time perspective, affect, and mode of thinking.
 \emph{Journal of Personality and Social Psychology}, \emph{49}(6),
 1460--1469.
-doi:\href{https://doi.org/10.1037//0022-3514.49.6.1460}{10.1037//0022-3514.49.6.1460}
+doi:\href{https://doi.org/10.1037/0022-3514.49.6.1460}{10.1037/0022-3514.49.6.1460}
 
 \hypertarget{ref-Strack2009}{}
 Strack, K. M., \& Schulenberg, S. E. (2009). Understanding empowerment,
@@ -1671,29 +1670,30 @@ doi:\href{https://doi.org/10.1002/jclp.20607}{10.1002/jclp.20607}
 
 \hypertarget{ref-Tabachnick2012}{}
 Tabachnick, B. G., \& Fidell, L. S. (2012). \emph{Using multivariate
-statistics} (Sixth.). Boston, MA: Pearson.
+statistics} (Sixth Ed.). Boston, MA: Pearson.
 
 \hypertarget{ref-Tesser1978}{}
 Tesser, A. (1978). Self-generated attitude change. In \emph{Advances in
-experimental social psychology} (Vol. 11, pp. 289--338).
+experimental social psychology} (Vol. 11, pp. 289--338). Elsevier.
 doi:\href{https://doi.org/10.1016/S0065-2601(08)60010-6}{10.1016/S0065-2601(08)60010-6}
 
 \hypertarget{ref-Tourangeau1988}{}
 Tourangeau, R., \& Rasinski, K. A. (1988). Cognitive processes
 underlying context effects in attitude measurement. \emph{Psychological
 Bulletin}, \emph{103}(3), 299--314.
-doi:\href{https://doi.org/10.1037//0033-2909.103.3.299}{10.1037//0033-2909.103.3.299}
+doi:\href{https://doi.org/10.1037/0033-2909.103.3.299}{10.1037/0033-2909.103.3.299}
 
 \hypertarget{ref-Tourangeau1999}{}
 Tourangeau, R., Rips, L. J., \& Rasinski, K. (1999). \emph{The
-psychology of survey response}. Cambridge, UK: Cambridge University
-Press.
+psychology of survey response} (First Ed.). Cambridge, UK: Cambridge
+University Press.
 
 \hypertarget{ref-Trent2013}{}
 Trent, L. R., Buchanan, E., Ebesutani, C., Ale, C. M., Heiden, L.,
 Hight, T. L., \ldots{} Young, J. (2013). A measurement invariance
 examination of the Revised Child Anxiety and Depression Scale in a
-southern sample. \emph{Assessment}, \emph{20}(2), 175--187.
+southern sample: Differential item functioning between African American
+and Caucasian youth. \emph{Assessment}, \emph{20}(2), 175--187.
 doi:\href{https://doi.org/10.1177/1073191112450907}{10.1177/1073191112450907}
 
 \hypertarget{ref-Tversky1973}{}
@@ -1703,14 +1703,14 @@ judging frequency and probability. \emph{Cognitive Psychology},
 doi:\href{https://doi.org/10.1016/0010-0285(73)90033-9}{10.1016/0010-0285(73)90033-9}
 
 \hypertarget{ref-Valentine2017}{}
-Valentine, K., Buchanan, E., Scofield, J., \& Beauchamp, M. (2017).
-\emph{Beyond p-values: Utilizing multiple estimates to evaluate
-evidence}. Open Science Framework.
+Valentine, K. D., Buchanan, E. M., Scofield, J. E., \& Beauchamp, M.
+(2017). Beyond p-values: Utilizing multiple estimates to evaluate
+evidence, 1--29.
 doi:\href{https://doi.org/10.17605/osf.io/9hp7y}{10.17605/osf.io/9hp7y}
 
 \hypertarget{ref-VanBuuren2011}{}
 Van Buuren, S., \& Groothuis-Oudshoorn, K. (2011). mice: Multivariate
-imputation by chained equations in R. \emph{Journal of Statistical
+Imputation by Chained Equations in R. \emph{Journal of Statistical
 Software}, \emph{45}(3), 1--67.
 doi:\href{https://doi.org/10.18637/jss.v045.i03}{10.18637/jss.v045.i03}
 
@@ -1720,7 +1720,7 @@ problems of p values. \emph{Psychonomic Bulletin \& Review},
 \emph{14}(5), 779--804.
 doi:\href{https://doi.org/10.3758/BF03194105}{10.3758/BF03194105}
 
-\hypertarget{ref-Wagenmakers2016}{}
+\hypertarget{ref-Wagenmakers2016a}{}
 Wagenmakers, E.-J., Morey, R. D., \& Lee, M. D. (2016). Bayesian
 benefits for the pragmatic researcher. \emph{Current Directions in
 Psychological Science}, \emph{25}(3), 169--176.
@@ -1728,8 +1728,8 @@ doi:\href{https://doi.org/10.1177/0963721416643289}{10.1177/0963721416643289}
 
 \hypertarget{ref-Webb1966}{}
 Webb, E. S., Campbell, D. T., Schwartz, R. D., \& Sechrest, L. (1966).
-\emph{Unobtrusive measures: Nonreactive research in the social
-sciences}. Chicago: Rand McNally.
+\emph{Unobtrusive measures: Nonreactive research in the social sciences}
+(First Ed.). Chicago, IL: Rand McNally.
 
 \hypertarget{ref-Weigold2013}{}
 Weigold, A., Weigold, I. K., \& Russell, E. J. (2013). Examination of
