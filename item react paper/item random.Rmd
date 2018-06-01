@@ -6,7 +6,7 @@ author:
   - name          : "Erin M. Buchanan"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
-    address       : "901 S. National Ave"
+    address       : "901 S. National Ave, Springfield, MO, 65897"
     email         : "erinbuchanan@missouristate.edu"
   - name          : "Riley E. Foreman"
     affiliation   : "1"
@@ -45,8 +45,6 @@ footnotelist      : no
 lineno            : yes
 
 lang              : "english"
-#class             : "man"
-class             : "man, mask"
 class             : "man"
 #class             : "man, mask"
 output            : papaja::apa6_pdf
