@@ -1,0 +1,104 @@
+---
+title: "MGCFA"
+author: "Erin M. Buchanan"
+date: "9/23/2019"
+output: html_document
+---
+
+```{r setup_mg, include=FALSE}
+# chunk options 
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE)
+
+## Seed for random number generation
+set.seed(37563)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+
+# Libraries 
+library(lavaan)
+library(equaltestMI)
+
+summary_mg <- data.frame(scale_name = character(0),
+                         model_step = character(0),
+                         sample_size = numeric(),
+                         chisq = numeric(),
+                         df = numeric(),
+                         cfi = numeric(),
+                         rmsea = numeric(),
+                         srmr = numeric(),
+                         stringsAsFactors = F)
+```
+
+```{r data_screening, child = 'datascreening.Rmd'}
+```
+
+```{r mg_boredom_proneness, include = F}
+# Model Code
+overall.model  <- '
+BP =~ BP1 + BP2 + BP3 + BP4 + BP5 + BP6 + BP7 + BP8 + 
+      BP9 + BP10 + BP11 + BP12 + BP13 + BP14 + BP15 + 
+      BP16 + BP17 + BP18 + BP19 + BP20 + BP21 + BP22 + 
+      BP23 + BP24 + BP25 + BP26 + BP27 + BP28
+'
+# Overall Model
+overall.fit <- cfa(model = overall.model,
+                   data = bp_ds$fulldata,
+                   meanstructure = T)
+## Put that into the table 
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Overall", overall.fit@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(overall.fit, c("chisq", "df", "cfi", "rmsea", "srmr")))
+
+# MGCFA Steps
+MG.model <- eqMI.main(model = overall.model, 
+                      data = bp_ds$fulldata,
+                      group = "source",
+                      meanstructure = TRUE,
+                      output = "both", #mean, covariance, both  
+                      equivalence.test = FALSE, #change this in a moment
+                      adjRMSEA = FALSE, #but see new paper
+                      projection = TRUE, #see notes
+                      bootstrap = FALSE, 
+                      quiet = TRUE)
+
+# If this errors use this part #
+
+# Individual groups
+random.fit <- cfa(model = overall.model,
+                  data = bp_ds$fulldata[bp_ds$fulldata$source == "random" , ],
+                  meanstructure = T)
+
+notrandom.fit <- cfa(model = overall.model,
+                  data = bp_ds$fulldata[bp_ds$fulldata$source == "not random" , ],
+                  meanstructure = T)
+
+# Configural
+config.fit <- cfa(model = overall.model,
+                   data = bp_ds$fulldata,
+                   group = "source", 
+                   meanstructure = T)
+
+# Metric
+metric.fit <- cfa(model = overall.model,
+                   data = bp_ds$fulldata,
+                   group = "source", 
+                   meanstructure = T,
+                  group.equal = c("loadings"))
+
+# Scalar
+scalar.fit <- cfa(model = overall.model,
+                   data = bp_ds$fulldata,
+                   group = "source", 
+                   meanstructure = T,
+                  group.equal = c("loadings", "intercepts"))
+
+# Strict
+residuals.fit <- cfa(model = overall.model,
+                   data = bp_ds$fulldata,
+                   group = "source", 
+                   meanstructure = T,
+                  group.equal = c("loadings", "intercepts", "residuals"))
+```
+
+

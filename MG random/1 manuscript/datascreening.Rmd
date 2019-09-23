@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup_datascreen, include=FALSE}
 # chunk options 
-knitr::opts_chunk$set(echo = FALSE, cache = TRUE, messages = FALSE)
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE)
 
 ## Seed for random number generation
 set.seed(37563)
@@ -124,9 +124,9 @@ bp_ds <- datascreen(bp_df)
 
 # Make some decisions, save your answers, comment these out
 # Note I had to copy this to the console for this to work
-bp_ds$linearity
-bp_ds$normality
-bp_ds$homogen
+# bp_ds$linearity
+# bp_ds$normality
+# bp_ds$homogen
 
 summary_ds[nrow(summary_ds)+1, ] <- 
                     #scale name, sample size

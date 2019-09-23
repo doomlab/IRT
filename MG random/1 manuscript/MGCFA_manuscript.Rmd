@@ -183,7 +183,7 @@ scales <- read.csv("table MGCFA.csv") ##this is the file with all the scales tha
 
 ### Data Screening
 
-```{r datascreening, child = 'datascreening.Rmd'}
+```{r results_ds_mg, child = 'MGCFA.Rmd'}
 ```
 
 ### MGCFA 
