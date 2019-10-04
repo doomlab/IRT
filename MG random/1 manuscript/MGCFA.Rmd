@@ -133,7 +133,6 @@ RMSEA_ctoa=function(m,N_sample,df,RMSEA_c){
 ########################################################################################
 ```
 
-
 ```{r function_lavaan, include = F}
 equal_test <- function(model_input, data_input, rmsea_input){
   
