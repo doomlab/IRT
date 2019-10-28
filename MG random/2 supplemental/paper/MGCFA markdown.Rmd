@@ -90,7 +90,6 @@ library(mice)
 library(knitr)
 options(scipen = 999)
 library(kableExtra)
-library(psytabs)
 library(papaja)
 percentmiss = function(x){ sum(is.na(x))/length(x) *100 }
 
