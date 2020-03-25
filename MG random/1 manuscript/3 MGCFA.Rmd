@@ -1,0 +1,306 @@
+---
+title: "MGCFA"
+author: "Erin M. Buchanan"
+date: "9/23/2019"
+output: html_document
+---
+
+```{r setup_mg, include=FALSE}
+# chunk options 
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE)
+
+## Seed for random number generation
+set.seed(37563)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+
+# Libraries 
+library(lavaan)
+#library(equaltestMI)
+
+summary_mg <- data.frame(scale_name = character(0),
+                         model_step = character(0),
+                         sample_size = numeric(),
+                         chisq = numeric(),
+                         df = numeric(),
+                         cfi = numeric(),
+                         rmsea = numeric(),
+                         srmr = numeric(),
+                         chisqp = numeric(), 
+                         stringsAsFactors = F)
+
+```
+
+```{r eq_test, include = F}
+# Counsell, Cribbie, Flora (2019) Function for Equivalence Tests
+
+#This function conducts an equivalence test based on SEM output
+# see manuscript for exact numeric details
+
+# The inputs are:
+# significance level (alpha) which is .05 by default, 
+# observed chi square statistic (chi), 
+# model (or model difference in) degrees of freedom (df) 
+# number of groups (m)
+# sample size (N_sample)
+# the value of the RMSEA that you will set for the equivalence bounds, 
+# default is RMSEA = .08
+
+#do not modify anything below
+
+equiv_chi=function(alpha=.05,chi,df,m,N_sample,popRMSEA=.08){
+    Fml<-chi/(N_sample-m)
+    popep<-(df*popRMSEA^2)/m
+    popdelt<-(N_sample-m)*popep
+    pval<-pchisq(chi, df, ncp=popdelt, lower.tail=TRUE)   
+    res<-data.frame(chi,Fml,popep,popdelt,pval)
+    res
+}
+
+# Yuan and Chan's (2016) method for getting an adjusted RMSEA value
+# from conventional values of .05, .08, or .10.
+
+# The formula is based on the coefficients in Table 11 of Yuan and Chan (2016);
+# The inputs are:
+# the number of groups (m), 
+# sample size (N_sample), 
+# degrees of freedom (df)
+# conventional value for RMSEA (RMSEA_c): must use .05, .08, or .10
+
+#do not modify anything below
+
+RMSEA_ctoa=function(m,N_sample,df,RMSEA_c){
+    RMSEA_a=NULL
+    N=N_sample
+    if (RMSEA_c ==.05){
+        if (m==1){
+            n=N-m;
+            y_e=2.06034-.62974*log(df)+.02512*log(df)*log(df)-.98388*log(n)+.05442*log(n)*log(n)-.00005188*n+.05260*log(df)*log(n);
+        }else if (m==2){
+            n=N-m;
+            y_e=2.61777-.67451*log(df)+.02596*log(df)*log(df)-.99310*log(n)+.04739*log(n)*log(n)+.05331*log(df)*log(n);
+        }else if (m==3){
+            n=N-m;
+            y_e=2.98724-.67419*log(df)+.02566*log(df)*log(df)-1.03326*log(n)+.04855*log(n)*log(n)+.05022*log(df)*log(n);
+        }else if (m==4){
+            n=N-m;
+            y_e=1.98287-.66535*log(df)+.02518*log(df)*log(df)-.95007*log(n)+.71711*(n**(1/5))+.04695*log(df)*log(n);
+        }else if (m==5){
+            n=N-m;
+            y_e=2.12615-.65419*log(df)+.02468*log(df)*log(df)-.94634*log(n)+.69787*(n**(1/5))+.04390*log(df)*log(n);
+        }
+    }
+    if (RMSEA_c==.08){
+        if (m==1){
+            n=N-m;
+            y_e=2.84129-.54809*log(df)+.02296*log(df)*log(df)-.76005*log(n)+.10229*log(n)*log(n)-1.11167*(n**(1/5))+.04845*log(df)*log(n);
+        }else if (m==2){
+            n=N-m;
+            y_e=3.73383-.61834*log(df)+.02487*log(df)*log(df)-.93229*log(n)+.11073*log(n)*log(n)-1.09715*(n**(1/5))+.05296*log(df)*log(n);
+        }else if (m==3){
+            n=N-m;
+            y_e=2.91386-.65125*log(df)+.02563*log(df)*log(df)-1.09019*log(n)+.06789*log(n)*log(n)-.00948*sqrt(n)+.05430*log(df)*log(n);
+        }else if (m==4){
+            n=N-m;
+            y_e=3.04581-.66589*log(df)+.02588*log(df)*log(df)-1.05019*log(n)+.05572*log(n)*log(n)-.00003864*n+.05406*log(df)*log(n);
+        }else if (m==5){
+            n=N-m;
+            y_e=3.21990-.67182*log(df)+.02591*log(df)*log(df)-1.05668*log(n)+.05430*log(n)*log(n)-.00002718*n+.05314*log(df)*log(n);
+        }
+    }
+    if (RMSEA_c==.10){
+        if (m==1){
+            n=N-m;
+            y_e=2.36352-.49440*log(df)+.02131*log(df)*log(df)-.64445*log(n)+.09043*log(n)*log(n)-1.01634*(n**(1/5))+.04422*log(df)*log(n);
+        }else if (m==2){
+            n=N-m;
+            y_e=3.34834-.56888*log(df)+.02354*log(df)*log(df)-.81593*log(n)+.10506*log(n)*log(n)-1.10591*(n**(1/5))+.04962*log(df)*log(n);
+        }else if (m==3){
+            n=N-m;
+            y_e=3.90933-.61431*log(df)+.02476*log(df)*log(df)-.92236*log(n)+.11054*log(n)*log(n)-1.10284*(n**(1/5))+.05273*log(df)*log(n);
+        }else if (m==4){
+            n=N-m;
+            y_e=2.96570-.63962*log(df)+.02537*log(df)*log(df)-1.07005*log(n)+.06814*log(n)*log(n)-.01029*sqrt(n)+.05396*log(df)*log(n);
+        }else if (m==5){
+            n=N-m;
+            y_e=3.18941-.65440*log(df)+.02568*log(df)*log(df)-1.09231*log(n)+.06714*log(n)*log(n)-.00894*sqrt(n)+.05424*log(df)*log(n);
+        }
+    } 
+    RMSEA_a=exp(y_e);
+    result=data.frame(m,N_sample,df,RMSEA_c,RMSEA_a)
+    #  return(result);
+    #print(result, row.names = FALSE)
+}
+########################################################################################
+```
+
+```{r function_lavaan, include = F}
+equal_test <- function(model_input, data_input, rmsea_input){
+  
+  #overall model
+  overall.fit <- cfa(model = model_input,
+                       data = data_input, 
+                       meanstructure = TRUE)
+  
+  random <- subset(data_input,
+                   source == "random")
+  nonrandom <- subset(data_input,
+                      source == "not random")
+  
+  # Individual groups
+  random.fit <- cfa(model = model_input,
+                    data = random,
+                    meanstructure = T)
+  
+  random.equal <- equiv_chi(alpha = .05,
+                            chi = fitMeasures(random.fit, "chisq"),
+                            df = fitMeasures(random.fit, "df"),
+                            m = 1, 
+                            N_sample = random.fit@SampleStats@nobs[[1]], 
+                            popRMSEA = rmsea_input)
+  
+  nonrandom.fit <- cfa(model = model_input,
+                    data = nonrandom,
+                    meanstructure = T)
+  
+  nonrandom.equal <- equiv_chi(alpha = .05,
+                          chi = fitMeasures(nonrandom.fit, "chisq"),
+                          df = fitMeasures(nonrandom.fit, "df"),
+                          m = 1, 
+                          N_sample = nonrandom.fit@SampleStats@nobs[[1]], 
+                          popRMSEA = rmsea_input)
+
+  # Configural
+  config.fit <- cfa(model = model_input,
+                     data = data_input,
+                     group = "source", 
+                     meanstructure = T)
+
+  # Metric
+  metric.fit <- cfa(model = model_input,
+                    data = data_input,
+                    group = "source", 
+                    meanstructure = T,
+                    group.equal = c("loadings"))
+  
+  metric.equal <- equiv_chi(alpha = .05,
+                            chi = abs(fitMeasures(metric.fit, "chisq") - fitMeasures(config.fit, "chisq")),
+                            df = abs(fitMeasures(metric.fit, "df") - fitMeasures(config.fit, "df")), 
+                            m = 2, 
+                            N_sample = sum(unlist(metric.fit@SampleStats@nobs)),
+                            popRMSEA = rmsea_input)
+  
+  # Scalar
+  scalar.fit <- cfa(model = model_input,
+                    data = data_input,
+                    group = "source", 
+                    meanstructure = T,
+                    group.equal = c("loadings", "intercepts"))
+  
+  scalar.equal <- equiv_chi(alpha = .05,
+                            chi = abs(fitMeasures(scalar.fit, "chisq") - fitMeasures(metric.fit, "chisq")),
+                            df = abs(fitMeasures(scalar.fit, "df") - fitMeasures(metric.fit, "df")), 
+                            m = 2, 
+                            N_sample = sum(unlist(scalar.fit@SampleStats@nobs)),
+                            popRMSEA = rmsea_input)
+  
+  # Strict
+  residuals.fit <- cfa(model = model_input,
+                    data = data_input,
+                    group = "source", 
+                    meanstructure = T,
+                    group.equal = c("loadings", "intercepts", "residuals"))
+  
+  residuals.equal <- equiv_chi(alpha = .05,
+                            chi = abs(fitMeasures(residuals.fit, "chisq") - fitMeasures(scalar.fit, "chisq")),
+                            df = abs(fitMeasures(residuals.fit, "df") - fitMeasures(scalar.fit, "df")), 
+                            m = 2, 
+                            N_sample = sum(unlist(residuals.fit@SampleStats@nobs)),
+                            popRMSEA = rmsea_input)
+  
+  return(list(overall = overall.fit, 
+              random = random.fit, 
+              random.equal = random.equal,
+              nonrandom = nonrandom.fit, 
+              nonrandom.equal = nonrandom.equal, 
+              configural = config.fit, 
+              metric = metric.fit, 
+              metric.equal = metric.equal,
+              scalar = scalar.fit, 
+              scalar.equal = scalar.equal,
+              residuals = residuals.fit, 
+              residuals.equal = residuals.equal))
+}
+
+```
+
+```{r data_screening, child = '2 datascreening.Rmd'}
+```
+
+```{r mg_boredom_proneness, include = F}
+# Model Code
+overall.model  <- '
+BP =~ BP1 + BP2 + BP3 + BP4 + BP5 + BP6 + BP7 + BP8 + 
+      BP9 + BP10 + BP11 + BP12 + BP13 + BP14 + BP15 + 
+      BP16 + BP17 + BP18 + BP19 + BP20 + BP21 + BP22 + 
+      BP23 + BP24 + BP25 + BP26 + BP27 + BP28
+'
+
+## models
+bp_mg <- equal_test(overall.model, bp_ds$fulldata, .08)
+
+## Put that into the table 
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Overall", bp_mg$overall@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    "NA")
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Random", bp_mg$random@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$random.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "NonRandom", bp_mg$nonrandom@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$nonrandom.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Configural", sum(unlist(bp_mg$configural@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    "NA")
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Metric", sum(unlist(bp_mg$metric@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$metric.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Scalar", sum(unlist(bp_mg$scalar@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$scalar.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", "Strict", sum(unlist(bp_mg$residuals@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(bp_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$residuals.equal$pval)
+```
+
+```{r}
+summary_mg[ , 3:ncol(summary_mg)] <- apply(summary_mg[ , 3:ncol(summary_mg)], 2, as.numeric)
+summary_mg[ , 3:ncol(summary_mg)] <- apply(summary_mg[ , 3:ncol(summary_mg)], 2, round, digits = 3)
+```
+

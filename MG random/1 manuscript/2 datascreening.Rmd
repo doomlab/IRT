@@ -1,0 +1,142 @@
+---
+title: "Data Screening MGCFA"
+author: "Erin M. Buchanan"
+date: "9/23/2019"
+output: html_document
+---
+
+```{r setup_datascreen, include=FALSE}
+# chunk options 
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE)
+
+## Seed for random number generation
+set.seed(37563)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+
+# Libraries 
+library(mice)
+library(dplyr)
+
+# Percent missing function
+percentmiss <- function(x){ sum(is.na(x))/length(x) *100 }
+
+# Data Screening Function
+## Be sure to put ID column as column 1, source as 2
+datascreen <- function(df) {
+  
+  # Missing Data
+  missing <- apply(df, 1, percentmiss)
+  ## Rows
+  replace_rows <- df[missing <= 5, ]
+  dont_replace_rows <- df[missing > 5, ]
+  ## Columns
+  missing <- apply(replace_rows, 2, percentmiss)
+  replace_columns <- replace_rows[ , missing <= 5]
+  dont_replace_columns <- cbind(replace_rows[ , 1:2] , replace_rows[ , missing > 5])
+  replace_columns <- replace_columns[ , -c(1,2)]
+  ## Replacement
+  tempnomiss <- mice(replace_columns)
+  miced_columns <- complete(tempnomiss, 1)
+  all_columns <- cbind(dont_replace_columns, miced_columns)
+  ## Put back in the original order
+  all_columns <- all_columns[ , colnames(df)] 
+  nomiss <- rbind(all_columns, dont_replace_rows)
+  ## How many points
+  points_estimated <- sum(tempnomiss$where)
+  
+  # Outliers
+  mahal <- mahalanobis(nomiss[ , -c(1:2)],
+                       colMeans(nomiss[ , -c(1:2)], na.rm = T),
+                       cov(nomiss[ , -c(1:2)], use = "pairwise.complete.obs"))
+  cutoff <- qchisq(1-.001, ncol(nomiss[ , -c(1:2)]))
+  outliers <- sum(mahal > cutoff, na.rm = T)
+  
+  # Assumptions
+  ## Prep
+  random_compare <- rchisq(nrow(nomiss), 7)
+  fake <- lm(random_compare ~ ., data = nomiss[ ,-c(1:2)])
+  standardized <- rstudent(fake)
+  fitted <- scale(fake$fitted.values)
+
+  ## Additivity - in return
+  ## Linearity
+  qqnorm(standardized); abline(0,1)
+  line_plot <- recordPlot()
+
+  ## Normality
+  hist(standardized)
+  hist_plot <- recordPlot()
+
+  ## Homog + S
+  plot(fitted, standardized); abline(0,0); abline(v = 0)
+  homogs_plot <- recordPlot()
+  
+  nomiss$outliers <- mahal
+  
+  return(list(fulldata = nomiss,
+              missing_points = points_estimated,
+              num_outliers = outliers,
+              correl = summary(fake, correlation = T)$correl, 
+              linearity = line_plot,
+              normality = hist_plot,
+              homogen = homogs_plot))
+}
+
+# Import overall file
+alldata <- read.csv("all_data_combined_edit.csv")
+alldata <- subset(alldata,
+                  source != "paper")
+alldata$source <- droplevels(alldata$source)
+
+# Build a place to put the stuff
+summary_ds <- data.frame(scale_name = character(0),
+                         sample_size = numeric(),
+                         missing_points = numeric(),
+                         number_outliers = numeric(),
+                         correl = numeric(),
+                         linear = character(0),
+                         normal = character(0), 
+                         homogeneity = character(0),
+                         homoscedasticity = character(0),
+                         stringsAsFactors = F)
+```
+
+```{r ds_boredom_proneness, include = F}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+bp_df <- alldata[ , grepl("partno|source|BP[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+bp_df <- bp_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## In the qualtrics true = 1, false = 2
+## Reverse code the false ones
+## False (1): 1, 7, 8, 11, 13, 15, 18, 22, 23, 24 
+## True (1): 2, 3, 4, 5, 6, 9, 10, 12, 14, 16, 17, 19, 20, 21, 25, 26, 27, 28
+## Plus 2 for the first two columns
+bp_df[ , c(1, 7, 8, 11, 13, 15, 18, 22, 23, 24)+2] <- 3 - bp_df[ , c(1, 7, 8, 11, 13, 15, 18, 22, 23, 24)+2] 
+## Now change from 2 = false to 0 = false
+bp_df[ , -c(1,2)] <- 2 - bp_df[ , -c(1,2)]
+
+# Data Screening
+bp_ds <- datascreen(bp_df)
+
+# Make some decisions, save your answers, comment these out
+# Note I had to copy this to the console for this to work
+# bp_ds$linearity
+# bp_ds$normality
+# bp_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(bp_ds$fulldata$outliers)),
+                      # missing points, number outliers
+                      bp_ds$missing_points, bp_ds$num_outliers, 
+                      # additivity
+                      sum(abs(bp_ds$correl) > .90 & abs(bp_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "Yes", "Yes")
+```
+
+
