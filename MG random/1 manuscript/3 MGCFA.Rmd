@@ -18,6 +18,7 @@ library(lavaan)
 #library(equaltestMI)
 
 summary_mg <- data.frame(scale_name = character(0),
+                         scale_size = numeric(),
                          model_step = character(0),
                          sample_size = numeric(),
                          chisq = numeric(),
@@ -246,58 +247,73 @@ BP =~ BP1 + BP2 + BP3 + BP4 + BP5 + BP6 + BP7 + BP8 +
 '
 
 ## models
-bp_mg <- equal_test(overall.model, bp_ds$fulldata, .08)
+bp_mg <- equal_test(overall.model, bp_ds$fulldata, .10)
 
 ## Put that into the table 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "Overall", bp_mg$overall@SampleStats@nobs[[1]], 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]), 
+    "Overall", bp_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
     "NA")
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "Random", bp_mg$random@SampleStats@nobs[[1]], 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]),
+    "Random", bp_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
     bp_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "NonRandom", bp_mg$nonrandom@SampleStats@nobs[[1]], 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]),
+    "NonRandom", bp_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
     bp_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "Configural", sum(unlist(bp_mg$configural@SampleStats@nobs)), 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]),
+    "Configural", sum(unlist(bp_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
     "NA")
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "Metric", sum(unlist(bp_mg$metric@SampleStats@nobs)), 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]), 
+    "Metric", sum(unlist(bp_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
     bp_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "Scalar", sum(unlist(bp_mg$scalar@SampleStats@nobs)), 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]),
+    "Scalar", sum(unlist(bp_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
     bp_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", "Strict", sum(unlist(bp_mg$residuals@SampleStats@nobs)), 
+  c("BP", length(bp_mg$overall@Data@ov.names[[1]]),
+    "Strict", sum(unlist(bp_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
     bp_mg$residuals.equal$pval)
 ```
+
+
+
+
+
+
+
+### LAST 
 
 ```{r}
 summary_mg[ , 3:ncol(summary_mg)] <- apply(summary_mg[ , 3:ncol(summary_mg)], 2, as.numeric)
