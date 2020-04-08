@@ -26,6 +26,8 @@ summary_mg <- data.frame(scale_name = character(0),
                          cfi = numeric(),
                          rmsea = numeric(),
                          srmr = numeric(),
+                         diffchisq = numeric(),
+                         diffdf = numeric(),
                          ncp = numeric(),
                          chisqp = numeric(), 
                          stringsAsFactors = F)
@@ -257,7 +259,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", bp_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -265,6 +267,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", bp_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$random.equal$chi,
+    fitmeasures(bp_mg$random, "df"),
     bp_mg$random.equal$popdelt,
     bp_mg$random.equal$pval)
 
@@ -274,6 +278,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", bp_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$nonrandom.equal$chi,
+    fitmeasures(bp_mg$nonrandom, "df"),
     bp_mg$nonrandom.equal$popdelt,
     bp_mg$nonrandom.equal$pval)
 
@@ -283,7 +289,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(bp_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -291,6 +297,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(bp_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$metric.equal$chi,
+    abs(fitmeasures(bp_mg$metric, "df") - fitmeasures(bp_mg$configural, "df")),
     bp_mg$metric.equal$popdelt,
     bp_mg$metric.equal$pval)
 
@@ -300,6 +308,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(bp_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$scalar.equal$chi,
+    abs(fitmeasures(bp_mg$scalar, "df") - fitmeasures(bp_mg$metric, "df")),
     bp_mg$scalar.equal$popdelt,
     bp_mg$scalar.equal$pval)
 
@@ -309,6 +319,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(bp_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bp_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bp_mg$residuals.equal$chi,
+    abs(fitmeasures(bp_mg$residuals, "df") - fitmeasures(bp_mg$scalar, "df")),
     bp_mg$residuals.equal$popdelt,
     bp_mg$residuals.equal$pval)
 ```
@@ -330,7 +342,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", bpsf_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -354,7 +366,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(bpsf_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -397,7 +409,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", brs_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -421,7 +433,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(brs_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -466,7 +478,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", dms_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -490,7 +502,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(dms_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -538,7 +550,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", elm_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -562,7 +574,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(elm_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -606,7 +618,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", elq_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elq_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -630,7 +642,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(elq_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elq_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -675,7 +687,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", emas_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -699,7 +711,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(emas_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -742,7 +754,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", ems_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -766,7 +778,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(ems_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -812,7 +824,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", es_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -836,7 +848,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(es_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -880,7 +892,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", fom_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -904,7 +916,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(fom_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -949,7 +961,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", glps_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -973,7 +985,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(glps_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1031,7 +1043,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", lapr_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1055,7 +1067,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(lapr_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1100,7 +1112,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", las_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1124,7 +1136,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(las_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1168,7 +1180,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", let_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1192,7 +1204,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(let_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1238,7 +1250,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", lpq_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1262,7 +1274,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(lpq_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1306,7 +1318,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", lri_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1330,7 +1342,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(lri_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1376,7 +1388,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mapa_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1400,7 +1412,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mapa_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1453,7 +1465,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mlm_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1477,7 +1489,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mlm_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1525,7 +1537,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mils_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1549,7 +1561,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mils_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1599,7 +1611,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mlq_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1623,7 +1635,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mlq_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1667,7 +1679,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mlt_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1691,7 +1703,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mlt_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1735,7 +1747,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", ml_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1759,7 +1771,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(ml_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1803,7 +1815,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mili_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1827,7 +1839,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mili_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1870,7 +1882,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mms_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1894,7 +1906,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mms_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1940,7 +1952,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", mm_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1964,7 +1976,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(mm_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2007,7 +2019,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", nom_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2031,7 +2043,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(nom_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2076,7 +2088,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", oth_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2100,7 +2112,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(oth_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2146,7 +2158,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", pvs_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2170,7 +2182,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(pvs_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2214,7 +2226,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", pil_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2238,7 +2250,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(pil_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2281,7 +2293,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", pilsf_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2305,7 +2317,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(pilsf_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2347,7 +2359,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", pms_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2371,7 +2383,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(pms_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2419,7 +2431,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", qe_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2443,7 +2455,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(qe_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2489,7 +2501,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", rs14_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2513,7 +2525,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(rs14_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2556,7 +2568,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", swl_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2580,7 +2592,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(swl_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2624,7 +2636,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", song_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2648,7 +2660,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(song_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2716,7 +2728,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", sms_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2740,7 +2752,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(sms_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2786,7 +2798,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", stms_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2810,7 +2822,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(stms_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2854,7 +2866,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", vol_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2878,7 +2890,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(vol_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2925,7 +2937,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", pws_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2949,7 +2961,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(pws_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2997,7 +3009,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Overall", pws_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -3021,7 +3033,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Configural", sum(unlist(pws_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 2))
+    rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size

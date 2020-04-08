@@ -170,7 +170,7 @@ summary_ds[nrow(summary_ds)+1, ] <-
                       "Yes", "No", "Yes", "Yes")
 ```
 
-```{r mg_brief_resilience_scale}
+```{r ds_brief_resilience_scale}
 # Data
 ## Expression is partno | (or) put in the letters you want, leave numbers
 brs_df <- alldata[ , grepl("partno|source|BRS[0-9]+", colnames(alldata))]
