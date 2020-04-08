@@ -276,7 +276,6 @@ kable(tableBPS,
                        "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 ```
 
-
 ```{r BPS-SF, echo=FALSE}
 
 bpssf = master[ , c(437:448, 14, 955,956)]
@@ -488,7 +487,6 @@ kable(tableBPSSF,
                        "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
-
 
 ```{r BRS, include=FALSE}
 brs = master[ , c(850:855,14,955,956) ]
