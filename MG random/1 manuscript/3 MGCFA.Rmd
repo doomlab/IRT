@@ -350,6 +350,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", bpsf_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bpsf_mg$random.equal$chi,
+    fitmeasures(bpsf_mg$random, "df"),
+    bpsf_mg$random.equal$popdelt,
     bpsf_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -358,6 +361,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", bpsf_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bpsf_mg$nonrandom.equal$chi,
+    fitmeasures(bpsf_mg$nonrandom, "df"),
+    bpsf_mg$nonrandom.equal$popdelt,
     bpsf_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -374,6 +380,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(bpsf_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bpsf_mg$metric.equal$chi,
+    abs(fitmeasures(bpsf_mg$metric, "df") - fitmeasures(bpsf_mg$configural, "df")),
+    bpsf_mg$metric.equal$popdelt,
     bpsf_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -382,6 +391,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(bpsf_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bpsf_mg$scalar.equal$chi,
+    abs(fitmeasures(bpsf_mg$scalar, "df") - fitmeasures(bpsf_mg$metric, "df")),
+    bpsf_mg$scalar.equal$popdelt,
     bpsf_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -390,6 +402,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(bpsf_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(bpsf_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    bpsf_mg$residuals.equal$chi,
+    abs(fitmeasures(bpsf_mg$residuals, "df") - fitmeasures(bpsf_mg$scalar, "df")),
+    bpsf_mg$residuals.equal$popdelt,
     bpsf_mg$residuals.equal$pval)
 ```
 
@@ -417,6 +432,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", brs_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    brs_mg$random.equal$chi,
+    fitmeasures(brs_mg$random, "df"),
+    brs_mg$random.equal$popdelt,
     brs_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -425,6 +443,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", brs_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    brs_mg$nonrandom.equal$chi,
+    fitmeasures(brs_mg$nonrandom, "df"),
+    brs_mg$nonrandom.equal$popdelt,
     brs_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -441,7 +462,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(brs_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   brs_mg$metric.equal$pval)
+    brs_mg$metric.equal$chi,
+    abs(fitmeasures(brs_mg$metric, "df") - fitmeasures(brs_mg$configural, "df")),
+    brs_mg$metric.equal$popdelt,
+    brs_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -449,7 +473,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(brs_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   brs_mg$scalar.equal$pval)
+    brs_mg$scalar.equal$chi,
+    abs(fitmeasures(brs_mg$scalar, "df") - fitmeasures(brs_mg$metric, "df")),
+    brs_mg$scalar.equal$popdelt,
+    brs_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -457,6 +484,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(brs_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(brs_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    brs_mg$residuals.equal$chi,
+    abs(fitmeasures(brs_mg$residuals, "df") - fitmeasures(brs_mg$scalar, "df")),
+    brs_mg$residuals.equal$popdelt,
     brs_mg$residuals.equal$pval)
 ```
 
@@ -486,6 +516,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", dms_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    dms_mg$random.equal$chi,
+    fitmeasures(dms_mg$random, "df"),
+    dms_mg$random.equal$popdelt,
     dms_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -494,7 +527,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", dms_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   dms_mg$nonrandom.equal$pval)
+    dms_mg$nonrandom.equal$chi,
+    fitmeasures(dms_mg$nonrandom, "df"),
+    dms_mg$nonrandom.equal$popdelt,
+    dms_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -510,7 +546,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(dms_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   dms_mg$metric.equal$pval)
+    dms_mg$metric.equal$chi,
+    abs(fitmeasures(dms_mg$metric, "df") - fitmeasures(dms_mg$configural, "df")),
+    dms_mg$metric.equal$popdelt,
+    dms_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -518,7 +557,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(dms_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   dms_mg$scalar.equal$pval)
+    dms_mg$scalar.equal$chi,
+    abs(fitmeasures(dms_mg$scalar, "df") - fitmeasures(dms_mg$metric, "df")),
+    dms_mg$scalar.equal$popdelt,
+    dms_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -526,6 +568,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(dms_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(dms_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    dms_mg$residuals.equal$chi,
+    abs(fitmeasures(dms_mg$residuals, "df") - fitmeasures(dms_mg$scalar, "df")),
+    dms_mg$residuals.equal$popdelt,
     dms_mg$residuals.equal$pval)
 ```
 
@@ -558,6 +603,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", elm_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    elm_mg$random.equal$chi,
+    fitmeasures(elm_mg$random, "df"),
+    elm_mg$random.equal$popdelt,
     elm_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -566,7 +614,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", elm_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   elm_mg$nonrandom.equal$pval)
+    elm_mg$nonrandom.equal$chi,
+    fitmeasures(elm_mg$nonrandom, "df"),
+    elm_mg$nonrandom.equal$popdelt,
+    elm_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -582,7 +633,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(elm_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   elm_mg$metric.equal$pval)
+    elm_mg$metric.equal$chi,
+    abs(fitmeasures(elm_mg$metric, "df") - fitmeasures(elm_mg$configural, "df")),
+    elm_mg$metric.equal$popdelt,
+    elm_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -590,7 +644,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(elm_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   elm_mg$scalar.equal$pval)
+    elm_mg$scalar.equal$chi,
+    abs(fitmeasures(elm_mg$scalar, "df") - fitmeasures(elm_mg$metric, "df")),
+    elm_mg$scalar.equal$popdelt,
+    elm_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -598,7 +655,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(elm_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(elm_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    elm_mg$residuals.equal$pval)
+    elm_mg$residuals.equal$chi,
+    abs(fitmeasures(elm_mg$residuals, "df") - fitmeasures(elm_mg$scalar, "df")),
+    elm_mg$residuals.equal$popdelt,
+    elm_mg$residuals)
 ```
 
 ```{r mg_elq, include = F}
@@ -615,58 +675,74 @@ elg_mg <- equal_test(overall.model, elq_ds$fulldata, .10)
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
   c("BP", length(elg_mg$overall@Data@ov.names[[1]]), 
-    "Overall", elq_mg$overall@SampleStats@nobs[[1]], 
+    "Overall", elg_mg$overall@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    fitmeasures(elg_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
     rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
   c("BP", length(elg_mg$overall@Data@ov.names[[1]]),
-    "Random", elq_mg$random@SampleStats@nobs[[1]], 
+    "Random", elg_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    elq_mg$random.equal$pval)
+    fitmeasures(elg_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    elg_mg$random.equal$chi,
+    fitmeasures(elg_mg$random, "df"),
+    elg_mg$random.equal$popdelt,
+    elg_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", length(elq_mg$overall@Data@ov.names[[1]]),
-    "NonRandom", elq_mg$nonrandom@SampleStats@nobs[[1]], 
+  c("BP", length(elg_mg$overall@Data@ov.names[[1]]),
+    "NonRandom", elg_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   elq_mg$nonrandom.equal$pval)
+    fitmeasures(elg_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    elg_mg$nonrandom.equal$chi,
+    fitmeasures(elg_mg$nonrandom, "df"),
+    elg_mg$nonrandom.equal$popdelt,
+    elg_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", length(elq_mg$overall@Data@ov.names[[1]]),
-    "Configural", sum(unlist(elq_mg$configural@SampleStats@nobs)), 
+  c("BP", length(elg_mg$overall@Data@ov.names[[1]]),
+    "Configural", sum(unlist(elg_mg$configural@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    fitmeasures(elg_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
     rep("NA", 4))
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", length(elq_mg$overall@Data@ov.names[[1]]), 
-    "Metric", sum(unlist(elq_mg$metric@SampleStats@nobs)), 
+  c("BP", length(elg_mg$overall@Data@ov.names[[1]]), 
+    "Metric", sum(unlist(elg_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   elq_mg$metric.equal$pval)
+    fitmeasures(elg_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    elg_mg$metric.equal$chi,
+    abs(fitmeasures(elg_mg$metric, "df") - fitmeasures(elg_mg$configural, "df")),
+    elg_mg$metric.equal$popdelt,
+    elg_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", length(elq_mg$overall@Data@ov.names[[1]]),
-    "Scalar", sum(unlist(elq_mg$scalar@SampleStats@nobs)), 
+  c("BP", length(elg_mg$overall@Data@ov.names[[1]]),
+    "Scalar", sum(unlist(elg_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   elq_mg$scalar.equal$pval)
+    fitmeasures(elg_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    elg_mg$scalar.equal$chi,
+    abs(fitmeasures(elg_mg$scalar, "df") - fitmeasures(elg_mg$metric, "df")),
+    elg_mg$scalar.equal$popdelt,
+    elg_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
-  c("BP", length(elq_mg$overall@Data@ov.names[[1]]),
-    "Strict", sum(unlist(elq_mg$residuals@SampleStats@nobs)), 
+  c("BP", length(elg_mg$overall@Data@ov.names[[1]]),
+    "Strict", sum(unlist(elg_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
-    fitmeasures(elq_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    elq_mg$residuals.equal$pval)
+    fitmeasures(elg_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    elg_mg$residuals.equal$chi,
+    abs(fitmeasures(elg_mg$residuals, "df") - fitmeasures(elg_mg$scalar, "df")),
+    elg_mg$residuals.equal$popdelt,
+    elg_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_emas, include = F}
@@ -695,6 +771,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", emas_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    emas_mg$random.equal$chi,
+    fitmeasures(emas_mg$random, "df"),
+    emas_mg$random.equal$popdelt,
     emas_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -703,7 +782,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", emas_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   emas_mg$nonrandom.equal$pval)
+    emas_mg$nonrandom.equal$chi,
+    fitmeasures(emas_mg$nonrandom, "df"),
+    emas_mg$nonrandom.equal$popdelt,
+    emas_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -719,7 +801,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(emas_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   emas_mg$metric.equal$pval)
+    emas_mg$metric.equal$chi,
+    abs(fitmeasures(emas_mg$metric, "df") - fitmeasures(emas_mg$configural, "df")),
+    emas_mg$metric.equal$popdelt,
+    emas_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -727,7 +812,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(emas_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   emas_mg$scalar.equal$pval)
+    emas_mg$scalar.equal$chi,
+    abs(fitmeasures(emas_mg$scalar, "df") - fitmeasures(emas_mg$metric, "df")),
+    emas_mg$scalar.equal$popdelt,
+    emas_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -735,7 +823,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(emas_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(emas_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    emas_mg$residuals.equal$chi,
+    abs(fitmeasures(emas_mg$residuals, "df") - fitmeasures(emas_mg$scalar, "df")),
+    emas_mg$residuals.equal$popdelt,
     emas_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_ems, include = F}
@@ -762,6 +854,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", ems_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    ems_mg$random.equal$chi,
+    fitmeasures(ems_mg$random, "df"),
+    ems_mg$random.equal$popdelt,
     ems_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -770,7 +865,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", ems_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   ems_mg$nonrandom.equal$pval)
+    ems_mg$nonrandom.equal$chi,
+    fitmeasures(ems_mg$nonrandom, "df"),
+    ems_mg$nonrandom.equal$popdelt,
+    ems_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -786,7 +884,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(ems_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   ems_mg$metric.equal$pval)
+    ems_mg$metric.equal$chi,
+    abs(fitmeasures(ems_mg$metric, "df") - fitmeasures(ems_mg$configural, "df")),
+    ems_mg$metric.equal$popdelt,
+    ems_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -794,7 +895,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(ems_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   ems_mg$scalar.equal$pval)
+    ems_mg$scalar.equal$chi,
+    abs(fitmeasures(ems_mg$scalar, "df") - fitmeasures(ems_mg$metric, "df")),
+    ems_mg$scalar.equal$popdelt,
+    ems_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -802,7 +906,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(ems_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ems_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    ems_mg$residuals.equal$chi,
+    abs(fitmeasures(ems_mg$residuals, "df") - fitmeasures(ems_mg$scalar, "df")),
+    ems_mg$residuals.equal$popdelt,
     ems_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_es, include = F}
@@ -832,6 +940,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", es_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    es_mg$random.equal$chi,
+    fitmeasures(es_mg$random, "df"),
+    es_mg$random.equal$popdelt,
     es_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -840,7 +951,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", es_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   es_mg$nonrandom.equal$pval)
+    es_mg$nonrandom.equal$chi,
+    fitmeasures(es_mg$nonrandom, "df"),
+    es_mg$nonrandom.equal$popdelt,
+    es_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -856,7 +970,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(es_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   es_mg$metric.equal$pval)
+    es_mg$metric.equal$chi,
+    abs(fitmeasures(es_mg$metric, "df") - fitmeasures(es_mg$configural, "df")),
+    es_mg$metric.equal$popdelt,
+    es_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -864,7 +981,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(es_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   es_mg$scalar.equal$pval)
+    es_mg$scalar.equal$chi,
+    abs(fitmeasures(es_mg$scalar, "df") - fitmeasures(es_mg$metric, "df")),
+    es_mg$scalar.equal$popdelt,
+    es_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -872,7 +992,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(es_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(es_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    es_mg$residuals.equal$chi,
+    abs(fitmeasures(es_mg$residuals, "df") - fitmeasures(es_mg$scalar, "df")),
+    es_mg$residuals.equal$popdelt,
     es_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_fom, include = F}
@@ -900,6 +1024,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", fom_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    fom_mg$random.equal$chi,
+    fitmeasures(fom_mg$random, "df"),
+    fom_mg$random.equal$popdelt,
     fom_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -908,7 +1035,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", fom_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   fom_mg$nonrandom.equal$pval)
+    fom_mg$nonrandom.equal$chi,
+    fitmeasures(fom_mg$nonrandom, "df"),
+    fom_mg$nonrandom.equal$popdelt,
+    fom_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -924,7 +1054,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(fom_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   fom_mg$metric.equal$pval)
+    fom_mg$metric.equal$chi,
+    abs(fitmeasures(fom_mg$metric, "df") - fitmeasures(fom_mg$configural, "df")),
+    fom_mg$metric.equal$popdelt,
+    fom_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -932,7 +1065,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(fom_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   fom_mg$scalar.equal$pval)
+    fom_mg$scalar.equal$chi,
+    abs(fitmeasures(fom_mg$scalar, "df") - fitmeasures(fom_mg$metric, "df")),
+    fom_mg$scalar.equal$popdelt,
+    fom_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -940,7 +1076,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(fom_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(fom_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    fom_mg$residuals.equal$chi,
+    abs(fitmeasures(fom_mg$residuals, "df") - fitmeasures(fom_mg$scalar, "df")),
+    fom_mg$residuals.equal$popdelt,
     fom_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_glps, include = F}
@@ -969,6 +1109,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", glps_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    glps_mg$random.equal$chi,
+    fitmeasures(glps_mg$random, "df"),
+    glps_mg$random.equal$popdelt,
     glps_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -977,7 +1120,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", glps_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   glps_mg$nonrandom.equal$pval)
+    glps_mg$nonrandom.equal$chi,
+    fitmeasures(glps_mg$nonrandom, "df"),
+    glps_mg$nonrandom.equal$popdelt,
+    glps_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -993,7 +1139,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(glps_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   glps_mg$metric.equal$pval)
+    glps_mg$metric.equal$chi,
+    abs(fitmeasures(glps_mg$metric, "df") - fitmeasures(glps_mg$configural, "df")),
+    glps_mg$metric.equal$popdelt,
+    glps_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1001,7 +1150,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(glps_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   glps_mg$scalar.equal$pval)
+    glps_mg$scalar.equal$chi,
+    abs(fitmeasures(glps_mg$scalar, "df") - fitmeasures(glps_mg$metric, "df")),
+    glps_mg$scalar.equal$popdelt,
+    glps_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1009,7 +1161,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(glps_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(glps_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    glps_mg$residuals.equal$chi,
+    abs(fitmeasures(glps_mg$residuals, "df") - fitmeasures(glps_mg$scalar, "df")),
+    glps_mg$residuals.equal$popdelt,
     glps_mg$residuals.equal$pval)
+
 ```
 
 
@@ -1051,6 +1207,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", lapr_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    lapr_mg$random.equal$chi,
+    fitmeasures(lapr_mg$random, "df"),
+    lapr_mg$random.equal$popdelt,
     lapr_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1059,7 +1218,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", lapr_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lapr_mg$nonrandom.equal$pval)
+    lapr_mg$nonrandom.equal$chi,
+    fitmeasures(lapr_mg$nonrandom, "df"),
+    lapr_mg$nonrandom.equal$popdelt,
+    lapr_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1075,7 +1237,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(lapr_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lapr_mg$metric.equal$pval)
+    lapr_mg$metric.equal$chi,
+    abs(fitmeasures(lapr_mg$metric, "df") - fitmeasures(lapr_mg$configural, "df")),
+    lapr_mg$metric.equal$popdelt,
+    lapr_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1083,7 +1248,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(lapr_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lapr_mg$scalar.equal$pval)
+    lapr_mg$scalar.equal$chi,
+    abs(fitmeasures(lapr_mg$scalar, "df") - fitmeasures(lapr_mg$metric, "df")),
+    lapr_mg$scalar.equal$popdelt,
+    lapr_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1091,7 +1259,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(lapr_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lapr_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    lapr_mg$residuals.equal$chi,
+    abs(fitmeasures(lapr_mg$residuals, "df") - fitmeasures(lapr_mg$scalar, "df")),
+    lapr_mg$residuals.equal$popdelt,
     lapr_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_las, include = F}
@@ -1120,6 +1292,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", las_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    las_mg$random.equal$chi,
+    fitmeasures(las_mg$random, "df"),
+    las_mg$random.equal$popdelt,
     las_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1128,7 +1303,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", las_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   las_mg$nonrandom.equal$pval)
+    las_mg$nonrandom.equal$chi,
+    fitmeasures(las_mg$nonrandom, "df"),
+    las_mg$nonrandom.equal$popdelt,
+    las_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1144,7 +1322,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(las_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   las_mg$metric.equal$pval)
+    las_mg$metric.equal$chi,
+    abs(fitmeasures(las_mg$metric, "df") - fitmeasures(las_mg$configural, "df")),
+    las_mg$metric.equal$popdelt,
+    las_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1152,7 +1333,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(las_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   las_mg$scalar.equal$pval)
+    las_mg$scalar.equal$chi,
+    abs(fitmeasures(las_mg$scalar, "df") - fitmeasures(las_mg$metric, "df")),
+    las_mg$scalar.equal$popdelt,
+    las_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1160,7 +1344,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(las_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(las_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    las_mg$residuals.equal$chi,
+    abs(fitmeasures(las_mg$residuals, "df") - fitmeasures(las_mg$scalar, "df")),
+    las_mg$residuals.equal$popdelt,
     las_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_let, include = F}
@@ -1188,6 +1376,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", let_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    let_mg$random.equal$chi,
+    fitmeasures(let_mg$random, "df"),
+    let_mg$random.equal$popdelt,
     let_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1196,7 +1387,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", let_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   let_mg$nonrandom.equal$pval)
+    let_mg$nonrandom.equal$chi,
+    fitmeasures(let_mg$nonrandom, "df"),
+    let_mg$nonrandom.equal$popdelt,
+    let_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1212,7 +1406,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(let_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   let_mg$metric.equal$pval)
+    let_mg$metric.equal$chi,
+    abs(fitmeasures(let_mg$metric, "df") - fitmeasures(let_mg$configural, "df")),
+    let_mg$metric.equal$popdelt,
+    let_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1220,7 +1417,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(let_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   let_mg$scalar.equal$pval)
+    let_mg$scalar.equal$chi,
+    abs(fitmeasures(let_mg$scalar, "df") - fitmeasures(let_mg$metric, "df")),
+    let_mg$scalar.equal$popdelt,
+    let_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1228,7 +1428,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(let_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(let_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    let_mg$residuals.equal$chi,
+    abs(fitmeasures(let_mg$residuals, "df") - fitmeasures(let_mg$scalar, "df")),
+    let_mg$residuals.equal$popdelt,
     let_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_lpq, include = F}
@@ -1258,6 +1462,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", lpq_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    lpq_mg$random.equal$chi,
+    fitmeasures(lpq_mg$random, "df"),
+    lpq_mg$random.equal$popdelt,
     lpq_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1266,7 +1473,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", lpq_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lpq_mg$nonrandom.equal$pval)
+    lpq_mg$nonrandom.equal$chi,
+    fitmeasures(lpq_mg$nonrandom, "df"),
+    lpq_mg$nonrandom.equal$popdelt,
+    lpq_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1282,7 +1492,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(lpq_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lpq_mg$metric.equal$pval)
+    lpq_mg$metric.equal$chi,
+    abs(fitmeasures(lpq_mg$metric, "df") - fitmeasures(lpq_mg$configural, "df")),
+    lpq_mg$metric.equal$popdelt,
+    lpq_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1290,7 +1503,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(lpq_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lpq_mg$scalar.equal$pval)
+    lpq_mg$scalar.equal$chi,
+    abs(fitmeasures(lpq_mg$scalar, "df") - fitmeasures(lpq_mg$metric, "df")),
+    lpq_mg$scalar.equal$popdelt,
+    lpq_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1298,7 +1514,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(lpq_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lpq_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    lpq_mg$residuals.equal$chi,
+    abs(fitmeasures(lpq_mg$residuals, "df") - fitmeasures(lpq_mg$scalar, "df")),
+    lpq_mg$residuals.equal$popdelt,
     lpq_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_lri, include = F}
@@ -1326,6 +1546,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", lri_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    lri_mg$random.equal$chi,
+    fitmeasures(lri_mg$random, "df"),
+    lri_mg$random.equal$popdelt,
     lri_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1334,7 +1557,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", lri_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lri_mg$nonrandom.equal$pval)
+    lri_mg$nonrandom.equal$chi,
+    fitmeasures(lri_mg$nonrandom, "df"),
+    lri_mg$nonrandom.equal$popdelt,
+    lri_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1350,7 +1576,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(lri_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lri_mg$metric.equal$pval)
+    lri_mg$metric.equal$chi,
+    abs(fitmeasures(lri_mg$metric, "df") - fitmeasures(lri_mg$configural, "df")),
+    lri_mg$metric.equal$popdelt,
+    lri_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1358,7 +1587,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(lri_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   lri_mg$scalar.equal$pval)
+    lri_mg$scalar.equal$chi,
+    abs(fitmeasures(lri_mg$scalar, "df") - fitmeasures(lri_mg$metric, "df")),
+    lri_mg$scalar.equal$popdelt,
+    lri_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1366,7 +1598,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(lri_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(lri_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    lri_mg$residuals.equal$chi,
+    abs(fitmeasures(lri_mg$residuals, "df") - fitmeasures(lri_mg$scalar, "df")),
+    lri_mg$residuals.equal$popdelt,
     lri_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_mapa, include = F}
@@ -1396,6 +1632,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mapa_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mapa_mg$random.equal$chi,
+    fitmeasures(mapa_mg$random, "df"),
+    mapa_mg$random.equal$popdelt,
     mapa_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1404,7 +1643,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mapa_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mapa_mg$nonrandom.equal$pval)
+    mapa_mg$nonrandom.equal$chi,
+    fitmeasures(mapa_mg$nonrandom, "df"),
+    mapa_mg$nonrandom.equal$popdelt,
+    mapa_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1420,7 +1662,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mapa_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mapa_mg$metric.equal$pval)
+    mapa_mg$metric.equal$chi,
+    abs(fitmeasures(mapa_mg$metric, "df") - fitmeasures(mapa_mg$configural, "df")),
+    mapa_mg$metric.equal$popdelt,
+    mapa_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1428,7 +1673,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mapa_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mapa_mg$scalar.equal$pval)
+    mapa_mg$scalar.equal$chi,
+    abs(fitmeasures(mapa_mg$scalar, "df") - fitmeasures(mapa_mg$metric, "df")),
+    mapa_mg$scalar.equal$popdelt,
+    mapa_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1436,7 +1684,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mapa_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mapa_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mapa_mg$residuals.equal$chi,
+    abs(fitmeasures(mapa_mg$residuals, "df") - fitmeasures(mapa_mg$scalar, "df")),
+    mapa_mg$residuals.equal$popdelt,
     mapa_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_meaning, include = F}
@@ -1473,6 +1725,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mlm_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mlm_mg$random.equal$chi,
+    fitmeasures(mlm_mg$random, "df"),
+    mlm_mg$random.equal$popdelt,
     mlm_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1481,7 +1736,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mlm_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mlm_mg$nonrandom.equal$pval)
+    mlm_mg$nonrandom.equal$chi,
+    fitmeasures(mlm_mg$nonrandom, "df"),
+    mlm_mg$nonrandom.equal$popdelt,
+    mlm_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1497,7 +1755,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mlm_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mlm_mg$metric.equal$pval)
+    mlm_mg$metric.equal$chi,
+    abs(fitmeasures(mlm_mg$metric, "df") - fitmeasures(mlm_mg$configural, "df")),
+    mlm_mg$metric.equal$popdelt,
+    mlm_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1505,7 +1766,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mlm_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mlm_mg$scalar.equal$pval)
+    mlm_mg$scalar.equal$chi,
+    abs(fitmeasures(mlm_mg$scalar, "df") - fitmeasures(mlm_mg$metric, "df")),
+    mlm_mg$scalar.equal$popdelt,
+    mlm_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1513,7 +1777,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mlm_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlm_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mlm_mg$residuals.equal$chi,
+    abs(fitmeasures(mlm_mg$residuals, "df") - fitmeasures(mlm_mg$scalar, "df")),
+    mlm_mg$residuals.equal$popdelt,
     mlm_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_mils, include = F}
@@ -1545,6 +1813,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mils_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mils_mg$random.equal$chi,
+    fitmeasures(mils_mg$random, "df"),
+    mils_mg$random.equal$popdelt,
     mils_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1553,7 +1824,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mils_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mils_mg$nonrandom.equal$pval)
+    mils_mg$nonrandom.equal$chi,
+    fitmeasures(mils_mg$nonrandom, "df"),
+    mils_mg$nonrandom.equal$popdelt,
+    mils_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1569,7 +1843,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mils_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mils_mg$metric.equal$pval)
+    mils_mg$metric.equal$chi,
+    abs(fitmeasures(mils_mg$metric, "df") - fitmeasures(mils_mg$configural, "df")),
+    mils_mg$metric.equal$popdelt,
+    mils_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1577,7 +1854,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mils_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mils_mg$scalar.equal$pval)
+    mils_mg$scalar.equal$chi,
+    abs(fitmeasures(mils_mg$scalar, "df") - fitmeasures(mils_mg$metric, "df")),
+    mils_mg$scalar.equal$popdelt,
+    mils_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1585,7 +1865,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mils_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mils_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mils_mg$residuals.equal$chi,
+    abs(fitmeasures(mils_mg$residuals, "df") - fitmeasures(mils_mg$scalar, "df")),
+    mils_mg$residuals.equal$popdelt,
     mils_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_mil kernes???, include = F}
@@ -1619,6 +1903,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mlq_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mlq_mg$random.equal$chi,
+    fitmeasures(mlq_mg$random, "df"),
+    mlq_mg$random.equal$popdelt,
     mlq_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1627,7 +1914,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mlq_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mlq_mg$nonrandom.equal$pval)
+    mlq_mg$nonrandom.equal$chi,
+    fitmeasures(mlq_mg$nonrandom, "df"),
+    mlq_mg$nonrandom.equal$popdelt,
+    mlq_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1643,7 +1933,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mlq_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mlq_mg$metric.equal$pval)
+    mlq_mg$metric.equal$chi,
+    abs(fitmeasures(mlq_mg$metric, "df") - fitmeasures(mlq_mg$configural, "df")),
+    mlq_mg$metric.equal$popdelt,
+    mlq_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1651,7 +1944,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mlq_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mlq_mg$scalar.equal$pval)
+    mlq_mg$scalar.equal$chi,
+    abs(fitmeasures(mlq_mg$scalar, "df") - fitmeasures(mlq_mg$metric, "df")),
+    mlq_mg$scalar.equal$popdelt,
+    mlq_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1659,7 +1955,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mlq_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlq_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mlq_mg$residuals.equal$chi,
+    abs(fitmeasures(mlq_mg$residuals, "df") - fitmeasures(mlq_mg$scalar, "df")),
+    mlq_mg$residuals.equal$popdelt,
     mlq_mg$residuals.equal$pval)
+
 ```
 
 
@@ -1687,6 +1987,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mlt_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mlt_mg$random.equal$chi,
+    fitmeasures(mlt_mg$random, "df"),
+    mlt_mg$random.equal$popdelt,
     mlt_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1695,7 +1998,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mlt_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mlt_mg$nonrandom.equal$pval)
+    mlt_mg$nonrandom.equal$chi,
+    fitmeasures(mlt_mg$nonrandom, "df"),
+    mlt_mg$nonrandom.equal$popdelt,
+    mlt_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1711,7 +2017,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mlt_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mlt_mg$metric.equal$pval)
+    mlt_mg$metric.equal$chi,
+    abs(fitmeasures(mlt_mg$metric, "df") - fitmeasures(mlt_mg$configural, "df")),
+    mlt_mg$metric.equal$popdelt,
+    mlt_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1719,7 +2028,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mlt_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mlt_mg$scalar.equal$pval)
+    mlt_mg$scalar.equal$chi,
+    abs(fitmeasures(mlt_mg$scalar, "df") - fitmeasures(mlt_mg$metric, "df")),
+    mlt_mg$scalar.equal$popdelt,
+    mlt_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1727,7 +2039,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mlt_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mlt_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mlt_mg$residuals.equal$chi,
+    abs(fitmeasures(mlt_mg$residuals, "df") - fitmeasures(mlt_mg$scalar, "df")),
+    mlt_mg$residuals.equal$popdelt,
     mlt_mg$residuals.equal$pval)
+
 ```
 
 
@@ -1755,6 +2071,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", ml_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    ml_mg$random.equal$chi,
+    fitmeasures(ml_mg$random, "df"),
+    ml_mg$random.equal$popdelt,
     ml_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1763,7 +2082,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", ml_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  ml_mg$nonrandom.equal$pval)
+    ml_mg$nonrandom.equal$chi,
+    fitmeasures(ml_mg$nonrandom, "df"),
+    ml_mg$nonrandom.equal$popdelt,
+    ml_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1779,7 +2101,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(ml_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  ml_mg$metric.equal$pval)
+    ml_mg$metric.equal$chi,
+    abs(fitmeasures(ml_mg$metric, "df") - fitmeasures(ml_mg$configural, "df")),
+    ml_mg$metric.equal$popdelt,
+    ml_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1787,7 +2112,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(ml_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   ml_mg$scalar.equal$pval)
+    ml_mg$scalar.equal$chi,
+    abs(fitmeasures(ml_mg$scalar, "df") - fitmeasures(ml_mg$metric, "df")),
+    ml_mg$scalar.equal$popdelt,
+    ml_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1795,7 +2123,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(ml_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(ml_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    ml_mg$residuals.equal$chi,
+    abs(fitmeasures(ml_mg$residuals, "df") - fitmeasures(ml_mg$scalar, "df")),
+    ml_mg$residuals.equal$popdelt,
     ml_mg$residuals.equal$pval)
+
 ```
 
 
@@ -1823,6 +2155,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mili_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mili_mg$random.equal$chi,
+    fitmeasures(mili_mg$random, "df"),
+    mili_mg$random.equal$popdelt,
     mili_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1831,7 +2166,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mili_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mili_mg$nonrandom.equal$pval)
+    mili_mg$nonrandom.equal$chi,
+    fitmeasures(mili_mg$nonrandom, "df"),
+    mili_mg$nonrandom.equal$popdelt,
+    mili_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1847,7 +2185,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mili_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mili_mg$metric.equal$pval)
+    mili_mg$metric.equal$chi,
+    abs(fitmeasures(mili_mg$metric, "df") - fitmeasures(mili_mg$configural, "df")),
+    mili_mg$metric.equal$popdelt,
+    mili_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1855,7 +2196,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mili_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mili_mg$scalar.equal$pval)
+    mili_mg$scalar.equal$chi,
+    abs(fitmeasures(mili_mg$scalar, "df") - fitmeasures(mili_mg$metric, "df")),
+    mili_mg$scalar.equal$popdelt,
+    mili_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1863,7 +2207,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mili_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mili_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mili_mg$residuals.equal$chi,
+    abs(fitmeasures(mili_mg$residuals, "df") - fitmeasures(mili_mg$scalar, "df")),
+    mili_mg$residuals.equal$popdelt,
     mili_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_mms, include = F}
@@ -1890,6 +2238,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mms_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mms_mg$random.equal$chi,
+    fitmeasures(mms_mg$random, "df"),
+    mms_mg$random.equal$popdelt,
     mms_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1898,7 +2249,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mms_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mms_mg$nonrandom.equal$pval)
+    mms_mg$nonrandom.equal$chi,
+    fitmeasures(mms_mg$nonrandom, "df"),
+    mms_mg$nonrandom.equal$popdelt,
+    mms_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1914,7 +2268,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mms_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mms_mg$metric.equal$pval)
+    mms_mg$metric.equal$chi,
+    abs(fitmeasures(mms_mg$metric, "df") - fitmeasures(mms_mg$configural, "df")),
+    mms_mg$metric.equal$popdelt,
+    mms_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1922,7 +2279,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mms_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mms_mg$scalar.equal$pval)
+    mms_mg$scalar.equal$chi,
+    abs(fitmeasures(mms_mg$scalar, "df") - fitmeasures(mms_mg$metric, "df")),
+    mms_mg$scalar.equal$popdelt,
+    mms_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1930,7 +2290,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mms_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mms_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mms_mg$residuals.equal$chi,
+    abs(fitmeasures(mms_mg$residuals, "df") - fitmeasures(mms_mg$scalar, "df")),
+    mms_mg$residuals.equal$popdelt,
     mms_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_mm, include = F}
@@ -1960,6 +2324,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", mm_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mm_mg$random.equal$chi,
+    fitmeasures(mm_mg$random, "df"),
+    mm_mg$random.equal$popdelt,
     mm_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -1968,7 +2335,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", mm_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mm_mg$nonrandom.equal$pval)
+    mm_mg$nonrandom.equal$chi,
+    fitmeasures(mm_mg$nonrandom, "df"),
+    mm_mg$nonrandom.equal$popdelt,
+    mm_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1984,7 +2354,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(mm_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  mm_mg$metric.equal$pval)
+    mm_mg$metric.equal$chi,
+    abs(fitmeasures(mm_mg$metric, "df") - fitmeasures(mm_mg$configural, "df")),
+    mm_mg$metric.equal$popdelt,
+    mm_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -1992,7 +2365,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(mm_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   mm_mg$scalar.equal$pval)
+    mm_mg$scalar.equal$chi,
+    abs(fitmeasures(mm_mg$scalar, "df") - fitmeasures(mm_mg$metric, "df")),
+    mm_mg$scalar.equal$popdelt,
+    mm_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2000,7 +2376,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(mm_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(mm_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    mm_mg$residuals.equal$chi,
+    abs(fitmeasures(mm_mg$residuals, "df") - fitmeasures(mm_mg$scalar, "df")),
+    mm_mg$residuals.equal$popdelt,
     mm_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_nom, include = F}
@@ -2027,6 +2407,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", nom_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    nom_mg$random.equal$chi,
+    fitmeasures(nom_mg$random, "df"),
+    nom_mg$random.equal$popdelt,
     nom_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2035,7 +2418,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", nom_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  nom_mg$nonrandom.equal$pval)
+    nom_mg$nonrandom.equal$chi,
+    fitmeasures(nom_mg$nonrandom, "df"),
+    nom_mg$nonrandom.equal$popdelt,
+    nom_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2051,7 +2437,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(nom_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  nom_mg$metric.equal$pval)
+    nom_mg$metric.equal$chi,
+    abs(fitmeasures(nom_mg$metric, "df") - fitmeasures(nom_mg$configural, "df")),
+    nom_mg$metric.equal$popdelt,
+    nom_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2059,7 +2448,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(nom_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   nom_mg$scalar.equal$pval)
+    nom_mg$scalar.equal$chi,
+    abs(fitmeasures(nom_mg$scalar, "df") - fitmeasures(nom_mg$metric, "df")),
+    nom_mg$scalar.equal$popdelt,
+    nom_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2067,7 +2459,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(nom_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(nom_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    nom_mg$residuals.equal$chi,
+    abs(fitmeasures(nom_mg$residuals, "df") - fitmeasures(nom_mg$scalar, "df")),
+    nom_mg$residuals.equal$popdelt,
     nom_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_oth, include = F}
@@ -2096,6 +2492,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", oth_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    oth_mg$random.equal$chi,
+    fitmeasures(oth_mg$random, "df"),
+    oth_mg$random.equal$popdelt,
     oth_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2104,7 +2503,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", oth_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  oth_mg$nonrandom.equal$pval)
+    oth_mg$nonrandom.equal$chi,
+    fitmeasures(oth_mg$nonrandom, "df"),
+    oth_mg$nonrandom.equal$popdelt,
+    oth_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2120,7 +2522,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(oth_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  oth_mg$metric.equal$pval)
+    oth_mg$metric.equal$chi,
+    abs(fitmeasures(oth_mg$metric, "df") - fitmeasures(oth_mg$configural, "df")),
+    oth_mg$metric.equal$popdelt,
+    oth_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2128,7 +2533,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(oth_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   oth_mg$scalar.equal$pval)
+    oth_mg$scalar.equal$chi,
+    abs(fitmeasures(oth_mg$scalar, "df") - fitmeasures(oth_mg$metric, "df")),
+    oth_mg$scalar.equal$popdelt,
+    oth_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2136,7 +2544,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(oth_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(oth_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    oth_mg$residuals.equal$chi,
+    abs(fitmeasures(oth_mg$residuals, "df") - fitmeasures(oth_mg$scalar, "df")),
+    oth_mg$residuals.equal$popdelt,
     oth_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_pvs, include = F}
@@ -2166,6 +2578,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", pvs_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pvs_mg$random.equal$chi,
+    fitmeasures(pvs_mg$random, "df"),
+    pvs_mg$random.equal$popdelt,
     pvs_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2174,7 +2589,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", pvs_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pvs_mg$nonrandom.equal$pval)
+    pvs_mg$nonrandom.equal$chi,
+    fitmeasures(pvs_mg$nonrandom, "df"),
+    pvs_mg$nonrandom.equal$popdelt,
+    pvs_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2190,7 +2608,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(pvs_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pvs_mg$metric.equal$pval)
+    pvs_mg$metric.equal$chi,
+    abs(fitmeasures(pvs_mg$metric, "df") - fitmeasures(pvs_mg$configural, "df")),
+    pvs_mg$metric.equal$popdelt,
+    pvs_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2198,7 +2619,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(pvs_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   pvs_mg$scalar.equal$pval)
+    pvs_mg$scalar.equal$chi,
+    abs(fitmeasures(pvs_mg$scalar, "df") - fitmeasures(pvs_mg$metric, "df")),
+    pvs_mg$scalar.equal$popdelt,
+    pvs_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2206,7 +2630,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(pvs_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pvs_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pvs_mg$residuals.equal$chi,
+    abs(fitmeasures(pvs_mg$residuals, "df") - fitmeasures(pvs_mg$scalar, "df")),
+    pvs_mg$residuals.equal$popdelt,
     pvs_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_pil, include = F}
@@ -2234,6 +2662,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", pil_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pil_mg$random.equal$chi,
+    fitmeasures(pil_mg$random, "df"),
+    pil_mg$random.equal$popdelt,
     pil_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2242,7 +2673,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", pil_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pil_mg$nonrandom.equal$pval)
+    pil_mg$nonrandom.equal$chi,
+    fitmeasures(pil_mg$nonrandom, "df"),
+    pil_mg$nonrandom.equal$popdelt,
+    pil_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2258,7 +2692,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(pil_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pil_mg$metric.equal$pval)
+    pil_mg$metric.equal$chi,
+    abs(fitmeasures(pil_mg$metric, "df") - fitmeasures(pil_mg$configural, "df")),
+    pil_mg$metric.equal$popdelt,
+    pil_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2266,7 +2703,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(pil_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   pil_mg$scalar.equal$pval)
+    pil_mg$scalar.equal$chi,
+    abs(fitmeasures(pil_mg$scalar, "df") - fitmeasures(pil_mg$metric, "df")),
+    pil_mg$scalar.equal$popdelt,
+    pil_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2274,7 +2714,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(pil_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pil_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pil_mg$residuals.equal$chi,
+    abs(fitmeasures(pil_mg$residuals, "df") - fitmeasures(pil_mg$scalar, "df")),
+    pil_mg$residuals.equal$popdelt,
     pil_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_pilsf, include = F}
@@ -2301,6 +2745,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", pilsf_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pilsf_mg$random.equal$chi,
+    fitmeasures(pilsf_mg$random, "df"),
+    pilsf_mg$random.equal$popdelt,
     pilsf_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2309,7 +2756,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", pilsf_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pilsf_mg$nonrandom.equal$pval)
+    pilsf_mg$nonrandom.equal$chi,
+    fitmeasures(pilsf_mg$nonrandom, "df"),
+    pilsf_mg$nonrandom.equal$popdelt,
+    pilsf_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2325,7 +2775,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(pilsf_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pilsf_mg$metric.equal$pval)
+    pilsf_mg$metric.equal$chi,
+    abs(fitmeasures(pilsf_mg$metric, "df") - fitmeasures(pilsf_mg$configural, "df")),
+    pilsf_mg$metric.equal$popdelt,
+    pilsf_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2333,7 +2786,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(pilsf_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   pilsf_mg$scalar.equal$pval)
+    pilsf_mg$scalar.equal$chi,
+    abs(fitmeasures(pilsf_mg$scalar, "df") - fitmeasures(pilsf_mg$metric, "df")),
+    pilsf_mg$scalar.equal$popdelt,
+    pilsf_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2341,7 +2797,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(pilsf_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pilsf_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pilsf_mg$residuals.equal$chi,
+    abs(fitmeasures(pilsf_mg$residuals, "df") - fitmeasures(pilsf_mg$scalar, "df")),
+    pilsf_mg$residuals.equal$popdelt,
     pilsf_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_pms, include = F}
@@ -2367,6 +2827,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", pms_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pms_mg$random.equal$chi,
+    fitmeasures(pms_mg$random, "df"),
+    pms_mg$random.equal$popdelt,
     pms_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2375,7 +2838,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", pms_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pms_mg$nonrandom.equal$pval)
+    pms_mg$nonrandom.equal$chi,
+    fitmeasures(pms_mg$nonrandom, "df"),
+    pms_mg$nonrandom.equal$popdelt,
+    pms_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2391,7 +2857,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(pms_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pms_mg$metric.equal$pval)
+    pms_mg$metric.equal$chi,
+    abs(fitmeasures(pms_mg$metric, "df") - fitmeasures(pms_mg$configural, "df")),
+    pms_mg$metric.equal$popdelt,
+    pms_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2399,7 +2868,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(pms_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   pms_mg$scalar.equal$pval)
+    pms_mg$scalar.equal$chi,
+    abs(fitmeasures(pms_mg$scalar, "df") - fitmeasures(pms_mg$metric, "df")),
+    pms_mg$scalar.equal$popdelt,
+    pms_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2407,7 +2879,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(pms_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pms_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pms_mg$residuals.equal$chi,
+    abs(fitmeasures(pms_mg$residuals, "df") - fitmeasures(pms_mg$scalar, "df")),
+    pms_mg$residuals.equal$popdelt,
     pms_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_pvsh, include = F}
@@ -2439,6 +2915,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", qe_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    qe_mg$random.equal$chi,
+    fitmeasures(qe_mg$random, "df"),
+    qe_mg$random.equal$popdelt,
     qe_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2447,7 +2926,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", qe_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  qe_mg$nonrandom.equal$pval)
+    qe_mg$nonrandom.equal$chi,
+    fitmeasures(qe_mg$nonrandom, "df"),
+    qe_mg$nonrandom.equal$popdelt,
+    qe_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2463,7 +2945,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(qe_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  qe_mg$metric.equal$pval)
+    qe_mg$metric.equal$chi,
+    abs(fitmeasures(qe_mg$metric, "df") - fitmeasures(qe_mg$configural, "df")),
+    qe_mg$metric.equal$popdelt,
+    qe_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2471,7 +2956,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(qe_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   qe_mg$scalar.equal$pval)
+    qe_mg$scalar.equal$chi,
+    abs(fitmeasures(qe_mg$scalar, "df") - fitmeasures(qe_mg$metric, "df")),
+    qe_mg$scalar.equal$popdelt,
+    qe_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2479,7 +2967,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(qe_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(qe_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    qe_mg$residuals.equal$chi,
+    abs(fitmeasures(qe_mg$residuals, "df") - fitmeasures(qe_mg$scalar, "df")),
+    qe_mg$residuals.equal$popdelt,
     qe_mg$residuals.equal$pval)
+
 ```
 
 
@@ -2509,6 +3001,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", rs14_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    rs14_mg$random.equal$chi,
+    fitmeasures(rs14_mg$random, "df"),
+    rs14_mg$random.equal$popdelt,
     rs14_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2517,7 +3012,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", rs14_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  rs14_mg$nonrandom.equal$pval)
+    rs14_mg$nonrandom.equal$chi,
+    fitmeasures(rs14_mg$nonrandom, "df"),
+    rs14_mg$nonrandom.equal$popdelt,
+    rs14_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2533,7 +3031,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(rs14_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  rs14_mg$metric.equal$pval)
+    rs14_mg$metric.equal$chi,
+    abs(fitmeasures(rs14_mg$metric, "df") - fitmeasures(rs14_mg$configural, "df")),
+    rs14_mg$metric.equal$popdelt,
+    rs14_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2541,7 +3042,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(rs14_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   rs14_mg$scalar.equal$pval)
+    rs14_mg$scalar.equal$chi,
+    abs(fitmeasures(rs14_mg$scalar, "df") - fitmeasures(rs14_mg$metric, "df")),
+    rs14_mg$scalar.equal$popdelt,
+    rs14_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2549,7 +3053,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(rs14_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(rs14_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    rs14_mg$residuals.equal$chi,
+    abs(fitmeasures(rs14_mg$residuals, "df") - fitmeasures(rs14_mg$scalar, "df")),
+    rs14_mg$residuals.equal$popdelt,
     rs14_mg$residuals.equal$pval)
+
 ```
 
 
@@ -2576,6 +3084,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", swl_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    swl_mg$random.equal$chi,
+    fitmeasures(swl_mg$random, "df"),
+    swl_mg$random.equal$popdelt,
     swl_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2584,7 +3095,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", swl_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  swl_mg$nonrandom.equal$pval)
+    swl_mg$nonrandom.equal$chi,
+    fitmeasures(swl_mg$nonrandom, "df"),
+    swl_mg$nonrandom.equal$popdelt,
+    swl_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2600,7 +3114,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(swl_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  swl_mg$metric.equal$pval)
+    swl_mg$metric.equal$chi,
+    abs(fitmeasures(swl_mg$metric, "df") - fitmeasures(swl_mg$configural, "df")),
+    swl_mg$metric.equal$popdelt,
+    swl_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2608,7 +3125,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(swl_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   swl_mg$scalar.equal$pval)
+    swl_mg$scalar.equal$chi,
+    abs(fitmeasures(swl_mg$scalar, "df") - fitmeasures(swl_mg$metric, "df")),
+    swl_mg$scalar.equal$popdelt,
+    swl_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2616,7 +3136,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(swl_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(swl_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    swl_mg$residuals.equal$chi,
+    abs(fitmeasures(swl_mg$residuals, "df") - fitmeasures(swl_mg$scalar, "df")),
+    swl_mg$residuals.equal$popdelt,
     swl_mg$residuals.equal$pval)
+
 ```
 
 
@@ -2644,6 +3168,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", song_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    song_mg$random.equal$chi,
+    fitmeasures(song_mg$random, "df"),
+    song_mg$random.equal$popdelt,
     song_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2652,7 +3179,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", song_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  song_mg$nonrandom.equal$pval)
+    song_mg$nonrandom.equal$chi,
+    fitmeasures(song_mg$nonrandom, "df"),
+    song_mg$nonrandom.equal$popdelt,
+    song_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2668,7 +3198,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(song_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  song_mg$metric.equal$pval)
+    song_mg$metric.equal$chi,
+    abs(fitmeasures(song_mg$metric, "df") - fitmeasures(song_mg$configural, "df")),
+    song_mg$metric.equal$popdelt,
+    song_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2676,7 +3209,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(song_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   song_mg$scalar.equal$pval)
+    song_mg$scalar.equal$chi,
+    abs(fitmeasures(song_mg$scalar, "df") - fitmeasures(song_mg$metric, "df")),
+    song_mg$scalar.equal$popdelt,
+    song_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2684,7 +3220,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(song_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(song_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    song_mg$residuals.equal$chi,
+    abs(fitmeasures(song_mg$residuals, "df") - fitmeasures(song_mg$scalar, "df")),
+    song_mg$residuals.equal$popdelt,
     song_mg$residuals.equal$pval)
+
 ```
 
 
@@ -2736,6 +3276,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", sms_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    sms_mg$random.equal$chi,
+    fitmeasures(sms_mg$random, "df"),
+    sms_mg$random.equal$popdelt,
     sms_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2744,7 +3287,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", sms_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  sms_mg$nonrandom.equal$pval)
+    sms_mg$nonrandom.equal$chi,
+    fitmeasures(sms_mg$nonrandom, "df"),
+    sms_mg$nonrandom.equal$popdelt,
+    sms_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2760,7 +3306,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(sms_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  sms_mg$metric.equal$pval)
+    sms_mg$metric.equal$chi,
+    abs(fitmeasures(sms_mg$metric, "df") - fitmeasures(sms_mg$configural, "df")),
+    sms_mg$metric.equal$popdelt,
+    sms_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2768,7 +3317,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(sms_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   sms_mg$scalar.equal$pval)
+    sms_mg$scalar.equal$chi,
+    abs(fitmeasures(sms_mg$scalar, "df") - fitmeasures(sms_mg$metric, "df")),
+    sms_mg$scalar.equal$popdelt,
+    sms_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2776,7 +3328,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(sms_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(sms_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    sms_mg$residuals.equal$chi,
+    abs(fitmeasures(sms_mg$residuals, "df") - fitmeasures(sms_mg$scalar, "df")),
+    sms_mg$residuals.equal$popdelt,
     sms_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_stms, include = F}
@@ -2806,6 +3362,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", stms_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    stms_mg$random.equal$chi,
+    fitmeasures(stms_mg$random, "df"),
+    stms_mg$random.equal$popdelt,
     stms_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2814,7 +3373,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", stms_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  stms_mg$nonrandom.equal$pval)
+    stms_mg$nonrandom.equal$chi,
+    fitmeasures(stms_mg$nonrandom, "df"),
+    stms_mg$nonrandom.equal$popdelt,
+    stms_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2830,7 +3392,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(stms_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  stms_mg$metric.equal$pval)
+    stms_mg$metric.equal$chi,
+    abs(fitmeasures(stms_mg$metric, "df") - fitmeasures(stms_mg$configural, "df")),
+    stms_mg$metric.equal$popdelt,
+    stms_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2838,7 +3403,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(stms_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   stms_mg$scalar.equal$pval)
+    stms_mg$scalar.equal$chi,
+    abs(fitmeasures(stms_mg$scalar, "df") - fitmeasures(stms_mg$metric, "df")),
+    stms_mg$scalar.equal$popdelt,
+    stms_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2846,7 +3414,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(stms_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(stms_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    stms_mg$residuals.equal$chi,
+    abs(fitmeasures(stms_mg$residuals, "df") - fitmeasures(stms_mg$scalar, "df")),
+    stms_mg$residuals.equal$popdelt,
     stms_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_vol, include = F}
@@ -2874,6 +3446,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", vol_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    vol_mg$random.equal$chi,
+    fitmeasures(vol_mg$random, "df"),
+    vol_mg$random.equal$popdelt,
     vol_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2882,7 +3457,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", vol_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  vol_mg$nonrandom.equal$pval)
+    vol_mg$nonrandom.equal$chi,
+    fitmeasures(vol_mg$nonrandom, "df"),
+    vol_mg$nonrandom.equal$popdelt,
+    vol_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2898,7 +3476,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(vol_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  vol_mg$metric.equal$pval)
+    vol_mg$metric.equal$chi,
+    abs(fitmeasures(vol_mg$metric, "df") - fitmeasures(vol_mg$configural, "df")),
+    vol_mg$metric.equal$popdelt,
+    vol_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2906,7 +3487,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(vol_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   vol_mg$scalar.equal$pval)
+    vol_mg$scalar.equal$chi,
+    abs(fitmeasures(vol_mg$scalar, "df") - fitmeasures(vol_mg$metric, "df")),
+    vol_mg$scalar.equal$popdelt,
+    vol_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2914,7 +3498,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(vol_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(vol_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    vol_mg$residuals.equal$chi,
+    abs(fitmeasures(vol_mg$residuals, "df") - fitmeasures(vol_mg$scalar, "df")),
+    vol_mg$residuals.equal$popdelt,
     vol_mg$residuals.equal$pval)
+
 ```
 
 ```{r mg_pws, include = F}
@@ -2945,6 +3533,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", pws_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pws_mg$random.equal$chi,
+    fitmeasures(pws_mg$random, "df"),
+    pws_mg$random.equal$popdelt,
     pws_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -2953,7 +3544,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", pws_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pws_mg$nonrandom.equal$pval)
+    pws_mg$nonrandom.equal$chi,
+    fitmeasures(pws_mg$nonrandom, "df"),
+    pws_mg$nonrandom.equal$popdelt,
+    pws_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2969,7 +3563,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(pws_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pws_mg$metric.equal$pval)
+    pws_mg$metric.equal$chi,
+    abs(fitmeasures(pws_mg$metric, "df") - fitmeasures(pws_mg$configural, "df")),
+    pws_mg$metric.equal$popdelt,
+    pws_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2977,7 +3574,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(pws_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   pws_mg$scalar.equal$pval)
+    pws_mg$scalar.equal$chi,
+    abs(fitmeasures(pws_mg$scalar, "df") - fitmeasures(pws_mg$metric, "df")),
+    pws_mg$scalar.equal$popdelt,
+    pws_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -2985,7 +3585,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(pws_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pws_mg$residuals.equal$chi,
+    abs(fitmeasures(pws_mg$residuals, "df") - fitmeasures(pws_mg$scalar, "df")),
+    pws_mg$residuals.equal$popdelt,
     pws_mg$residuals.equal$pval)
+
 ```
 
 
@@ -3017,6 +3621,9 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Random", pws_mg$random@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pws_mg$random.equal$chi,
+    fitmeasures(pws_mg$random, "df"),
+    pws_mg$random.equal$popdelt,
     pws_mg$random.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
@@ -3025,7 +3632,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "NonRandom", pws_mg$nonrandom@SampleStats@nobs[[1]], 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pws_mg$nonrandom.equal$pval)
+    pws_mg$nonrandom.equal$chi,
+    fitmeasures(pws_mg$nonrandom, "df"),
+    pws_mg$nonrandom.equal$popdelt,
+    pws_mg$nonrandom.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -3041,7 +3651,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Metric", sum(unlist(pws_mg$metric@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-  pws_mg$metric.equal$pval)
+    pws_mg$metric.equal$chi,
+    abs(fitmeasures(pws_mg$metric, "df") - fitmeasures(pws_mg$configural, "df")),
+    pws_mg$metric.equal$popdelt,
+    pws_mg$metric.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -3049,7 +3662,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Scalar", sum(unlist(pws_mg$scalar@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-   pws_mg$scalar.equal$pval)
+    pws_mg$scalar.equal$chi,
+    abs(fitmeasures(pws_mg$scalar, "df") - fitmeasures(pws_mg$metric, "df")),
+    pws_mg$scalar.equal$popdelt,
+    pws_mg$scalar.equal$pval)
 
 summary_mg[nrow(summary_mg)+1, ] <- 
   #scale name, model step, sample size
@@ -3057,6 +3673,10 @@ summary_mg[nrow(summary_mg)+1, ] <-
     "Strict", sum(unlist(pws_mg$residuals@SampleStats@nobs)), 
     #chisq, df, cfi, rmsea, srmr
     fitmeasures(pws_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    pws_mg$residuals.equal$chi,
+    abs(fitmeasures(pws_mg$residuals, "df") - fitmeasures(pws_mg$scalar, "df")),
+    pws_mg$residuals.equal$popdelt,
     pws_mg$residuals.equal$pval)
+
 ```
 ##Last 
