@@ -730,7 +730,37 @@ summary_ds[nrow(summary_ds)+1, ] <-
                       "Yes", "Yes", "No", "No")
 ```
 
+```{r ds_ml}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+ml_df <- alldata[ , grepl("partno|source|ML[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+ml_df <- ml_df %>% 
+  select(partno, source, everything())
 
+# Reverse Code
+## Just number 9
+ml_df[ , 15+2] <- 6 - ml_df[ , 15+2]
+
+# Data Screening
+## Deal with text columns
+ml_ds <- datascreen(ml_df)
+
+# Make some decisions, save your answers, comment thmle out
+# ml_ds$linearity
+# ml_ds$normality
+# ml_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("ML", sum(!is.na(ml_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      ml_ds$missing_points, ml_ds$num_outliers, 
+                      # additivity
+                      sum(abs(ml_ds$correl) > .90 & abs(ml_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "No")
+```
 
 
 ML	Warner, S. C., & Williams, J. I. (1987). The meaning in life scale: determining the reliability and validity of a measure. Journal of Chronic Diseases, 40(6), 503-512.
