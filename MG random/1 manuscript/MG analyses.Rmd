@@ -668,7 +668,6 @@ kable(tableBRS,
 
 ```
 
-
 ```{r DMS, include=FALSE}
 
 dms = master[ ,c(449:470,14,955,956) ]
@@ -829,7 +828,6 @@ tableprint[4, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r DMStable, echo = FALSE, results = 'asis'}
 tableDMS = matrix(NA, nrow = 7, ncol = 8)
 tableDMS[ , 1] = c("Overall Model", "Random", "Not Random", 
@@ -873,7 +871,6 @@ kable(tableDMS,
                        "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
-
 
 ```{r ELM, include=FALSE}
 
@@ -1038,7 +1035,6 @@ tableprint[5, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r ELMtable, echo = FALSE, results = 'asis'}
 tableELM = matrix(NA, nrow = 7, ncol = 8)
 tableELM[ , 1] = c("Overall Model", "Random", "Not Random", 
@@ -1084,7 +1080,6 @@ kable(tableELM,
 ##check to make sure we use multisteps2 here instead of multisteps
 
 ```
-
 
 ```{r ELQ, include=FALSE}
 

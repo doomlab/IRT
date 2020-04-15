@@ -3,6 +3,8 @@ title: "Data Screening MGCFA"
 author: "Erin M. Buchanan"
 date: "9/23/2019"
 output: html_document
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup_datascreen, include=FALSE}
@@ -163,9 +165,9 @@ summary_ds[nrow(summary_ds)+1, ] <-
                     #scale name, sample size
                     c("BP", sum(!is.na(bpsf_df$fulldata$outliers)),
                       # missing points, number outliers
-                      bpsf_df$missing_points, bpsf_df$num_outliers, 
+                      bpsf_ds$missing_points, bpsf_ds$num_outliers, 
                       # additivity
-                      sum(abs(bpsf_df$correl) > .90 & abs(bpsf_df$correl) < 1), 
+                      sum(abs(bpsf_ds$correl) > .90 & abs(bpsf_ds$correl) < 1), 
                       # linearity, normality, homog, homos
                       "Yes", "No", "Yes", "Yes")
 ```
@@ -194,9 +196,107 @@ summary_ds[nrow(summary_ds)+1, ] <-
                     #scale name, sample size
                     c("BP", sum(!is.na(brs_df$fulldata$outliers)),
                       # missing points, number outliers
-                      brs_df$missing_points, brs_df$num_outliers, 
+                      brs_ds$missing_points, brs_ds$num_outliers, 
                       # additivity
-                      sum(abs(brs_df$correl) > .90 & abs(brs_df$correl) < 1), 
+                      sum(abs(brs_ds$correl) > .90 & abs(brs_ds$correl) < 1), 
                       # linearity, normality, homog, homos
                       "No", "No", "No", "No")
 ```
+
+```{r ds_dms}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+dms_df <- alldata[ , grepl("partno|source|DMSTEXT[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+dms_df <- dms_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## No reverse coding 
+
+# Data Screening
+## Deal with text columns
+dms_df$DMSTEXT8 <- as.numeric(as.character(dms_df$DMSTEXT8))
+dms_df$DMSTEXT11 <- as.numeric(as.character(dms_df$DMSTEXT11))
+dms_df$DMSTEXT13 <- as.numeric(as.character(dms_df$DMSTEXT13))
+dms_ds <- datascreen(dms_df)
+
+# Make some decisions, save your answers, comment these out
+# dms_ds$linearity
+# dms_ds$normality
+# dms_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(dms_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      dms_ds$missing_points, dms_ds$num_outliers, 
+                      # additivity
+                      sum(abs(dms_ds$correl) > .90 & abs(dms_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "Yes")
+```
+
+```{r ds_elm}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+elm_df <- alldata[ , grepl("partno|source|ELM[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+elm_df <- elm_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## No reverse coding 
+
+# Data Screening
+## Deal with text columns
+elm_ds <- datascreen(elm_df)
+
+# Make some decisions, save your answers, comment these out
+# elm_ds$linearity
+# elm_ds$normality
+# elm_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(elm_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      elm_ds$missing_points, elm_ds$num_outliers, 
+                      # additivity
+                      sum(abs(elm_ds$correl) > .90 & abs(elm_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "Yes", "No")
+```
+
+```{r ds_elq}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+elq_df <- alldata[ , grepl("partno|source|ELQ[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+elq_df <- elq_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Reverse items 2, 7, 14, 18
+elq_df[ , c(2, 7, 14, 18)+2] <- 6 - elq_df[ , c(2, 7, 14, 18)+2]
+
+# Data Screening
+## Deal with text columns
+elq_ds <- datascreen(elq_df)
+
+# Make some decisions, save your answers, comment these out
+# elq_ds$linearity
+# elq_ds$normality
+# elq_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(elq_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      elq_ds$missing_points, elq_ds$num_outliers, 
+                      # additivity
+                      sum(abs(elq_ds$correl) > .90 & abs(elq_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "Yes", "Yes")
+```
+

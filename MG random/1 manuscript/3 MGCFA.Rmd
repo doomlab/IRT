@@ -584,7 +584,6 @@ ELM25 + ELM26 + ELM27 + ELM28 + ELM28 + ELM29 + ELM30 + ELM31 +
 ELM32 + ELM33 + ELM34 + ELM35 + ELM36 + ELM37 + ELM38 + ELM39 +
 ELM40' 
 
-
 ## models
 elm_mg <- equal_test(overall.model, elm_ds$fulldata, .10)
 
