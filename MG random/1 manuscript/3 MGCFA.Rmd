@@ -747,9 +747,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
 ```{r mg_emas, include = F}
 # Model Code
 overall.model = '
-EMAS =~
-EMAS1 + EMAS2 + EMAS3 + EMAS4 + EMAS5 + EMAS6 + EMAS7 
-+ EMAS8 + EMAS9 + EMAS10 + EMAS11 + EMAS12
+EMAS =~ EMAS1 + EMAS2 + EMAS3 + EMAS4 + EMAS5 + EMAS6 + EMAS7 + EMAS8 + EMAS9 + EMAS10 + EMAS11 + EMAS12
 '
 
 ## models
@@ -832,8 +830,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
 ```{r mg_ems, include = F}
 # Model Code
 overall.model = '
-EMS =~ EMS1 + EMS6 + EMS6  + EMS8 + EMS9 +
-EMS14 + EMS15 + EMS17 + EMS18 + EMS19'
+EMS =~ EMS1 + EMS6 + EMS6  + EMS8 + EMS9 + EMS14 + EMS15 + EMS17 + EMS18 + EMS19
+'
 
 ## models
 ems_mg <- equal_test(overall.model, ems_ds$fulldata, .10)
@@ -909,7 +907,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
     abs(fitmeasures(ems_mg$residuals, "df") - fitmeasures(ems_mg$scalar, "df")),
     ems_mg$residuals.equal$popdelt,
     ems_mg$residuals.equal$pval)
-
 ```
 
 ```{r mg_es, include = F}

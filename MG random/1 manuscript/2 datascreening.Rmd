@@ -300,3 +300,101 @@ summary_ds[nrow(summary_ds)+1, ] <-
                       "Yes", "Yes", "Yes", "Yes")
 ```
 
+```{r ds_emas}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+emas_df <- alldata[ , grepl("partno|source|EMAS[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+emas_df <- emas_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## No reverse coded items
+
+# Data Screening
+## Deal with text columns
+emas_ds <- datascreen(emas_df)
+
+# Make some decisions, save your answers, comment these out
+# emas_ds$linearity
+# emas_ds$normality
+# emas_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(emas_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      emas_ds$missing_points, emas_ds$num_outliers, 
+                      # additivity
+                      sum(abs(emas_ds$correl) > .90 & abs(emas_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "Yes", "Yes")
+```
+
+```{r ds_ems}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+ems_df <- alldata[ , grepl("partno|source|EMS[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+ems_df <- ems_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Reverse Code. 1, 4, 7, 8, 9, 10, 13, 17, 19
+## The paper says that seven of them were reverse coded but doesn't say which
+## These items definitely are reversed given the histograms
+ems_df[ , c(1, 4, 7:10, 13, 17, 19)+2] <- 6 - ems_df[ , c(1, 4, 7:10, 13, 17, 19)+2] 
+
+# Data Screening
+## Deal with text columns
+ems_ds <- datascreen(ems_df)
+
+# Make some decisions, save your answers, comment these out
+# ems_ds$linearity
+# ems_ds$normality
+# ems_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(ems_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      ems_ds$missing_points, ems_ds$num_outliers, 
+                      # additivity
+                      sum(abs(ems_ds$correl) > .90 & abs(ems_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "Yes")
+```
+
+```{r ds_es}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+es_df <- alldata[ , grepl("partno|source|ES[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+es_df <- es_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Reverse Code. 2, 15, 21, 26, 36
+es_df[ , c(2, 15, 21, 26, 36)+2] <- 7 - es_df[ , c(2, 15, 21, 26, 36)+2] 
+
+# Data Screening
+## Deal with text columns
+es_ds <- datascreen(es_df)
+
+# Make some decisions, save your answers, comment these out
+# es_ds$linearity
+# es_ds$normality
+# es_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("BP", sum(!is.na(es_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      es_ds$missing_points, es_ds$num_outliers, 
+                      # additivity
+                      sum(abs(es_ds$correl) > .90 & abs(es_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "No", "No", "No")
+```
+
+

@@ -1228,7 +1228,6 @@ tableprint[6, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r ELQtable, echo = FALSE, results = 'asis'}
 tableELQ = matrix(NA, nrow = 7, ncol = 8)
 tableELQ[ , 1] = c("Overall Model", "Random", "Not Random", 
@@ -1274,7 +1273,6 @@ kable(tableELQ,
 ##double check to make sure we use multisteps2 instead of multisteps1
 
 ```
-
 
 ```{r EMAS, include=FALSE}
 
@@ -1412,7 +1410,6 @@ tableprint[7, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r EMAStable, echo = FALSE, results = 'asis'}
 tableEMAS = matrix(NA, nrow = 7, ncol = 8)
 tableEMAS[ , 1] = c("Overall Model", "Random", "Not Random", 
@@ -1456,7 +1453,6 @@ kable(tableEMAS,
                        "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
-
 
 ```{r EMS, include=FALSE}
 
@@ -1598,7 +1594,6 @@ tableprint[8, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r EMStable, echo = FALSE, results = 'asis'}
 tableEMS = matrix(NA, nrow = 7, ncol = 8)
 tableEMS[ , 1] = c("Overall Model", "Random", "Not Random", 
@@ -1642,7 +1637,6 @@ kable(tableEMS,
                        "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
-
 
 ```{r ES, include=FALSE}
 
@@ -1793,7 +1787,6 @@ tableprint[9, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r EStable, echo = FALSE, results = 'asis'}
 tableES = matrix(NA, nrow = 7, ncol = 8)
 tableES[ , 1] = c("Overall Model", "Random", "Not Random", 
@@ -1837,7 +1830,6 @@ kable(tableES,
                        "df", "RMSEA", "SRMR", "CFI", "Change CFI"))
 
 ```
-
 
 ```{r FOM, include=FALSE}
 
