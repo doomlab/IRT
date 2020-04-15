@@ -104,7 +104,7 @@ summary_ds <- data.frame(scale_name = character(0),
                          stringsAsFactors = F)
 ```
 
-```{r ds_boredom_proneness}
+```{r ds_bp}
 # Data
 ## Expression is partno | (or) put in the letters you want, leave numbers
 bp_df <- alldata[ , grepl("partno|source|BP[0-9]+", colnames(alldata))]
@@ -142,7 +142,7 @@ summary_ds[nrow(summary_ds)+1, ] <-
                       "Yes", "Yes", "Yes", "Yes")
 ```
 
-```{r ds_boredom_proneness_sf}
+```{r ds_bpsf}
 # Data
 ## Expression is partno | (or) put in the letters you want, leave numbers
 bpsf_df <- alldata[ , grepl("partno|source|BPSF[0-9]+", colnames(alldata))]
@@ -172,7 +172,7 @@ summary_ds[nrow(summary_ds)+1, ] <-
                       "Yes", "No", "Yes", "Yes")
 ```
 
-```{r ds_brief_resilience_scale}
+```{r ds_brs}
 # Data
 ## Expression is partno | (or) put in the letters you want, leave numbers
 brs_df <- alldata[ , grepl("partno|source|BRS[0-9]+", colnames(alldata))]
@@ -464,4 +464,297 @@ summary_ds[nrow(summary_ds)+1, ] <-
                       "Yes", "No", "Yes", "No")
 ```
 
+```{r ds_lap}
 
+```
+
+```{r ds_lapr}
+
+```
+
+```{r ds_las}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+las_df <- alldata[ , grepl("partno|source|LAS[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+las_df <- las_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## No reverse coding 
+
+# Data Screening
+## Deal with text columns
+las_ds <- datascreen(las_df)
+
+# Make some decisions, save your answers, comment thlase out
+# las_ds$linearity
+# las_ds$normality
+# las_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("LAS", sum(!is.na(las_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      las_ds$missing_points, las_ds$num_outliers, 
+                      # additivity
+                      sum(abs(las_ds$correl) > .90 & abs(las_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "Yes", "Yes")
+```
+
+```{r ds_let}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+let_df <- alldata[ , grepl("partno|source|LET[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+let_df <- let_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Reverse code 1, 3, 5
+let_df[ , c(1,3,5)+2] <- 6 - let_df[ , c(1,3,5)+2]
+
+# Data Screening
+## Deal with text columns
+let_ds <- datascreen(let_df)
+
+# Make some decisions, save your answers, comment thlete out
+# let_ds$linearity
+# let_ds$normality
+# let_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("LET", sum(!is.na(let_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      let_ds$missing_points, let_ds$num_outliers, 
+                      # additivity
+                      sum(abs(let_ds$correl) > .90 & abs(let_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "No")
+```
+
+```{r ds_lpq}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+lpq_df <- alldata[ , grepl("partno|source|LPQ[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+lpq_df <- lpq_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Reverse Code. True = 1, False = 2
+## 1 Point for True: 3, 4, 6, 7, 10, 13, 17, 18, 20; 
+lpq_df[ , c(3,4,6,7,10,13,17,18,20)+2] <- 2 - lpq_df[ , c(3,4,6,7,10,13,17,18,20)+2]
+## 1 Point for False: 1, 2, 5, 8, 9, 11, 12, 14, 15, 16, 19
+lpq_df[ , c(1,2,5,8,9,11,12,14,15,16,19)+2] <- lpq_df[ , c(1,2,5,8,9,11,12,14,15,16,19)+2] - 1
+
+# Data Screening
+## Deal with text columns
+lpq_ds <- datascreen(lpq_df)
+
+# Make some decisions, save your answers, comment thlpqe out
+# lpq_ds$linearity
+# lpq_ds$normality
+# lpq_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("lpq", sum(!is.na(lpq_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      lpq_ds$missing_points, lpq_ds$num_outliers, 
+                      # additivity
+                      sum(abs(lpq_ds$correl) > .90 & abs(lpq_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "Yes")
+```
+
+```{r ds_lri}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+lri_df <- alldata[ , grepl("partno|source|LRI[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+lri_df <- lri_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## No reverse coding 
+
+# Data Screening
+## Deal with text columns
+lri_ds <- datascreen(lri_df)
+
+# Make some decisions, save your answers, comment thlrie out
+# lri_ds$linearity
+# lri_ds$normality
+# lri_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("lri", sum(!is.na(lri_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      lri_ds$missing_points, lri_ds$num_outliers, 
+                      # additivity
+                      sum(abs(lri_ds$correl) > .90 & abs(lri_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "No", "No", "No")
+```
+
+```{r ds_mapa}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+mapa_df <- alldata[ , grepl("partno|source|MAPA[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+mapa_df <- mapa_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## First items run 0 through 6
+## Second items run 0 through 4
+## They are all just one higher than should be
+mapa_df[ , c(1:56)+2] <- mapa_df[ , c(1:56)+2] - 1 
+
+# Data Screening
+## Deal with text columns
+mapa_ds <- datascreen(mapa_df)
+
+# Make some decisions, save your answers, comment thmapae out
+# mapa_ds$linearity
+# mapa_ds$normality
+# mapa_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("MAPA", sum(!is.na(mapa_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      mapa_ds$missing_points, mapa_ds$num_outliers, 
+                      # additivity
+                      sum(abs(mapa_ds$correl) > .90 & abs(mapa_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "No", "No", "No")
+```
+
+```{r ds_mili}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+mili_df <- alldata[ , grepl("partno|source|MILI[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+mili_df <- mili_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## No reverse coded items 
+
+# Data Screening
+## Deal with text columns
+mili_ds <- datascreen(mili_df)
+
+# Make some decisions, save your answers, comment thmilie out
+# mili_ds$linearity
+# mili_ds$normality
+# mili_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("MILI", sum(!is.na(mili_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      mili_ds$missing_points, mili_ds$num_outliers, 
+                      # additivity
+                      sum(abs(mili_ds$correl) > .90 & abs(mili_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "No", "No", "No")
+```
+
+```{r ds_milq}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+milq_df <- alldata[ , grepl("partno|source|MILQ[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+milq_df <- milq_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Just number 9
+milq_df[ , 9+2] <- 8 - milq_df[ , 9+2]
+
+# Data Screening
+## Deal with text columns
+milq_ds <- datascreen(milq_df)
+
+# Make some decisions, save your answers, comment thmilqe out
+# milq_ds$linearity
+# milq_ds$normality
+# milq_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("MILQ", sum(!is.na(milq_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      milq_ds$missing_points, milq_ds$num_outliers, 
+                      # additivity
+                      sum(abs(milq_ds$correl) > .90 & abs(milq_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "No")
+```
+
+```{r ds_mils}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+mils_df <- alldata[ , grepl("partno|source|MILS[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+mils_df <- mils_df %>% 
+  select(partno, source, everything())
+
+# Reverse Code
+## Just number 9
+mils_df[ , 15+2] <- 6 - mils_df[ , 15+2]
+
+# Data Screening
+## Deal with text columns
+mils_ds <- datascreen(mils_df)
+
+# Make some decisions, save your answers, comment thmilse out
+# mils_ds$linearity
+# mils_ds$normality
+# mils_ds$homogen
+
+summary_ds[nrow(summary_ds)+1, ] <- 
+                    #scale name, sample size
+                    c("MILS", sum(!is.na(mils_df$fulldata$outliers)),
+                      # missing points, number outliers
+                      mils_ds$missing_points, mils_ds$num_outliers, 
+                      # additivity
+                      sum(abs(mils_ds$correl) > .90 & abs(mils_ds$correl) < 1), 
+                      # linearity, normality, homog, homos
+                      "Yes", "Yes", "No", "No")
+```
+
+
+
+
+ML	Warner, S. C., & Williams, J. I. (1987). The meaning in life scale: determining the reliability and validity of a measure. Journal of Chronic Diseases, 40(6), 503-512.
+MLK	Krause, N. (2004). Stressors arising in highly valued roles, meaning in life, and the physical health status of older adults. The Journals of Gerontology Series B: Psychological Sciences and Social Sciences, 59(5), S287-S297.
+MLM	Morgan, J., & Farsides, T. (2007). Measuring meaning in life. Journal of Happiness Studies, 10(2), 197-214.
+MLQ	Steger, M. F., Frazier, P., Oishi, S., & Kaler, M. (2006). The meaning in life questionnaire: Assessing the presence of and search for meaning in life. Journal of Counseling Psychology, 53(1), 80-93.
+MLT	Tomich, P. L., & Helgeson, V. S. (2002). Five years later: a cross‐sectional comparison of breast cancer survivors with healthy women. Psycho‐oncology, 11(2), 154-169.
+MMM	Brown, G. P., Roach, A., Irving, L., & Joseph, K. (2008). Personal meaning: a neglected transdiagnostic construct. International Journal of Cognitive Therapy, 1(3), 223-236.
+MMS	van den Heuvel, M., Demerouti, E., Schreurs, B. H., Bakker, A. B., & Schaufeli, W. B. (2009). Does meaning-making help during organizational change?: Development and validation of a new scale. Career Development International, 14(6), 508-533.
+NoM &NeM	Kunzendorf, R. G., Moran, C., & Gray, R. (1995). Personality traits and reality-testing abilities, controlling for vividness of imagery. Imagination, Cognition and Personality, 15(2), 113-131.
+OHS	Peterson, C., Park, N., & Seligman, M. E. (2005). Orientations to happiness and life satisfaction: The full life versus the empty life. Journal of happiness studies, 6(1), 25-41.
+PIL	Crumbaugh, J. C., & Maholick, L. T. (1964). An experimental study in existentialism: The psychometric approach to Frankl's concept of noogenic neurosis. Journal of clinical psychology, 20(2), 200-207.
+PILSF	Schulenberg, S. E., Schnetzer, L. W., & Buchanan, E. M. (2011). The purpose in life test-short form: Development and psychometric support. Journal of Happiness Studies, 12(5), 861-876.
+PPMS	Wong, P. P. (1998). Implicit theories of meaningful life and the development of the personal meaning profile. In P. P. Wong, P. S. Fry (Eds.) , The human quest for meaning: A handbook of psychological research and clinical applications (pp. 111-140). Mahwah, NJ US: Lawrence Erlbaum Associates Publishers.
+PVS III-R	Maddi, S. R., Harvey, R. H., Khoshaba, D. M., Lu, J. L., Persico, M., & Brow, M. (2006). The Personality Construct of Hardiness, III: Relationships With Repression, Innovativeness, Authoritarianism, and Performance. Journal Of Personality, 74, 575-598. doi:10.1111/j.1467-6494.2006.00385.x
+PWS	Ryff, C. D. (1989). Happiness is everything, or is it? Explorations on the meaning of psychological well-being. Journal of personality and social psychology, 57(6), 1069.
+QEWB	Waterman, A. S., Schwartz, S. J., Zamboanga, B. L., Ravert, R. D., Williams, M. K., Bede Agocha, V., ... & Brent Donnellan, M. (2010). The Questionnaire for Eudaimonic Well-Being: Psychometric properties, demographic comparisons, and evidence of validity. The Journal of Positive Psychology, 5(1), 41-61.
+RS14	Wagnild, G. M. (2011). The Resilience Scale User's Guide: For the US English Version of the Resilience Scale and the 14-item Resilience Scale (RS-14). P. E. Guinn (Ed.). Resilience Center.
+SCS	Antonovsky, A. (1993). The structure and properties of the sense of coherence scale. Social science & medicine, 36(6), 725-733.
+SMS	Mascaro, N., Rosen, D. H., & Morey, L. C. (2004). The development, construct validity, and clinical utility of the spiritual meaning scale. Personality and Individual Differences, 37(4), 845-860.
+SOMP	"Reker, G. T. (1988, November). Sources of personal meaning among middle-aged and older adults: A replication. In Annual Meeting of the Gerontological Society of America, San Francisco, CA.  
+Reker, G. T., & Wong, P. T. P. (1988). Aging as an individual process: Toward a theory of personal meaning. In J. E. Birren & V. L. Bengtson (Eds.), Emergent theories of aging (pp. 214-246). New York, NY: Springer."
+SONG	Crumbaugh, J. C. (1977). The seeking of noetic goals test (SONG): A complementary scale to the purpose in life test (PIL). Journal of Clinical Psychology, 33(3), 900-907.
+STMS	Li, H. (2002). College stress and psychological well-being: Vision in life as a coping resource (Doctoral dissertation, University of Hong Kong).
+STMS 2	Li, H. (2002). College stress and psychological well-being: Vision in life as a coping resource (Doctoral dissertation, University of Hong Kong).
+SWLS	Diener, E. D., Emmons, R. A., Larsen, R. J., & Griffin, S. (1985). The satisfaction with life scale. Journal of personality assessment, 49(1), 71-75.
+VOL	Lawton, M. P., Moss, M., Hoffman, C., Kleban, M. H., Ruckdeschel, K., & Winter, L. (2001). Valuation of Life. Journal of Aging and Health, 13(1), 3-31.
