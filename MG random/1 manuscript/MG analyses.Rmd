@@ -1980,7 +1980,6 @@ tableprint[10, c(3, 4, 6, 8, 9)]
 
 ```
 
-
 ```{r FOMtable, echo = FALSE, results = 'asis'}
 tableFOM = matrix(NA, nrow = 7, ncol = 8)
 tableFOM[ , 1] = c("Overall Model", "Random", "Not Random", 

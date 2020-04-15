@@ -1082,10 +1082,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
 ```{r mg_glps, include = F}
 # Model Code
 overallmodel = '
-GLPS =~ GLPS1 + GLPS2 + GLPS3 + GLPS4 + GLPS5 + GLPS6 + GLPS7
-+ GLPS8 + GLPS9 + GLPS10 + GLPS11 + GLPS12 + GLPS13 + GLPS14 + GLPS15
+GLPS =~ GLPS1 + GLPS2 + GLPS3 + GLPS4 + GLPS5 + GLPS6 + GLPS7 + GLPS8 + GLPS9 + GLPS10 + GLPS11 + GLPS12 + GLPS13 + GLPS14 + GLPS15
 '
-
 
 ## models
 glps_mg <- equal_test(overall.model, glps_ds$fulldata, .10)
@@ -1163,7 +1161,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
     glps_mg$residuals.equal$pval)
 
 ```
-
 
 ```{r mg_fap, include = F}
 # Model Code
