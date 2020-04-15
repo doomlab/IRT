@@ -1162,6 +1162,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
+### FIGURE ME OUT ### 
+- check original lap for questions and factors
+- check lap-r for updated versions, but no social desireability for the analysis
+- https://myharrisburgu-my.sharepoint.com/:u:/g/personal/ebuchanan_harrisburgu_edu/EVhsnjcMtltPhGo1PZu8SH0BEzfd0aZsHzLgkmXv90xkDw?e=vTA0VP
+
 ```{r mg_lap, include = F}
 # Model Code
 overall.model = '
@@ -1839,6 +1844,8 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
+- listed as kearnes but really it's steger, so run it that way 
+
 ```{r mg_milq, include = F}
 
 ```
@@ -1928,8 +1935,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
     mils_mg$residuals.equal$pval)
 
 ```
-
-
 
 ```{r mg_mlm, include = F}
 # Model Code
@@ -2102,7 +2107,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-
 ```{r mg_mlt, include = F}
 # Model Code
 overall.model = '
@@ -2186,7 +2190,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-
 ```{r mg_milw, include = F}
 # Model Code
 ##this is the werner one 
@@ -2269,7 +2272,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
     ml_mg$residuals.equal$pval)
 
 ```
-
 
 ```{r mg_mms, include = F}
 # Model Code
@@ -2943,12 +2945,16 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-```{r mg_pvsh, include = F}
+###FIX ME####
+
+idk 
+
+```{r mg_pvs, include = F}
 # There were some issues with this one in the DS code, too. 
 
 ```
 
-```{r mg_qe, include = F}
+```{r mg_qewb, include = F}
 # Model Code
 overall.model = '
 QEWB =~ QEWB1 + QEWB2 + QEWB3 + QEWB4 + QEWB5 + QEWB6 + QEWB7 + QEWB8 + QEWB9 + QEWB10 + QEWB11 + QEWB12 + QEWB13 + QEWB14 + QEWB15 + QEWB16 + QEWB17 + QEWB18 + QEWB19 + QEWB20 + QEWB21
@@ -3030,7 +3036,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
     qe_mg$residuals.equal$pval)
 
 ```
-
 
 ```{r mg_rs14, include = F}
 # Model Code
@@ -3117,8 +3122,7 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-
-```{r mg_swl, include = F}
+```{r mg_swls, include = F}
 # Model Code
 overall.model = '
 SWLS =~ SWLS1 + SWLS2 + SWLS3 + SWLS4 + SWLS5
@@ -3199,7 +3203,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
     swl_mg$residuals.equal$pval)
 
 ```
-
 
 ```{r mg_song, include = F}
 # Model Code
@@ -3284,7 +3287,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-
 ```{r mg_soc, include = F}
 # Model Code
 ##problem here - 30 items show up in data, but scale is 29 item. leaving for now -Jeff 
@@ -3299,9 +3301,13 @@ Meaningfulness =~
 
 ```
 
-```{r mg_som, include = F}
+### fix me here ### 
+
+```{r mg_somp, include = F}
 # Model Code
 ##this one needs to be resolved with the factor structure. I didn't screen it but am not sure what the structure is. - Jeff
+
+just do one big factor
 
 ```
 
@@ -3392,6 +3398,11 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
+#### FIX ME take out stms and only use VIL####
+
+these columns are labeled VIL - look at PDF for factors
+STMS columns are this college scale we don't want to use 
+
 ```{r mg_stms, include = F}
 # Model Code
 overall.model = '
@@ -3399,7 +3410,6 @@ PH =~ STMS17 + STMS24 + STMS16 + STMS19 + STMS20 + STMS26 + STMS22 + STMS21 + ST
 AH =~ STMS2 + STMS3 + STMS12 + STMS10 + STMS9 + STMS4 + STMS1 + STMS7 + STMS11 + STMS6 + STMS5 
 NLE =~ STMS14 + STMS13 + STMS31
 '
-
 
 ## models
 stms_mg <- equal_test(overall.model, stms_ds$fulldata, .10)
@@ -3650,90 +3660,4 @@ summary_mg[nrow(summary_mg)+1, ] <-
 ```
 
 
-```{r mg_pws, include = F}
-# Model Code
-overall.model = '
-AUT =~ PWS1 + PWS7 + PWS13 + PWS19 + PWS25 + PWS31 + PWS37
-EM =~ PWS2 + PWS8 + PWS14 + PWS20 + PWS26 + PWS32 + PWS38
-PG =~ PWS3 + PWS9 + PWS15 + PWS21 + PWS27 + PWS33 + PWS39 
-PR =~ PWS4 + PWS10 + PWS16 + PWS22 + PWS28 + PWS34 + PWS40
-PL =~ PWS5 + PWS11 + PWS17 + PWS23 + PWS29 + PWS35 + PWS41
-SA =~ PWS6 + PWS12 + PWS18 + PWS24 + PWS30 + PWS36 + PWS42
-'
-## models
-pws_mg <- equal_test(overall.model, pws_ds$fulldata, .10)
-
-## Put that into the table 
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]), 
-    "Overall", pws_mg$overall@SampleStats@nobs[[1]], 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 4))
-
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]),
-    "Random", pws_mg$random@SampleStats@nobs[[1]], 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    pws_mg$random.equal$chi,
-    fitmeasures(pws_mg$random, "df"),
-    pws_mg$random.equal$popdelt,
-    pws_mg$random.equal$pval)
-
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]),
-    "NonRandom", pws_mg$nonrandom@SampleStats@nobs[[1]], 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    pws_mg$nonrandom.equal$chi,
-    fitmeasures(pws_mg$nonrandom, "df"),
-    pws_mg$nonrandom.equal$popdelt,
-    pws_mg$nonrandom.equal$pval)
-
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]),
-    "Configural", sum(unlist(pws_mg$configural@SampleStats@nobs)), 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    rep("NA", 4))
-
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]), 
-    "Metric", sum(unlist(pws_mg$metric@SampleStats@nobs)), 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    pws_mg$metric.equal$chi,
-    abs(fitmeasures(pws_mg$metric, "df") - fitmeasures(pws_mg$configural, "df")),
-    pws_mg$metric.equal$popdelt,
-    pws_mg$metric.equal$pval)
-
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]),
-    "Scalar", sum(unlist(pws_mg$scalar@SampleStats@nobs)), 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    pws_mg$scalar.equal$chi,
-    abs(fitmeasures(pws_mg$scalar, "df") - fitmeasures(pws_mg$metric, "df")),
-    pws_mg$scalar.equal$popdelt,
-    pws_mg$scalar.equal$pval)
-
-summary_mg[nrow(summary_mg)+1, ] <- 
-  #scale name, model step, sample size
-  c("BP", length(pws_mg$overall@Data@ov.names[[1]]),
-    "Strict", sum(unlist(pws_mg$residuals@SampleStats@nobs)), 
-    #chisq, df, cfi, rmsea, srmr
-    fitmeasures(pws_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
-    pws_mg$residuals.equal$chi,
-    abs(fitmeasures(pws_mg$residuals, "df") - fitmeasures(pws_mg$scalar, "df")),
-    pws_mg$residuals.equal$popdelt,
-    pws_mg$residuals.equal$pval)
-
-```
 ##Last 

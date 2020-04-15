@@ -86,7 +86,7 @@ datascreen <- function(df) {
 }
 
 # Import overall file
-alldata <- read.csv("all_data_combined_edit.csv")
+alldata <- read.csv("./1 manuscript/all_data_combined_edit.csv")
 alldata <- subset(alldata,
                   source != "paper")
 alldata$source <- droplevels(alldata$source)
@@ -465,11 +465,22 @@ summary_ds[nrow(summary_ds)+1, ] <-
 ```
 
 ```{r ds_lap}
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+lap_df <- alldata[ , grepl("partno|source|LAP[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+lap_df <- lap_df %>% 
+  select(partno, source, everything())
 
 ```
 
 ```{r ds_lapr}
-
+# Data
+## Expression is partno | (or) put in the letters you want, leave numbers
+lapr_df <- alldata[ , grepl("partno|source|LAPR[0-9]+", colnames(alldata))]
+## Make sure partno and source are at the beginning
+lapr_df <- lapr_df %>% 
+  select(partno, source, everything())
 ```
 
 ```{r ds_las}
