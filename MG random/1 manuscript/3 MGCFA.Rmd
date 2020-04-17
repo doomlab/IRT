@@ -1162,11 +1162,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-### FIGURE ME OUT ### 
-- check original lap for questions and factors
-- check lap-r for updated versions, but no social desireability for the analysis
-- https://myharrisburgu-my.sharepoint.com/:u:/g/personal/ebuchanan_harrisburgu_edu/EVhsnjcMtltPhGo1PZu8SH0BEzfd0aZsHzLgkmXv90xkDw?e=vTA0VP
-
 ```{r mg_lap, include = F}
 # Model Code
 overall.model = '
@@ -1256,16 +1251,17 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
+
+####NOTE - did we say to remove social desirability? we actually have these questions. It is coded wrong in the master scale table file ;) note some items missing because inappropriate factor loadings (see doc of the measure). also see cv label on measure which does not correspond to a factor, also see the last two items. need some clarity on this one 
 ```{r mg_lapr, include = F}
 # Model Code
 overall.model = '
-LP =~ LAPR11 + LAPR19 + LAPR20 + LAPR27 + LAPR28 + LAPR35 + LAPR36 + LAPR43
-EV =~ LAPR1 + LAPR9 + LAPR13 + LAPR17 + LAPR25 + LAPR31 + LAPR37
-LC =~ LAPR14 + LAPR22 + LAPR38
-Death =~ LAPR16 +LAPR24 + LAPR32 + LAPR40
-WM =~ LAPR4 + LAPR6 + LAPR12 + LAPR33 + LAPR41 + LAPR44 
-GS =~ LAPR18 + LAPR21 + LAPR26 + LAPR34 
-FMF =~ LAPR_2 + LAPR5 + LAPR10 + LAPR42
+PM =~ LAPR + LAPR2 + LAPR5 + LAPR7 + LAPR12 + LAPR16 + LAPR20 + LAPR27 + LAPR29 + LAPR35 + LAPR37 + LAPR38 + LAPR48 
+EV =~ LAPR4 + LAPR9 + LAPR33 
+DA =~ LAPR8 + LAPR22 + LAPR25 + LAPR28 + LAPR32 + LAPR44 + LAPR47 
+GS =~ LAPR10 + LAPR14 + LAPR24 + LAPR34 + LAPR36 + LAPR41 + LAPR43
+CR =~ LAPR3 + LAPR11 + LAPR17 + LAPR19 + LAPR23 + LAPR30 + LAPR39 + LAPR40 + LAPR42 + LAPR45 
+SD =~ LAPR15 + LAPR18 + LAPR21 + LAPR26 + LAPR31 + LAPR46 + LAPR49 + LAPR50 + LAPR51 + LAPR52 + LAPR53 + LAPR54
 '
 
 ## models
@@ -2945,14 +2941,6 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-###FIX ME####
-
-idk 
-
-```{r mg_pvs, include = F}
-# There were some issues with this one in the DS code, too. 
-
-```
 
 ```{r mg_qewb, include = F}
 # Model Code
@@ -3301,13 +3289,87 @@ Meaningfulness =~
 
 ```
 
-### fix me here ### 
 
 ```{r mg_somp, include = F}
 # Model Code
-##this one needs to be resolved with the factor structure. I didn't screen it but am not sure what the structure is. - Jeff
+overall.model = '
+SOMP =~ SOMP1 + SOMP2 + SOMP3 + SOMP4 + SOMP5 + SOMP6 + SOMP7 + SOMP8 + SOMP9 + SOMP10 + SOMP11 + SOMP12 + SOMP13
+'
 
-just do one big factor
+## models
+somp_mg <- equal_test(overall.model, somp_ds$fulldata, .10)
+
+## Put that into the table 
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]), 
+    "Overall", somp_mg$overall@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$overall, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    rep("NA", 4))
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]),
+    "Random", somp_mg$random@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$random, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    somp_mg$random.equal$chi,
+    fitmeasures(somp_mg$random, "df"),
+    somp_mg$random.equal$popdelt,
+    somp_mg$random.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]),
+    "NonRandom", somp_mg$nonrandom@SampleStats@nobs[[1]], 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$nonrandom, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    somp_mg$nonrandom.equal$chi,
+    fitmeasures(somp_mg$nonrandom, "df"),
+    somp_mg$nonrandom.equal$popdelt,
+    somp_mg$nonrandom.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]),
+    "Configural", sum(unlist(somp_mg$configural@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$configural, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    rep("NA", 4))
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]), 
+    "Metric", sum(unlist(somp_mg$metric@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$metric, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    somp_mg$metric.equal$chi,
+    abs(fitmeasures(somp_mg$metric, "df") - fitmeasures(somp_mg$configural, "df")),
+    somp_mg$metric.equal$popdelt,
+    somp_mg$metric.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]),
+    "Scalar", sum(unlist(somp_mg$scalar@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$scalar, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    somp_mg$scalar.equal$chi,
+    abs(fitmeasures(somp_mg$scalar, "df") - fitmeasures(somp_mg$metric, "df")),
+    somp_mg$scalar.equal$popdelt,
+    somp_mg$scalar.equal$pval)
+
+summary_mg[nrow(summary_mg)+1, ] <- 
+  #scale name, model step, sample size
+  c("BP", length(somp_mg$overall@Data@ov.names[[1]]),
+    "Strict", sum(unlist(somp_mg$residuals@SampleStats@nobs)), 
+    #chisq, df, cfi, rmsea, srmr
+    fitmeasures(somp_mg$residuals, c("chisq", "df", "cfi", "rmsea", "srmr")),
+    somp_mg$residuals.equal$chi,
+    abs(fitmeasures(somp_mg$residuals, "df") - fitmeasures(somp_mg$scalar, "df")),
+    somp_mg$residuals.equal$popdelt,
+    somp_mg$residuals.equal$pval)
 
 ```
 
@@ -3398,17 +3460,15 @@ summary_mg[nrow(summary_mg)+1, ] <-
 
 ```
 
-#### FIX ME take out stms and only use VIL####
-
-these columns are labeled VIL - look at PDF for factors
-STMS columns are this college scale we don't want to use 
+####Note used VIL items, there were 42 on the PDF but we only had 38 items. any reason? coded the 38, otherwise we are good couldnt remember if we discussed this or not 
 
 ```{r mg_stms, include = F}
 # Model Code
 overall.model = '
-PH =~ STMS17 + STMS24 + STMS16 + STMS19 + STMS20 + STMS26 + STMS22 + STMS21 + STMS23 + STMS27 + STMS15 + STMS30 + STMS28 + STMS25 + STMS29 + STMS18 + STMS33 + STMS8 + STMS32
-AH =~ STMS2 + STMS3 + STMS12 + STMS10 + STMS9 + STMS4 + STMS1 + STMS7 + STMS11 + STMS6 + STMS5 
-NLE =~ STMS14 + STMS13 + STMS31
+LC =~ VIL37 + VIL36 + VIL20 + VIL26 + VIL6 + VIL38 + VIL35 + VIL28 + VIL33 + VIL10
+PMIL =~ VIL15 + VIL13 + VIL17 + VIL11 + VIL31 + VIL23 + VIL27 + VIL29 
+NMIL =~ VIL8 + VIL4 + VIL5 + VIL3 + VIL1 + VIL9 + VIL7 + VIL2
+WTM =~ VIL32 + VIL18 + VIL34 + VIL22 + VIL30 + VIL14 + VIL16 + VIL12
 '
 
 ## models
